@@ -1,2 +1,2 @@
-# Swap_To_Sustain
-Group project, Swap to Sustain, for 115A 
+# Swap Wear Apparel Platform (SWAP)
+Group project, for 115A 
