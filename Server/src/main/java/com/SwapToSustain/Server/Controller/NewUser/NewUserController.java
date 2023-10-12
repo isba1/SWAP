@@ -20,8 +20,8 @@ public class NewUserController {
 
     @PostMapping("/saveUserInterests")
     public void saveUserInterests(
-            @RequestParam String username,
-            @RequestParam String password,
+            @RequestParam(name = "username") String username,
+            @RequestParam(name = "password") String password,
             @RequestBody UserInterests userInterests) {
         newUserService.saveUserInterests(username, password, userInterests);
     }
