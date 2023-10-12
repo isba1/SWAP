@@ -1,6 +1,6 @@
 package com.SwapToSustain.Server.Controller.LogIn;
 
-import com.SwapToSustain.Server.POJO.UserInterests;
+import com.SwapToSustain.Server.DTO.UserInterests;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

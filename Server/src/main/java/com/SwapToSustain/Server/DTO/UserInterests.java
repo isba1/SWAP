@@ -1,4 +1,4 @@
-package com.SwapToSustain.Server.POJO;
+package com.SwapToSustain.Server.DTO;
 
 import lombok.Data;
 
@@ -16,5 +16,7 @@ public class UserInterests {
     private String shoeSize;
 
     private String pantSize;
+
+    private String jacketSize;
 
 }
