@@ -1,4 +1,4 @@
-package com.SwapToSustain.Server.Controller.NewUser;
+package com.SwapToSustain.Server.Controller;
 
 import com.SwapToSustain.Server.DTO.UserAccountInfo;
 import com.SwapToSustain.Server.DTO.UserInterests;

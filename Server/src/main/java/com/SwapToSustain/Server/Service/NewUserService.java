@@ -3,43 +3,24 @@ package com.SwapToSustain.Server.Service;
 import com.SwapToSustain.Server.Converter.DTOConverter;
 import com.SwapToSustain.Server.DTO.UserAccountInfo;
 import com.SwapToSustain.Server.DTO.UserInterests;
+import com.SwapToSustain.Server.DTO.UserPost;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
+import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NewUserService implements DTOConverter {
+public class NewUserService {
 
     @Autowired
     UserInfoRepository userInfoRepository;
-
-    @Override
-    public void convertDTO(UserAccountInfoModel userAccountInfoModel, UserInterests userInterests) {
-        userAccountInfoModel.setInterestBrand(userInterests.getBrands());
-        userAccountInfoModel.setInterestCategory(userInterests.getClothingCategory());
-        userAccountInfoModel.setPantSize(userInterests.getPantSize());
-        userAccountInfoModel.setShirtSize(userInterests.getShirtSize());
-        userAccountInfoModel.setJacketSize(userInterests.getJacketSize());
-        userAccountInfoModel.setShoeSize(userInterests.getShoeSize());
-    }
-
-    @Override
-    public void convertDTO(UserAccountInfoModel userAccountInfoModel, UserAccountInfo userAccountInfo) {
-        userAccountInfoModel.setUsername(userAccountInfo.getUsername());
-        userAccountInfoModel.setPassword(userAccountInfo.getPassword());
-        userAccountInfoModel.setFirstName(userAccountInfo.getFirstName());
-        userAccountInfoModel.setLastName(userAccountInfo.getLastName());
-        userAccountInfoModel.setEmail(userAccountInfo.getEmail());
-        userAccountInfoModel.setPhone(userAccountInfo.getPhone());
-        userAccountInfoModel.setAddress(userAccountInfo.getAddress());
-    }
-
+    DTOConverter dtoConverter;
 
     public void saveAccountInfo(UserAccountInfo userAccountInfo){
         UserAccountInfoModel userAccountInfoModel = new UserAccountInfoModel();
 
-        convertDTO(userAccountInfoModel, userAccountInfo);
+        dtoConverter.convertDTO(userAccountInfoModel, userAccountInfo);
 
         userInfoRepository.save(userAccountInfoModel);
     }
@@ -49,7 +30,7 @@ public class NewUserService implements DTOConverter {
 
         UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUsernameAndPassword(username, password);
 
-        convertDTO(userAccountInfoModel, userInterests);
+        dtoConverter.convertDTO(userAccountInfoModel, userInterests);
 
         userInfoRepository.save(userAccountInfoModel);
 
