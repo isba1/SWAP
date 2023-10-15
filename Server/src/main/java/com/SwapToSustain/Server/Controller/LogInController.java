@@ -1,4 +1,4 @@
-package com.SwapToSustain.Server.Controller.LogIn;
+package com.SwapToSustain.Server.Controller;
 
 import com.SwapToSustain.Server.DTO.UserInterests;
 import org.springframework.web.bind.annotation.*;

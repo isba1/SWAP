@@ -1,4 +1,4 @@
-package com.SwapToSustain.Server.Controller.Post;
+package com.SwapToSustain.Server.Controller;
 
 import com.SwapToSustain.Server.DTO.UserPost;
 import com.SwapToSustain.Server.Service.PostService;
