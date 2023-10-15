@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
 import java.util.UUID;
 
 @Document(collection = "UserPosts")
@@ -16,5 +17,11 @@ public class UserPostModel {
 
     @Id
     private UUID postID = UUID.randomUUID();
+
+    private String base64Image;
+
+    private String postDescription;
+
+    private List<String> postCategories;
 
 }
