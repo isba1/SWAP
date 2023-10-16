@@ -7,13 +7,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/login")
 public class LogInController {
 
-    @PostMapping("/newUser")
-    public void createUser(@RequestParam(name = "username") String username,
-                           @RequestParam(name = "password") String password,
-                           @RequestBody UserInterests userInterests) {
-
-    }
-
     @GetMapping("/reoccurringUser")
     public void userLogin(@RequestParam(name = "username") String username,
                           @RequestParam(name = "password") String password) {
