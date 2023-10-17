@@ -5,6 +5,7 @@ import com.SwapToSustain.Server.DTO.UserInterests;
 import com.SwapToSustain.Server.DTO.UserPost;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 
 import java.util.Base64;
@@ -33,9 +34,9 @@ public class DTOConverter {
     }
 
 
-    public void convertDTO(UserPostModel userPostModel, UserPost userPost, UUID uuid) {
+    public void convertDTO(UserPostModel userPostModel, UserPost userPost, ObjectId objectId) {
         String base64Image = Base64.getEncoder().encodeToString(userPost.getImageBinary());
-        userPostModel.setUserID(uuid);
+        userPostModel.setUserID(objectId);
         userPostModel.setBase64Image(base64Image);
         userPostModel.setPostDescription(userPost.getPostDescription());
         userPostModel.setPostCategories(userPost.getPostCategories());

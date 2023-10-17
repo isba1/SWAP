@@ -16,8 +16,8 @@ public class PostController {
 
     @PostMapping("/newPost")
     public void newPost(@RequestBody UserPost userPost,
-                        @RequestParam(name = "UserUUID") UUID uuid) {
-        postService.saveUserPost(userPost, uuid);
+                        @RequestParam(name = "UserID") String objectID) {
+        postService.saveUserPost(userPost, objectID);
     }
 
 }

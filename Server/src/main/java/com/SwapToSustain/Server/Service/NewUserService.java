@@ -15,6 +15,8 @@ public class NewUserService {
 
     @Autowired
     private UserInfoRepository userInfoRepository;
+
+    @Autowired
     private DTOConverter dtoConverter;
 
     public void saveAccountInfo(UserAccountInfo userAccountInfo){

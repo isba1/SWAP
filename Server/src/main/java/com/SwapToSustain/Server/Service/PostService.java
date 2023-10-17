@@ -4,6 +4,7 @@ import com.SwapToSustain.Server.Converter.DTOConverter;
 import com.SwapToSustain.Server.DTO.UserPost;
 import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.UserPostRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +17,17 @@ public class PostService {
 
     @Autowired
     private UserPostRepository userPostRepository;
-    DTOConverter dtoConverter;
 
-    public void saveUserPost(UserPost userPost, UUID uuid) {
+    @Autowired
+    private DTOConverter dtoConverter;
+
+    public void saveUserPost(UserPost userPost, String objectID) {
 
         UserPostModel userPostModel = new UserPostModel();
 
-        dtoConverter.convertDTO(userPostModel, userPost, uuid);
+        final ObjectId realUUID = new ObjectId(objectID);
+
+        dtoConverter.convertDTO(userPostModel, userPost, realUUID);
 
         userPostRepository.save(userPostModel);
 
