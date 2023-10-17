@@ -16,7 +16,7 @@ public class LogInController {
     public boolean userLogin(@RequestParam(name = "username") String username,
                           @RequestParam(name = "password") String password) {
 
-        logInService.userAuthentication(username, password);
+        return logInService.userAuthentication(username, password);
 
     }
 
