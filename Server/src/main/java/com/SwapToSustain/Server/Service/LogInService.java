@@ -14,10 +14,10 @@ public class LogInService {
     public boolean userAuthentication(String username, String password){
 
         // use userInfoRepository method findByUsernameAndPassword
-        final UserAccountInfoModel userAcct = userInfoRepository.findByUsernameAndPassword(username, password);
+        final UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUsernameAndPassword(username, password);
         // if it returns null, then the account doesn't exist, return false
         // if it returns an account, then the account exists, return true
-        return userAcct != null;
+        return userAccountInfoModel != null;
     }
 
 }
