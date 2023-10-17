@@ -18,6 +18,8 @@ public class UserPostModel {
     @Id
     private UUID postID = UUID.randomUUID();
 
+    private UUID userID;
+
     private String base64Image;
 
     private String postDescription;

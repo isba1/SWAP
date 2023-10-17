@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 public class NewUserService {
 
     @Autowired
-    UserInfoRepository userInfoRepository;
-    DTOConverter dtoConverter;
+    private UserInfoRepository userInfoRepository;
+    private DTOConverter dtoConverter;
 
     public void saveAccountInfo(UserAccountInfo userAccountInfo){
         UserAccountInfoModel userAccountInfoModel = new UserAccountInfoModel();

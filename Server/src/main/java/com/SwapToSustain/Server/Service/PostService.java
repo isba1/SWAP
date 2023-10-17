@@ -9,19 +9,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PostService {
 
     @Autowired
-    UserPostRepository userPostRepository;
+    private UserPostRepository userPostRepository;
     DTOConverter dtoConverter;
 
-    public void saveUserPost(UserPost userPost) {
+    public void saveUserPost(UserPost userPost, UUID uuid) {
 
         UserPostModel userPostModel = new UserPostModel();
 
-        dtoConverter.convertDTO(userPostModel, userPost);
+        dtoConverter.convertDTO(userPostModel, userPost, uuid);
 
         userPostRepository.save(userPostModel);
 
