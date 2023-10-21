@@ -1,0 +1,103 @@
+body{
+    background-image:linear-gradient(to right, #1A3E2F 50%, #EFF2E4 50%);
+    color: #1A3E2F;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.columnleft{
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    background-color: #1A3E2F;
+    min-height: auto;    
+}
+
+.columnright{
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    background-color: #EFF2E4;
+    min-height: auto;
+}
+
+.container{
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: auto;
+    left: 0;
+    
+}
+
+.formcontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding: 5rem;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+label{
+    text-align: left;
+    padding: 0.25rem 0;
+    font-size: 20px;
+}
+
+input{
+    margin: 0.5rem 0;
+    padding: 1rem;
+    border: none;
+    border-radius: 30px;
+    font-size: 15px;
+    border: 2px solid #1A3E2F;
+}
+
+button{
+    border: none;
+    background-color: #1A3E2F;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    font-size: 17px;
+}
+
+.linkbtn{
+    background: none;
+    color: #1A3E2F;
+    text-decoration: underline;
+}
+
+.header{
+    text-align: left;
+    font-size: 40px;
+}
+
+.title{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: transparent;
+    color: rgb(0, 0, 0); /* Set your desired text color */
+    z-index: 100; /* Ensure it's above other elements on the page */
+    text-align: left;
+}
+
+.name{
+    font-size: 50px;
+}

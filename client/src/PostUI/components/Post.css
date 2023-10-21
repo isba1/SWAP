@@ -1,0 +1,154 @@
+body.active-modal {
+    overflow-y: hidden;
+}
+
+.btn-modal {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: #1A3E2F;
+    color: #fff;
+    font-size: 18px;
+}
+
+.modal, .overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.overlay {
+    background: rgba(49,49,49,0.8);
+}
+.modal-content {
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    background: #EFF2E4;
+    padding: 14px 28px;
+    border-radius: 10px;
+    width: 1000px;
+    height: 600px;
+    color: #1A3E2F;
+    font-size: 20px;
+}
+
+.close-modal {
+    position: absolute;
+    top: 5%;
+    right: 2%;
+    background-color: transparent;
+    color: #1A3E2F;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.selectbtn{
+    border-radius: 10px;
+    background-color: #1A3E2F;
+    color: #EFF2E4;
+    padding: 5px 5px;
+    margin: auto;
+    border: none;
+    cursor: pointer;
+}
+
+.removebtn{
+    border-radius: 10px;
+    margin: 0px 10px;
+    background-color: transparent;
+    color: #1A3E2F;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+.row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 600px;
+    width: 1000px;
+}
+
+.columnleft{
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    max-height: 600px;
+    width: 500px;    
+}
+
+.columnright{
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-height: 600px;
+    width: 500px;
+}
+
+.formcontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding: 5rem;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.header{
+    text-align: center;
+    font-size: 40px;
+}
+
+input{
+    margin: 0.5rem 0;
+    padding: 1rem;
+    border: 2px solid #1A3E2F;
+    border-radius: 30px;
+    font-size: 15px;
+}
+
+select {
+    margin: 0.5rem 0;
+    padding: 1rem;
+    font-size: 16px;
+    border: 2px solid #1A3E2F;
+    border-radius: 20px;
+    background-color: #fff;
+    color: #1A3E2F;
+    width: 340px;
+    outline: none;
+    transition: border 0.2s;
+    cursor: pointer;
+  }
+  
+  /* Style the select element when it's focused */
+select:focus {
+    border: 2px solid #007bff;
+  }
+
+button{
+    border: none;
+    background-color: #1A3E2F;
+    padding: 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: white;
+    font-size: 17px;
+    margin: 0.5rem 0;
+}
