@@ -13,6 +13,7 @@ public class LogInController {
     LogInService logInService;
 
     @GetMapping("/reoccurringUser")
+    @CrossOrigin(origins = "http://localhost:3000")
     public boolean userLogin(@RequestParam(name = "username") String username,
                           @RequestParam(name = "password") String password) {
 
@@ -22,6 +23,7 @@ public class LogInController {
 
 
     @DeleteMapping("/deleteUser")
+    @CrossOrigin(origins = "http://localhost:3000")
     public void deleteUser(@RequestParam(name = "username") String username,
                            @RequestParam(name = "password") String password){
 

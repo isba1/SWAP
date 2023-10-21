@@ -15,6 +15,7 @@ public class PostController {
     private PostService postService;
 
     @PostMapping("/newPost")
+    @CrossOrigin(origins = "http://localhost:3000")
     public void newPost(@RequestBody UserPost userPost,
                         @RequestParam(name = "UserID") String objectID) {
         postService.saveUserPost(userPost, objectID);

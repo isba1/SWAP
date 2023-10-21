@@ -14,11 +14,13 @@ public class NewUserController {
     NewUserService newUserService;
 
     @PostMapping("/saveAccountInfo")
+    @CrossOrigin(origins = "http://localhost:3000")
     public void saveAccountInfo(@RequestBody UserAccountInfo userAccountInfo) {
         newUserService.saveAccountInfo(userAccountInfo);
     }
 
     @PostMapping("/saveUserInterests")
+    @CrossOrigin(origins = "http://localhost:3000")
     public void saveUserInterests(
             @RequestParam(name = "username") String username,
             @RequestParam(name = "password") String password,

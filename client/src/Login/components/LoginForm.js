@@ -7,6 +7,7 @@ const Login = (props) =>{
 
     const handleSubmit = (event) =>{
         event.preventDefault();
+        // write axios request to log in end point here
         console.log("Email:", email);
         console.log("Password", pass);
         setEmail("");
