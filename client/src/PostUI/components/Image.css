@@ -1,0 +1,11 @@
+.slideshow-container{
+    position:relative;
+    max-width: 100%;
+}
+
+.slideshow-image{
+    max-height: 500px;
+    width: 480px;
+    display: flex;
+    margin: 0 auto;
+}
