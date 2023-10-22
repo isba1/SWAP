@@ -24,7 +24,6 @@ public class DTOConverter {
     }
 
     public void convertDTO(UserAccountInfoModel userAccountInfoModel, UserAccountInfo userAccountInfo) {
-        userAccountInfoModel.setUsername(userAccountInfo.getUsername());
         userAccountInfoModel.setPassword(userAccountInfo.getPassword());
         userAccountInfoModel.setFirstName(userAccountInfo.getFirstName());
         userAccountInfoModel.setLastName(userAccountInfo.getLastName());

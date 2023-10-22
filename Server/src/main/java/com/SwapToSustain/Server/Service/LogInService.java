@@ -11,10 +11,10 @@ public class LogInService {
     @Autowired
     private UserInfoRepository userInfoRepository;
 
-    public boolean userAuthentication(String username, String password){
+    public boolean userAuthentication(String email, String password){
 
         // use userInfoRepository method findByUsernameAndPassword
-        final UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUsernameAndPassword(username, password);
+        final UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByEmailAndPassword(email, password);
         // if it returns null, then the account doesn't exist, return false
         // if it returns an account, then the account exists, return true
         return userAccountInfoModel != null;
