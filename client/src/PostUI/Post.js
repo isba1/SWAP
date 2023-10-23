@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import styles from "../post.module.css"
-import FileUpload from "./FileUpload";
-import Slideshow from "./ImageSlideshow";
-import Form from "./Form"
+import "./components/Post.css"
+import FileUpload from "./components/FileUpload";
+import Slideshow from "./components/ImageSlideshow";
+import Form from "./components/Form"
 
 function Post() {
   const [modal, setModal] = useState(false);
@@ -48,7 +48,7 @@ function Post() {
               <Slideshow imageFiles={files}/>
             </div>
             <div className="columnright">
-              <Form toggle={toggleModal2} setSelectedFiles={setFiles}/>
+              <Form toggle={toggleModal2} selectedFiles={files} setSelectedFiles={setFiles}/>
             </div>
           </div>
           <button className="close-modal" onClick={toggleModal2}>X</button>

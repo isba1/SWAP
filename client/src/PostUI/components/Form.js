@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import "../post.module.css"
+import "./Post.css"
 import DropdownMenu from "./DropdownMenu";
 
-const Form = ({toggle, setSelectedFiles}) =>{
+const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
     const [productName, setProductName] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
@@ -10,12 +10,12 @@ const Form = ({toggle, setSelectedFiles}) =>{
     const handleSubmit = (event) =>{
         event.preventDefault();
         console.log(productName, description, category);
+        //AXIOS HERE, PICTURE FILES ARE IN "selectedFiles" array
         setProductName('');
         setDescription('');
         setCategory('');
-        setSelectedFiles([]);
         toggle();
-        //AXIOS HERE
+        setSelectedFiles([]);
     }
 
     return(<div className="formcontainer">
