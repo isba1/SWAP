@@ -1,48 +1,48 @@
 body{
-    background-image:linear-gradient(to right, #1A3E2F 50%, #EFF2E4 50%);
-    color: #1A3E2F;
+    margin: 0;
+    padding: 0;
 }
 
 .row{
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     min-height: 100vh;
+    width: 100%;
 }
 
 .columnleft{
     flex: 1;
-    align-items: center;
-    justify-content: center;
+    padding: 20px;
     background-color: #1A3E2F;
-    min-height: auto;    
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    width: 50%;
+    min-height: 100vh;
 }
 
 .columnright{
+    padding: 20px;
     flex: 1;
-    align-items: center;
-    justify-content: center;
     background-color: #EFF2E4;
-    min-height: auto;
+    justify-content: center;
+    align-items: center;    
+    width: 50%;
+    min-height: 100vh;
 }
 
 .container{
-    padding: 8px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    position: relative;
-    height: auto;
-    left: 0;
-    
+    margin: 0 auto;
 }
 
 .formcontainer {
     display: flex;
     flex-direction: column;
     align-items: left;
-    padding: 5rem;
+    margin: 2rem;
 }
 
 .form{
@@ -59,7 +59,7 @@ label{
 
 input{
     margin: 0.5rem 0;
-    padding: 1rem;
+    padding: .5rem;
     border: none;
     border-radius: 30px;
     font-size: 15px;
@@ -83,6 +83,7 @@ button{
 }
 
 .header{
+    color: #1A3E2F;
     text-align: left;
     font-size: 40px;
 }
@@ -91,13 +92,14 @@ button{
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 50%;
     background-color: transparent;
-    color: rgb(0, 0, 0); /* Set your desired text color */
+    color: white; /* Set your desired text color */
     z-index: 100; /* Ensure it's above other elements on the page */
     text-align: left;
 }
 
 .name{
     font-size: 50px;
+    text-align: center;
 }
