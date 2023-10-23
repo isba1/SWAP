@@ -1,31 +1,20 @@
 package com.SwapToSustain.Server.Service;
 
 import com.SwapToSustain.Server.Converter.DTOConverter;
-import com.SwapToSustain.Server.DTO.UserAccountInfo;
 import com.SwapToSustain.Server.DTO.UserInterests;
-import com.SwapToSustain.Server.DTO.UserPost;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
-import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NewUserService {
+public class NewUserInterestsService {
 
     @Autowired
     private UserInfoRepository userInfoRepository;
 
     @Autowired
     private DTOConverter dtoConverter;
-
-    public void saveAccountInfo(UserAccountInfo userAccountInfo){
-        UserAccountInfoModel userAccountInfoModel = new UserAccountInfoModel();
-
-        dtoConverter.convertDTO(userAccountInfoModel, userAccountInfo);
-
-        userInfoRepository.save(userAccountInfoModel);
-    }
 
 
     public void saveUserInterests(String email, String password, UserInterests userInterests){

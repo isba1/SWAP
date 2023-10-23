@@ -1,5 +1,6 @@
 import styles from '../style.module.css';
 import React, {useState} from "react";
+import axios from "axios";
 
 const Register = (props) =>{
     const [email, setEmail] = useState('');
@@ -10,17 +11,26 @@ const Register = (props) =>{
     const [state, setState] = useState('');
     const [zip, setZip] = useState('');
 
-    const handleSubmit = (event) =>{
+    const handleSubmit = async (event) =>{
         event.preventDefault();
-        console.log(email, pass, name, number, city, state, zip);
+        const userInfoRequestBody = {
+            fullName: name,
+            email: email,
+            password: pass,
+            phone: number,
+            city: city,
+            state: state,
+            zipCode: zip
+        }
         // write axios request to sign up end point here
-        setEmail("");
-        setPass("");
-        setName("");
-        setNumber("");
-        setCity("");
-        setState("");
-        setZip("");
+        try {
+            await axios.post(`http://localhost:8080/login/saveAccountInfo`, userInfoRequestBody);
+
+            //navigate('/post') --> needs to navigate to the user interests page
+
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (<div className= {styles.formcontainer}>
