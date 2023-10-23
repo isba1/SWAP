@@ -18,7 +18,7 @@ const Login = (props) =>{
             const response = await axios.get(`http://localhost:8080/login/reoccurringUser?email=${email}&password=${pass}`);
             setLoginStatus(response.data);
             if (response.data) {
-                navigate('/landingPageTest');
+                navigate('/post');
             }
 
         } catch (error) {
