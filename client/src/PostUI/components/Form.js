@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../post.module.css"
+import "./Post.css"
 import DropdownMenu from "./DropdownMenu";
 
 const Form = ({toggle, setSelectedFiles}) =>{
@@ -13,9 +13,8 @@ const Form = ({toggle, setSelectedFiles}) =>{
         setProductName('');
         setDescription('');
         setCategory('');
-        setSelectedFiles([]);
         toggle();
-        //AXIOS HERE
+        setSelectedFiles([]);
     }
 
     return(<div className="formcontainer">
