@@ -48,7 +48,7 @@ function Post() {
               <Slideshow imageFiles={files}/>
             </div>
             <div className="columnright">
-              <Form toggle={toggleModal2} setSelectedFiles={setFiles}/>
+              <Form toggle={toggleModal2} selectedFiles={files} setSelectedFiles={setFiles}/>
             </div>
           </div>
           <button className="close-modal" onClick={toggleModal2}>X</button>
