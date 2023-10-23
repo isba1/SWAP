@@ -13,6 +13,7 @@ const Register = (props) =>{
     const handleSubmit = (event) =>{
         event.preventDefault();
         console.log(email, pass, name, number, city, state, zip);
+        // write axios request to sign up end point here
         setEmail("");
         setPass("");
         setName("");
