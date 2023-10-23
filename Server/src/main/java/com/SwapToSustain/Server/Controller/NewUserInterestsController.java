@@ -1,23 +1,16 @@
 package com.SwapToSustain.Server.Controller;
 
-import com.SwapToSustain.Server.DTO.UserAccountInfo;
 import com.SwapToSustain.Server.DTO.UserInterests;
-import com.SwapToSustain.Server.Service.NewUserService;
+import com.SwapToSustain.Server.Service.NewUserInterestsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/newUser")
-public class NewUserController {
+@RequestMapping("/newUserInterests")
+public class NewUserInterestsController {
 
     @Autowired
-    NewUserService newUserService;
-
-    @PostMapping("/saveAccountInfo")
-    @CrossOrigin(origins = "http://localhost:3000")
-    public void saveAccountInfo(@RequestBody UserAccountInfo userAccountInfo) {
-        newUserService.saveAccountInfo(userAccountInfo);
-    }
+    NewUserInterestsService newUserService;
 
     @PostMapping("/saveUserInterests")
     @CrossOrigin(origins = "http://localhost:3000")
