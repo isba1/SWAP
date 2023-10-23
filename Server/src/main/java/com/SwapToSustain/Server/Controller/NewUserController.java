@@ -22,10 +22,10 @@ public class NewUserController {
     @PostMapping("/saveUserInterests")
     @CrossOrigin(origins = "http://localhost:3000")
     public void saveUserInterests(
-            @RequestParam(name = "username") String username,
+            @RequestParam(name = "email") String email,
             @RequestParam(name = "password") String password,
             @RequestBody UserInterests userInterests) {
-        newUserService.saveUserInterests(username, password, userInterests);
+        newUserService.saveUserInterests(email, password, userInterests);
     }
 
 }

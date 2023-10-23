@@ -14,17 +14,17 @@ public class LogInController {
 
     @GetMapping("/reoccurringUser")
     @CrossOrigin(origins = "http://localhost:3000")
-    public boolean userLogin(@RequestParam(name = "username") String username,
+    public boolean userLogin(@RequestParam(name = "email") String email,
                           @RequestParam(name = "password") String password) {
 
-        return logInService.userAuthentication(username, password);
+        return logInService.userAuthentication(email, password);
 
     }
 
 
     @DeleteMapping("/deleteUser")
     @CrossOrigin(origins = "http://localhost:3000")
-    public void deleteUser(@RequestParam(name = "username") String username,
+    public void deleteUser(@RequestParam(name = "email") String email,
                            @RequestParam(name = "password") String password){
 
     }

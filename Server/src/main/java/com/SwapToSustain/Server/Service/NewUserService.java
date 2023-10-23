@@ -28,9 +28,9 @@ public class NewUserService {
     }
 
 
-    public void saveUserInterests(String username, String password, UserInterests userInterests){
+    public void saveUserInterests(String email, String password, UserInterests userInterests){
 
-        UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUsernameAndPassword(username, password);
+        UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByEmailAndPassword(email, password);
 
         dtoConverter.convertDTO(userAccountInfoModel, userInterests);
 
