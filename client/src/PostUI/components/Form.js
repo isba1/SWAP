@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Post.css"
+import "../post.module.css"
 import DropdownMenu from "./DropdownMenu";
 
 const Form = ({toggle, setSelectedFiles}) =>{

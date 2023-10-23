@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Post.css";
+import "../post.module.css";
 
 function FileUpload({toggle, close, selectedFiles, setSelectedFiles}) {
 

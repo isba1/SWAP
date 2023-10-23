@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import "./components/Post.css"
-import FileUpload from "./components/FileUpload";
-import Slideshow from "./components/ImageSlideshow";
-import Form from "./components/Form"
+import styles from "../post.module.css"
+import FileUpload from "./FileUpload";
+import Slideshow from "./ImageSlideshow";
+import Form from "./Form"
 
 function Post() {
   const [modal, setModal] = useState(false);

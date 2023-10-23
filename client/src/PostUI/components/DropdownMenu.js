@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Post.css"
+import "../post.module.css"
 
 function DropdownMenu({selectedOption, setSelectedOption}) {
   const handleSelectChange = (e) => {
