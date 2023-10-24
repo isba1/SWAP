@@ -24,13 +24,13 @@ public class DTOConverter {
     }
 
     public void convertDTO(UserAccountInfoModel userAccountInfoModel, UserAccountInfo userAccountInfo) {
-        userAccountInfoModel.setUsername(userAccountInfo.getUsername());
+        userAccountInfoModel.setFullName(userAccountInfo.getFullName());
         userAccountInfoModel.setPassword(userAccountInfo.getPassword());
-        userAccountInfoModel.setFirstName(userAccountInfo.getFirstName());
-        userAccountInfoModel.setLastName(userAccountInfo.getLastName());
         userAccountInfoModel.setEmail(userAccountInfo.getEmail());
         userAccountInfoModel.setPhone(userAccountInfo.getPhone());
-        userAccountInfoModel.setAddress(userAccountInfo.getAddress());
+        userAccountInfoModel.setCity(userAccountInfo.getCity());
+        userAccountInfoModel.setState(userAccountInfo.getState());
+        userAccountInfoModel.setZipCode(userAccountInfo.getZipCode());
     }
 
 

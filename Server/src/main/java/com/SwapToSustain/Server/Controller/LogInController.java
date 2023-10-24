@@ -1,6 +1,6 @@
 package com.SwapToSustain.Server.Controller;
 
-import com.SwapToSustain.Server.DTO.UserInterests;
+import com.SwapToSustain.Server.DTO.UserAccountInfo;
 import com.SwapToSustain.Server.Service.LogInService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,19 +14,24 @@ public class LogInController {
 
     @GetMapping("/reoccurringUser")
     @CrossOrigin(origins = "http://localhost:3000")
-    public boolean userLogin(@RequestParam(name = "username") String username,
+    public boolean userLogin(@RequestParam(name = "email") String email,
                           @RequestParam(name = "password") String password) {
 
-        return logInService.userAuthentication(username, password);
+        return logInService.userAuthentication(email, password);
 
     }
 
+    @PostMapping("/saveAccountInfo")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public void saveAccountInfo(@RequestBody UserAccountInfo userAccountInfo) {
+        logInService.saveAccountInfo(userAccountInfo);
+    }
 
     @DeleteMapping("/deleteUser")
     @CrossOrigin(origins = "http://localhost:3000")
-    public void deleteUser(@RequestParam(name = "username") String username,
+    public void deleteUser(@RequestParam(name = "email") String email,
                            @RequestParam(name = "password") String password){
-
+        logInService.deleteUser(email, password);
     }
 
 }
