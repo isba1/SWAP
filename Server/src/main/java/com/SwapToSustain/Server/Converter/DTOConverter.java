@@ -39,7 +39,8 @@ public class DTOConverter {
         userPostModel.setUserID(objectId);
         userPostModel.setBase64Image(base64Image);
         userPostModel.setPostDescription(userPost.getPostDescription());
-        userPostModel.setPostCategories(userPost.getPostCategories());
+        userPostModel.setPostCategory(userPost.getPostCategory());
+        userPostModel.setPostBrand(userPost.getPostBrand());
     }
 
 }

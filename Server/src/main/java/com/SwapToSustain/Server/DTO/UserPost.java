@@ -11,6 +11,7 @@ public class UserPost {
 
     private String postDescription;
 
-    private List<String> postCategories;
+    private String postCategory;
 
+    private String postBrand;
 }

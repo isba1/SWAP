@@ -25,6 +25,8 @@ public class UserPostModel {
 
     private String postDescription;
 
-    private List<String> postCategories;
+    private String postCategory;
+
+    private String postBrand;
 
 }

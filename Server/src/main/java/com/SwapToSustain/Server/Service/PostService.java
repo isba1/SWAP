@@ -25,9 +25,9 @@ public class PostService {
 
         UserPostModel userPostModel = new UserPostModel();
 
-        final ObjectId realUUID = new ObjectId(objectID);
+        final ObjectId realID = new ObjectId(objectID);
 
-        dtoConverter.convertDTO(userPostModel, userPost, realUUID);
+        dtoConverter.convertDTO(userPostModel, userPost, realID);
 
         userPostRepository.save(userPostModel);
 
