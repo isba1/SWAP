@@ -1,5 +1,5 @@
+import React, { useState } from "react";
 import styles from '../style.module.css';
-import React, {useState} from "react";
 
 const Register = (props) =>{
     const [email, setEmail] = useState('');
@@ -20,7 +20,10 @@ const Register = (props) =>{
         setCity("");
         setState("");
         setZip("");
+        // Move to InterestSelection after registering:
+        props.onFormSwitch('passwordCreation');
     }
+
 
     return (<div className= {styles.formcontainer}>
         <h1 className={styles.header}>Want To Start Swapping? Register!</h1>
@@ -36,6 +39,6 @@ const Register = (props) =>{
         </form>
         <button className={styles.linkbtn} onClick={() => props.onFormSwitch('login')}>Already have an account? Login here!</button>
     </div>)
-}
+    }
 
 export default Register;
