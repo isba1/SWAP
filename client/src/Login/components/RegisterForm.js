@@ -10,16 +10,25 @@ const Register = (props) =>{
     const [state, setState] = useState('');
     const [zip, setZip] = useState('');
 
-    const handleSubmit = (event) =>{
-        event.preventDefault();
-        console.log(email, pass, name, number, city, state, zip);
-        setEmail("");
-        setPass("");
-        setName("");
-        setNumber("");
-        setCity("");
-        setState("");
-        setZip("");
+    const handleSubmit = async (event) =>{
+        const userInfoRequestBody = {
+            fullName: name,
+            email: email,
+            password: pass,
+            phone: number,
+            city: city,
+            state: state,
+            zipCode: zip
+        }
+        // write axios request to sign up end point here
+        try {
+            await axios.post(`http://localhost:8080/login/saveAccountInfo`, userInfoRequestBody);
+
+            //navigate('/post') --> needs to navigate to the user interests page
+
+        } catch (error) {
+            console.error(error);
+        }
         // Move to InterestSelection after registering:
         props.onFormSwitch('passwordCreation');
     }

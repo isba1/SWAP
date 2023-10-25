@@ -15,8 +15,6 @@ const InterestSelection = (props) => {
                     ))}
                 </div>
 
-                {/* Assuming you want to add sections for Patterns, Sizes, Preferred brands similarly in the future */}
-
             </form>
             <button type="submit" className={styles.linkbtn} onClick={() => props.onFormSwitch('passwordCreation')}>Last Step!</button>
         </div>
