@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styles from '../style.module.css';
+import axios from "axios";
+import { useNavigate } from 'react-router-dom'
 
 const Register = (props) =>{
     const [email, setEmail] = useState('');
@@ -10,7 +12,10 @@ const Register = (props) =>{
     const [state, setState] = useState('');
     const [zip, setZip] = useState('');
 
+    const navigate = useNavigate();
+
     const handleSubmit = async (event) =>{
+        event.preventDefault();
         const userInfoRequestBody = {
             fullName: name,
             email: email,
@@ -24,13 +29,11 @@ const Register = (props) =>{
         try {
             await axios.post(`http://localhost:8080/login/saveAccountInfo`, userInfoRequestBody);
 
-            //navigate('/post') --> needs to navigate to the user interests page
+            navigate('/newUserInterests');
 
         } catch (error) {
             console.error(error);
         }
-        // Move to InterestSelection after registering:
-        props.onFormSwitch('passwordCreation');
     }
 
 
