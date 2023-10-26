@@ -1,0 +1,47 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.iformcontainer {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #EFF2E4;
+}
+
+.iform{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.iheader{
+    color: #1A3E2F;
+    text-align: left;
+    font-size: 40px;
+}
+
+.iname{
+    font-size: 50px;
+    text-align: center;
+}
+
+button{
+    border: none;
+    background-color: #1A3E2F;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    font-size: 17px;
+    margin: 5px;
+}
+
+.ilinkbtn{
+    background: none;
+    color: #1A3E2F;
+    text-decoration: underline;
+}
