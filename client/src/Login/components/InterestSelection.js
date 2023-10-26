@@ -15,7 +15,7 @@ const InterestSelection = (props) => {
 
         try {
             await axios.post(`http://localhost:8080/login/saveAccountInfo`, userPreferenceRequestBody);
-            // navigate('/post'); --> If you have a navigate function
+             navigate('/home'); //--> If you have a navigate function
         } catch (error) {
             console.error(error);
         }
