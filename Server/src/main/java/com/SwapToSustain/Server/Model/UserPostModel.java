@@ -21,8 +21,9 @@ public class UserPostModel {
 
     private ObjectId userID;
 
-    private String base64Image;
+    private String base64Images;
 
+    private String name;
     private String postDescription;
 
     private String postCategory;
