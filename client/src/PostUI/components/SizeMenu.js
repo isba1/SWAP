@@ -9,6 +9,7 @@ function SizeMenu({selectedOption, setSelectedOption}) {
   return (
     <div>
       <select value={selectedOption} onChange={handleSelectChange}>
+      <option value="" disabled>Choose a Size</option>
         <option value="XS">XS</option>
         <option value="S">Small</option>
         <option value="M">Medium</option>

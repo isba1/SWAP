@@ -31,16 +31,20 @@ function convertByteArraysToBase64StringList(byteArrays) {
 const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
     const [productName, setProductName] = useState('');
     const [description, setDescription] = useState('');
-    const [category, setCategory] = useState('Tops');
-    const [brand, setBrand] = useState('Nike');
-    const [style, setStyle] = useState('Casual');
-    const [size, setSize] = useState('XS');
+    const [category, setCategory] = useState('');
+    const [brand, setBrand] = useState('');
+    const [style, setStyle] = useState('');
+    const [size, setSize] = useState('');
 
     const handleUpload = async (event) => {
         event.preventDefault();
         if (selectedFiles.length === 0) {
             console.error('Please select at least one file.');
             return;
+        }
+        if (productName === '' || description === '' || category === '' || brand === '' || style === '' || size === ''){
+            alert('All fields must be filled');
+            return;            
         }
 
         const promises = Array.from(selectedFiles).map((file) => {

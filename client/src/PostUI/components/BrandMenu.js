@@ -9,6 +9,7 @@ function BrandMenu({selectedOption, setSelectedOption}) {
   return (
     <div>
       <select value={selectedOption} onChange={handleSelectChange}>
+      <option value="" disabled>Choose a Brand</option>
         <option value="Nike">Nike</option>
         <option value="Adidas">Adidas</option>
         <option value="Levi's">Levi's</option>
