@@ -9,6 +9,7 @@ function StyleMenu({selectedOption, setSelectedOption}) {
   return (
     <div>
       <select value={selectedOption} onChange={handleSelectChange}>
+      <option value="" disabled>Choose a Style</option>
         <option value="Casual">Casual</option>
         <option value="Formal">Formal</option>
         <option value="Vintage">Vintage</option>
