@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import "./Post.css"
 import DropdownMenu from "./DropdownMenu";
 import BrandMenu from "./BrandMenu";
+import StyleMenu from "./StyleMenu";
+import SizeMenu from "./SizeMenu";
 
 const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
     const [productName, setProductName] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [brand, setBrand] = useState('');
+    const [style, setStyle] = useState('');
+    const [size, setSize] = useState('');
 
     const convertImagesToByteArrays = (imageFiles) => {
         const promises = [];
@@ -53,6 +57,8 @@ const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
         setDescription('');
         setCategory('');
         setBrand([]);
+        setSize('');
+        setStyle('');
         toggle();
         setSelectedFiles([]);
     }
@@ -64,6 +70,8 @@ const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
             <input value={description} name="description" id="description" placeholder="Product Description" onChange={(e) =>setDescription(e.target.value)}></input>
             <DropdownMenu selectedOption={category} setSelectedOption={setCategory}/>
             <BrandMenu selectedOption={brand} setSelectedOption={setBrand}/>
+            <StyleMenu selectedOption={style} setSelectedOption={setStyle}/>
+            <SizeMenu selectedOption={size} setSelectedOption={setSize}/>
             <button type="submit">POST</button>
         </form>        
     </div>)
