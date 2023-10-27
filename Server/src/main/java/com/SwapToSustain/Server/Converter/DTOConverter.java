@@ -3,6 +3,7 @@ package com.SwapToSustain.Server.Converter;
 import com.SwapToSustain.Server.DTO.UserAccountInfo;
 import com.SwapToSustain.Server.DTO.UserInterests;
 import com.SwapToSustain.Server.DTO.UserPost;
+import com.SwapToSustain.Server.DTO.UserProfile;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
 import org.bson.types.ObjectId;
@@ -12,10 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.awt.*;
 import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Base64;
-import java.util.UUID;
+import java.util.*;
+import java.util.List;
 
 @Component
 public class DTOConverter {
@@ -37,19 +36,12 @@ public class DTOConverter {
         userAccountInfoModel.setCity(userAccountInfo.getCity());
         userAccountInfoModel.setState(userAccountInfo.getState());
         userAccountInfoModel.setZipCode(userAccountInfo.getZipCode());
+        userAccountInfoModel.setFollowers(new HashSet<>());
+        userAccountInfoModel.setFollowing(new HashSet<>());
     }
 
-    private static byte[] intArrayToByteArray(int[] intArray) {
-        ByteBuffer byteBuffer = ByteBuffer.allocate(intArray.length * 4); // 4 bytes for each int
 
-        for (int value : intArray) {
-            byteBuffer.putInt(value);
-        }
-
-        return byteBuffer.array();
-    }
-
-    public void convertDTO(UserPostModel userPostModel, UserPost userPost, ObjectId objectId) throws IOException {
+    public void convertDTO(UserPostModel userPostModel, UserPost userPost, ObjectId objectId) {
 
         ArrayList<String> base64Images = new ArrayList<>(userPost.getBase64Images());
         userPostModel.setUserID(objectId);
@@ -60,6 +52,33 @@ public class DTOConverter {
         userPostModel.setPostBrand(userPost.getPostBrand());
         userPostModel.setPostStyle(userPost.getPostStyle());
         userPostModel.setPostSize(userPost.getPostSize());
+    }
+
+    public void convertDTO(List<UserPostModel> userPostModels, UserAccountInfoModel userAccountInfoModel,  UserProfile userProfile) {
+
+        userProfile.setName(userAccountInfoModel.getFullName());
+        userProfile.setFollowersCount(userAccountInfoModel.getFollowers().size());
+        userProfile.setFollowingCount(userAccountInfoModel.getFollowing().size());
+
+        ArrayList<UserPost> userPosts = new ArrayList<>();
+
+        for (UserPostModel userPostModel: userPostModels) {
+            UserPost userPost = new UserPost();
+
+            userPost.setBase64Images(userPostModel.getBase64Images());
+            userPost.setName(userPostModel.getName());
+            userPost.setPostDescription(userPostModel.getPostDescription());
+            userPost.setPostCategory(userPostModel.getPostCategory());
+            userPost.setPostBrand(userPostModel.getPostBrand());
+            userPost.setPostStyle(userPostModel.getPostStyle());
+            userPost.setPostSize(userPostModel.getPostSize());
+
+            userPosts.add(userPost);
+
+        }
+
+        userProfile.setUserPosts(userPosts);
+
     }
 
 }
