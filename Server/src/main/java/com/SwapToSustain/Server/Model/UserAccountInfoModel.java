@@ -29,7 +29,8 @@ public class UserAccountInfoModel {
     private String zipCode;
     private List<String> interestCategory;
     private List<String> interestBrand;
-    private HashSet<UUID> following;
+    private HashSet<ObjectId> following;
+    private HashSet<ObjectId> followers;
     private String pantSize;
     private String shoeSize;
     private String shirtSize;
