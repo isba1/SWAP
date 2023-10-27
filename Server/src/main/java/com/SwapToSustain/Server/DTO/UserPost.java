@@ -18,4 +18,9 @@ public class UserPost {
     private String postCategory;
 
     private String postBrand;
+
+    private String postStyle;
+
+    private String postSize;
+
 }

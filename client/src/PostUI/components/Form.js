@@ -55,7 +55,6 @@ const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
                 reader.readAsArrayBuffer(file);
             });
         });
-    }
     
         try {
             const byteArrays = await Promise.all(promises);
@@ -67,7 +66,9 @@ const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
                     name: productName,
                     postDescription: description,
                     postCategory: category,
-                    postBrand: brand
+                    postBrand: brand,
+                    postStyle: style,
+                    postSize: size
                 }
             console.log(postRequestBody);
             const testUserID = "6535f4d4c8497a19ddd89a7e";
@@ -78,7 +79,7 @@ const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
             setProductName('');
             setDescription('');
             setCategory('');
-            setBrand([]);
+            setBrand('');
             setSize('');
             setStyle('');
             toggle();

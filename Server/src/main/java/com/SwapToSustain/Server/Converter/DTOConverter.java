@@ -58,6 +58,8 @@ public class DTOConverter {
         userPostModel.setPostDescription(userPost.getPostDescription());
         userPostModel.setPostCategory(userPost.getPostCategory());
         userPostModel.setPostBrand(userPost.getPostBrand());
+        userPostModel.setPostStyle(userPost.getPostStyle());
+        userPostModel.setPostSize(userPost.getPostSize());
     }
 
 }
