@@ -31,10 +31,10 @@ function convertByteArraysToBase64StringList(byteArrays) {
 const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
     const [productName, setProductName] = useState('');
     const [description, setDescription] = useState('');
-    const [category, setCategory] = useState('');
-    const [brand, setBrand] = useState('');
-    const [style, setStyle] = useState('');
-    const [size, setSize] = useState('');
+    const [category, setCategory] = useState('Tops');
+    const [brand, setBrand] = useState('Nike');
+    const [style, setStyle] = useState('Casual');
+    const [size, setSize] = useState('XS');
 
     const handleUpload = async (event) => {
         event.preventDefault();
