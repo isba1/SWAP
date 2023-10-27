@@ -50,16 +50,10 @@ public class DTOConverter {
     }
 
     public void convertDTO(UserPostModel userPostModel, UserPost userPost, ObjectId objectId) throws IOException {
-        //ArrayList<String> base64Images = new ArrayList<>();
 
-//        for (MultipartFile file: userPost.getImage()) {
-//            byte[] byteArray = file.getBytes();
-//            String base64Image = Base64.getEncoder().encodeToString(byteArray);
-//            base64Images.add(base64Image);
-//        }
-        String base64Image = Base64.getEncoder().encodeToString(userPost.getImage());
+        ArrayList<String> base64Images = new ArrayList<>(userPost.getBase64Images());
         userPostModel.setUserID(objectId);
-        userPostModel.setBase64Images(base64Image);
+        userPostModel.setBase64Images(base64Images);
         userPostModel.setName(userPost.getName());
         userPostModel.setPostDescription(userPost.getPostDescription());
         userPostModel.setPostCategory(userPost.getPostCategory());

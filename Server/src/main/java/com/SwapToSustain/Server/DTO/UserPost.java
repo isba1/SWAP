@@ -9,7 +9,7 @@ import java.util.List;
 public class UserPost {
 
     //private byte[][] imageBinary;
-    private byte[] image;
+    private List<String> base64Images;
 
     private String name;
 
