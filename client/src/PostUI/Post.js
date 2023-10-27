@@ -14,6 +14,9 @@ function Post() {
   }
 
   const toggleModal2 = () =>{
+    if(modal2){
+      setFiles([]);
+    }
     setModal2(!modal2);
   }
 

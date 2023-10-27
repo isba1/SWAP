@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "./Post.css"
 import DropdownMenu from "./DropdownMenu";
 import BrandMenu from "./BrandMenu";
+import StyleMenu from "./StyleMenu";
+import SizeMenu from "./SizeMenu";
+
 import axios from "axios";
 
 function convertByteArrayToBase64String(byteArray) {
@@ -30,6 +33,8 @@ const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
     const [brand, setBrand] = useState('');
+    const [style, setStyle] = useState('');
+    const [size, setSize] = useState('');
 
     const handleUpload = async (event) => {
         event.preventDefault();
@@ -50,7 +55,8 @@ const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
                 reader.readAsArrayBuffer(file);
             });
         });
-
+    }
+    
         try {
             const byteArrays = await Promise.all(promises);
 
@@ -69,6 +75,14 @@ const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
             await axios.post(`http://localhost:8080/post/newPost?UserID=${testUserID}`, postRequestBody);
 
             //console.log('Images uploaded successfully.');
+            setProductName('');
+            setDescription('');
+            setCategory('');
+            setBrand([]);
+            setSize('');
+            setStyle('');
+            toggle();
+            setSelectedFiles([]);
         } catch (error) {
             console.error('Error uploading images:', error);
         }
@@ -82,6 +96,8 @@ const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
             <input value={description} name="description" id="description" placeholder="Product Description" onChange={(e) =>setDescription(e.target.value)}></input>
             <DropdownMenu selectedOption={category} setSelectedOption={setCategory}/>
             <BrandMenu selectedOption={brand} setSelectedOption={setBrand}/>
+            <StyleMenu selectedOption={style} setSelectedOption={setStyle}/>
+            <SizeMenu selectedOption={size} setSelectedOption={setSize}/>
             <button type="submit">POST</button>
         </form>
     </div>)
