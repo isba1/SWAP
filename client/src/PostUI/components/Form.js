@@ -2,6 +2,28 @@ import React, { useState } from "react";
 import "./Post.css"
 import DropdownMenu from "./DropdownMenu";
 import BrandMenu from "./BrandMenu";
+import axios from "axios";
+
+function convertByteArrayToBase64String(byteArray) {
+    const binaryString = new TextDecoder().decode(byteArray);
+
+    // Convert binary string to base64
+    const base64String = btoa(unescape(encodeURIComponent(binaryString)));
+
+    return base64String;
+}
+
+function convertByteArraysToBase64StringList(byteArrays) {
+    const base64StringList = [];
+
+    byteArrays.forEach((byteArray) => {
+        const base64String = convertByteArrayToBase64String(byteArray);
+        base64StringList.push(base64String);
+    });
+
+    return base64StringList;
+}
+
 
 const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
     const [productName, setProductName] = useState('');
@@ -9,63 +31,59 @@ const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
     const [category, setCategory] = useState('');
     const [brand, setBrand] = useState('');
 
-    const convertImagesToByteArrays = (imageFiles) => {
-        const promises = [];
-      
-        for (const file of imageFiles) {
-          promises.push(new Promise((resolve, reject) => {
-            const reader = new FileReader();
-      
-            reader.onload = (event) => {
-              const dataUrl = event.target.result;
-              const byteString = atob(dataUrl.split(',')[1]);
-              const byteArray = new Uint8Array(byteString.length);
-      
-              for (let i = 0; i < byteString.length; i++) {
-                byteArray[i] = byteString.charCodeAt(i);
-              }
-      
-              resolve(byteArray);
-            };
-      
-            reader.readAsDataURL(file);
-          }));
-        }
-      
-        return Promise.all(promises);
-      };
-
-
-    const handleSubmit = (event) =>{
+    const handleUpload = async (event) => {
         event.preventDefault();
-        convertImagesToByteArrays(selectedFiles)
-        .then(byteArrays => {
-          const imageByteArrays = byteArrays;
-          console.log(imageByteArrays);
-          //THIS IS WHERE THE BYTE ARRAY IS, THE SCOPE CAN'T GO OUT OF THIS
-        })
-        .catch(error => {
-          console.error(error);
+        if (selectedFiles.length === 0) {
+            console.error('Please select at least one file.');
+            return;
+        }
+
+        const promises = Array.from(selectedFiles).map((file) => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+
+                reader.onload = (event) => {
+                    const byteArray = new Uint8Array(event.target.result);
+                    resolve(byteArray);
+                };
+
+                reader.readAsArrayBuffer(file);
+            });
         });
-        console.log(productName, description, category, brand);
-        //AXIOS HERE, PICTURE FILES ARE IN "selectedFiles" array
-        setProductName('');
-        setDescription('');
-        setCategory('');
-        setBrand([]);
-        toggle();
-        setSelectedFiles([]);
-    }
+
+        try {
+            const byteArrays = await Promise.all(promises);
+
+            const base64StringList = convertByteArraysToBase64StringList(byteArrays);
+
+            const postRequestBody = {
+                    base64Images: base64StringList,
+                    name: productName,
+                    postDescription: description,
+                    postCategory: category,
+                    postBrand: brand
+                }
+            console.log(postRequestBody);
+            const testUserID = "6535f4d4c8497a19ddd89a7e";
+            // Send the array of Uint8Arrays to the backend
+            await axios.post(`http://localhost:8080/post/newPost?UserID=${testUserID}`, postRequestBody);
+
+            //console.log('Images uploaded successfully.');
+        } catch (error) {
+            console.error('Error uploading images:', error);
+        }
+    };
+
 
     return(<div className="formcontainer">
         <h1 className="header">New Post</h1>
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="form" onSubmit={handleUpload}>
             <input value={productName} name="name" id="name" placeholder="Product Name" onChange={(e) =>setProductName(e.target.value)}></input>
             <input value={description} name="description" id="description" placeholder="Product Description" onChange={(e) =>setDescription(e.target.value)}></input>
             <DropdownMenu selectedOption={category} setSelectedOption={setCategory}/>
             <BrandMenu selectedOption={brand} setSelectedOption={setBrand}/>
             <button type="submit">POST</button>
-        </form>        
+        </form>
     </div>)
 }
 
