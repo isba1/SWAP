@@ -8,6 +8,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
@@ -21,7 +22,7 @@ public class PostService {
     @Autowired
     private DTOConverter dtoConverter;
 
-    public void saveUserPost(UserPost userPost, String objectID) {
+    public void saveUserPost(UserPost userPost, String objectID) throws IOException {
 
         UserPostModel userPostModel = new UserPostModel();
 
