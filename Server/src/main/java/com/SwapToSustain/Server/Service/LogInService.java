@@ -2,7 +2,6 @@ package com.SwapToSustain.Server.Service;
 
 import com.SwapToSustain.Server.Converter.DTOConverter;
 import com.SwapToSustain.Server.DTO.UserAccountInfo;
-import com.SwapToSustain.Server.DTO.UserPost;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.UserInfoRepository;

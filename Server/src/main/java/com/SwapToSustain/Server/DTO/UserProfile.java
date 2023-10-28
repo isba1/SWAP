@@ -13,6 +13,6 @@ public class UserProfile {
 
     private Integer followingCount;
 
-    private List<UserPost> userPosts;
+    private List<PersonalUserPost> personalUserPosts;
 
 }

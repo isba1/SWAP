@@ -1,12 +1,11 @@
 package com.SwapToSustain.Server.DTO;
 
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @Data
-public class UserPost {
+public class NewUserPost {
 
     //private byte[][] imageBinary;
     private List<String> base64Images;

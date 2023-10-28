@@ -7,9 +7,9 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.UUID;
 
 @Document(collection = "UserInfo")
 @Data
@@ -31,6 +31,13 @@ public class UserAccountInfoModel {
     private List<String> interestBrand;
     private HashSet<ObjectId> following;
     private HashSet<ObjectId> followers;
+
+    //first objectID is item yours, and second one is the item that someone else has offered to trade
+    private HashMap<ObjectId,ObjectId> offeredMe;
+
+    //first objectID is the item that I am interested in, and the second one is the item that I am offering
+    private HashMap<ObjectId, ObjectId> myOffers;
+
     private String pantSize;
     private String shoeSize;
     private String shirtSize;
