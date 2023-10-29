@@ -1,21 +1,33 @@
+
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../style.module.css';
 
-
 const InterestSelection = (props) => {
-    const [selectedStyle, setSelectedStyle] = useState(''); // Initialize the selectedStyle state
+    const [brands, setBrands] = useState([]);
+    const [clothingCategory, setClothingCategory] = useState([]);
+    const [shirtSize, setShirtSize] = useState('');
+    const [shoeSize, setShoeSize] = useState('');
+    const [pantSize, setPantSize] = useState('');
+    const [jacketSize, setJacketSize] = useState('');
+
     const navigate = useNavigate();
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const userPreferenceRequestBody = {
-            clothingStyle: selectedStyle // Only the selected clothing style
+            brands,
+            clothingCategory,
+            shirtSize,
+            shoeSize,
+            pantSize,
+            jacketSize
         }
 
         try {
             await axios.post(`http://localhost:8080/login/saveAccountInfo`, userPreferenceRequestBody);
-             navigate('/home'); //--> If you have a navigate function
+            navigate('/home');
         } catch (error) {
             console.error(error);
         }
@@ -26,21 +38,68 @@ const InterestSelection = (props) => {
     return (
         <div className={styles.formcontainer}>
             <h1 className={styles.header}>Tell Us About Your Fashion Interests</h1>
-            <form className={styles.form}>
+            <form className={styles.form} onSubmit={handleSubmit}>
+
+                <label className={styles.name}>Brands:</label>
+                <select onChange={e => setBrands(prev => [...prev, e.target.value])}>
+                    <option value="BrandA">Brand A</option>
+                    <option value="BrandB">Brand B</option>
+                    <option value="BrandC">Brand C</option>
+                    {/* ... */}
+                </select>
 
                 <label className={styles.name}>Clothing style:</label>
                 <div>
-                    {/* List out the clothing styles, make sure to add or remove as needed */}
                     {["Casual", "Formal", "Vintage", "Streetwear", "Bohemian", "Preppy", "Androgynous", "Goth", "Hipster"].map(style => (
-                        <button className={styles.button} key={style}>{style} onClick={() => setSelectedStyle(style)}</button>
+                        <button className={styles.button} key={style} onClick={() => setClothingCategory(prev => [...prev, style])}>{style}</button>
                     ))}
                 </div>
 
+                <label className={styles.name}>Shirt Size:</label>
+                <select onChange={e => setShirtSize(e.target.value)}>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                </select>
+
+                <label className={styles.name}>Shoe Size:</label>
+                <select onChange={e => setShoeSize(e.target.value)}>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+
+                <label className={styles.name}>Pant Size:</label>
+                <select onChange={e => setPantSize(e.target.value)}>
+                    <option value="28">28</option>
+                    <option value="30">30</option>
+                    <option value="32">32</option>
+                    <option value="34">34</option>
+                    <option value="36">36</option>
+                    {/* ... */}
+                </select>
+
+                <label className={styles.name}>Jacket Size:</label>
+                <select onChange={e => setJacketSize(e.target.value)}>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                </select>
+
+                <button type="submit" className={styles.linkbtn}>Last Step!</button>
+
             </form>
-            <button type="submit" className={styles.linkbtn} onClick={() => props.onFormSwitch('passwordCreation')}>Last Step!</button>
         </div>
     );
 }
 
 export default InterestSelection;
+
 
