@@ -47,13 +47,19 @@ const InterestSelection = (props) => {
                     <option value="BrandC">Brand C</option>
                     {/* ... */}
                 </select>
-
+                
                 <label className={styles.name}>Clothing style:</label>
-                <div>
-                    {["Casual", "Formal", "Vintage", "Streetwear", "Bohemian", "Preppy", "Androgynous", "Goth", "Hipster"].map(style => (
-                        <button className={styles.button} key={style} onClick={() => setClothingCategory(prev => [...prev, style])}>{style}</button>
-                    ))}
-                </div>
+                <select onChange={e => setClothingCategory(e.target.value)}>
+                    <option value="Casual">Casual</option>
+                    <option value="Formal">Formal</option>
+                    <option value="Vintage">Vintage</option>
+                    <option value="Streetwear">Streetwear</option>
+                    <option value="Bohemian">Bohemian</option>
+                    <option value="Preppy">Preppy</option>
+                    <option value="Androgynous">Androgynous</option>
+                    <option value="Goth">Goth</option>
+                    <option value="Hipster">Hipster</option>
+                </select>
 
                 <label className={styles.name}>Shirt Size:</label>
                 <select onChange={e => setShirtSize(e.target.value)}>
