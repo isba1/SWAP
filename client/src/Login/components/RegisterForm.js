@@ -11,6 +11,8 @@ const Register = (props) =>{
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [zip, setZip] = useState('');
+    const [emailStatus, setEmailStatus] = useState('');
+
 
     const navigate = useNavigate();
 
@@ -27,9 +29,20 @@ const Register = (props) =>{
         }
         // write axios request to sign up end point here
         try {
-            await axios.post(`http://localhost:8080/login/saveAccountInfo`, userInfoRequestBody);
-
-            navigate('/newUserInterests');
+            const response = await axios.post(`http://localhost:8080/login/saveAccountInfo`, userInfoRequestBody);
+            setEmailStatus(response.data)
+            if (emailStatus) {
+                navigate('/newUserInterests');
+            } else {
+                setEmailStatus('Email already exists. Please choose a different email.');
+                setEmail('');
+                setPass('');
+                setName('');
+                setNumber('');
+                setCity('');
+                setState('');
+                setZip('');
+            }
 
         } catch (error) {
             console.error(error);
@@ -49,6 +62,8 @@ const Register = (props) =>{
             <input value={zip} type="Zip" placeholder="Zip-Code" id="Zip" name= "Zip" onChange={(e) =>setZip(e.target.value)}></input>
             <button type="submit">Register</button>
         </form>
+        {emailStatus && <p className={styles['error-message']}>{emailStatus}</p>}
+
         <button className={styles.linkbtn} onClick={() => props.onFormSwitch('login')}>Already have an account? Login here!</button>
     </div>)
     }

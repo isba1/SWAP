@@ -23,8 +23,8 @@ public class LogInController {
 
     @PostMapping("/saveAccountInfo")
     @CrossOrigin(origins = "http://localhost:3000")
-    public void saveAccountInfo(@RequestBody UserAccountInfo userAccountInfo) {
-        logInService.saveAccountInfo(userAccountInfo);
+    public boolean saveAccountInfo(@RequestBody UserAccountInfo userAccountInfo) {
+        return logInService.saveAccountInfo(userAccountInfo);
     }
 
     @DeleteMapping("/deleteUser")
