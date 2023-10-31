@@ -8,10 +8,14 @@ import java.util.UUID;
 
 public interface UserInfoRepository extends MongoRepository<UserAccountInfoModel, UUID> {
 
-    public UserAccountInfoModel findByEmailAndPassword(String email, String password);
+     UserAccountInfoModel findByEmailAndPassword(String email, String password);
 
-    public UserAccountInfoModel findByUserID(ObjectId objectID);
+     UserAccountInfoModel findByUserID(ObjectId objectID);
 
-    public UserAccountInfoModel findByEmail(String email);
+     UserAccountInfoModel findByEmail(String email);
+
+     UserAccountInfoModel findByUserName(String userName);
+
+
 
 }
