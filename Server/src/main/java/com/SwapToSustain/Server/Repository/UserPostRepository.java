@@ -13,4 +13,6 @@ public interface UserPostRepository extends MongoRepository<UserPostModel, UUID>
 
     UserPostModel findByPostID(ObjectId postID);
 
+    void deleteByPostID(ObjectId postID);
+
 }

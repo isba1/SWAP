@@ -32,10 +32,10 @@ public class UserAccountInfoModel {
     private HashSet<ObjectId> following;
     private HashSet<ObjectId> followers;
 
-    //first objectID is item yours, and second one is the item that someone else has offered to trade
+    //first objectID is item yours (seller), and second one is the item that someone else has offered to trade (buyer)
     private HashMap<ObjectId,ObjectId> offeredMe;
 
-    //first objectID is the item that I am interested in, and the second one is the item that I am offering
+    //first objectID is the item that I am interested in (seller), and the second one is the item that I am offering (buyer)
     private HashMap<ObjectId, ObjectId> myOffers;
 
     private String pantSize;

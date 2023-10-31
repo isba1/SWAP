@@ -50,5 +50,28 @@ public class OfferingService {
 
     }
 
+    public void acceptOffer(String sellerPostID, String sellerUserID, String buyerPostID, String buyerUserID) {
+
+        UserAccountInfoModel sellerAccountInfoModel = userInfoRepository.findByUserID(new ObjectId(sellerUserID));
+        sellerAccountInfoModel.getOfferedMe().remove(new ObjectId(sellerPostID));
+
+        userPostRepository.deleteByPostID(new ObjectId(sellerPostID));
+
+        UserAccountInfoModel buyerAccountInfoModel = userInfoRepository.findByUserID(new ObjectId(buyerUserID));
+        buyerAccountInfoModel.getMyOffers().remove(new ObjectId(sellerPostID));
+
+        userPostRepository.deleteByPostID(new ObjectId(buyerPostID));
+
+    }
+
+    public void declineOffer(String sellerPostID, String sellerUserID, String buyerPostID, String buyerUserID) {
+
+        UserAccountInfoModel sellerAccountInfoModel = userInfoRepository.findByUserID(new ObjectId(sellerUserID));
+        sellerAccountInfoModel.getOfferedMe().remove(new ObjectId(sellerPostID));
+
+        UserAccountInfoModel buyerAccountInfoModel = userInfoRepository.findByUserID(new ObjectId(buyerUserID));
+        buyerAccountInfoModel.getMyOffers().remove(new ObjectId(sellerPostID));
+    }
+
 
 }
