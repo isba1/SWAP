@@ -2,8 +2,8 @@ import React from "react";
 import "./homescreen.css";
 
 function HomeBar(){
-    return(<div>
-        Homebar here 
+    return(<div className="navbar">
+        Search bar in Homebar.js
     </div>)
 }
 
