@@ -60,3 +60,60 @@ body{
     font-size: 17px;
     margin: 0.5rem 0;
 }
+
+.navbar{
+    display: flex;
+    justify-content: left;
+    margin: 1rem;
+}
+
+.postcontainer{
+    background-color: #EFF2E4;
+    display: flex;
+    padding: 1rem;
+    border-radius: 20px;
+}
+
+.coloredsquare{
+    width: 500px;
+    height: 500px;
+    background-color: transparent;
+    border: 2px solid #1A3E2F;
+    flex-grow: 1;
+}
+
+.font{
+    font-size: 20px;
+    padding: 10px;
+    padding-left: 0;
+    color: #1A3E2F;
+}
+
+.postrow{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.postleft{
+    flex: 1;
+    display: flex;
+    justify-content: center; 
+    width: 50%;
+    flex-direction: column;
+    text-align: left;
+}
+
+.postright{
+    padding: 20px;
+    justify-content: center;
+    align-items: center;    
+    width: 50%;
+}
+
+.tempcontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    margin: 2rem;
+}
