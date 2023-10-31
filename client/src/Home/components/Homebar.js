@@ -3,7 +3,7 @@ import "./homescreen.css";
 
 function HomeBar(){
     return(<div>
-        Homebar here 
+        Search bar in Homebar.js
     </div>)
 }
 
