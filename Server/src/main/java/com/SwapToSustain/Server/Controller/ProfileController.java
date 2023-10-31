@@ -17,7 +17,7 @@ public class ProfileController {
     
     @GetMapping("/myProfile")
     @CrossOrigin("http://localhost:3000")
-    public UserProfile getProfile(@RequestParam(name = "UserID") String userID) {
+    public UserProfile getMyProfile(@RequestParam(name = "UserID") String userID) {
         return profileService.getUserProfileInfo(userID);
     }
 
