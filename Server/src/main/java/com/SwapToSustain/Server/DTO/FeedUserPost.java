@@ -14,6 +14,8 @@ public class FeedUserPost {
 
     private ObjectId userID;
 
+    private String userName;
+
     private String name;
 
     private String postDescription;

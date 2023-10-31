@@ -20,7 +20,7 @@ public class UserAccountInfoModel {
     @Id
     private ObjectId userID = ObjectId.get(); // unique id used by the DB
 
-    private String fullName;
+    private String userName;
     private String email;
     private String password;
     private String phone;

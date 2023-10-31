@@ -27,7 +27,7 @@ public class DTOConverter {
     }
 
     public void convertDTO(UserAccountInfoModel userAccountInfoModel, UserAccountInfo userAccountInfo) {
-        userAccountInfoModel.setFullName(userAccountInfo.getFullName());
+        userAccountInfoModel.setUserName(userAccountInfo.getUserName());
         userAccountInfoModel.setPassword(userAccountInfo.getPassword());
         userAccountInfoModel.setEmail(userAccountInfo.getEmail());
         userAccountInfoModel.setPhone(userAccountInfo.getPhone());
@@ -67,7 +67,7 @@ public class DTOConverter {
 
     public void convertDTO(List<UserPostModel> userPostModels, UserAccountInfoModel userAccountInfoModel,  UserProfile userProfile) {
 
-        userProfile.setName(userAccountInfoModel.getFullName());
+        userProfile.setUserName(userAccountInfoModel.getUserName());
         userProfile.setFollowersCount(userAccountInfoModel.getFollowers().size());
         userProfile.setFollowingCount(userAccountInfoModel.getFollowing().size());
 
@@ -103,7 +103,7 @@ public class DTOConverter {
             newTradeOffer.setTheirBase64Images(theirPost.getBase64Images());
             newTradeOffer.setTheirPostID(theirPost.getPostID());
             newTradeOffer.setTheirUserID(theirPost.getUserID());
-            newTradeOffer.setTheirName(theirPost.getName());
+            newTradeOffer.setTheirUserName(theirPost.getName());
             newTradeOffer.setTheirPostDescription(theirPost.getPostDescription());
             newTradeOffer.setTheirPostCategory(theirPost.getPostCategory());
             newTradeOffer.setTheirPostBrand(theirPost.getPostBrand());

@@ -33,7 +33,7 @@ public class LogInService {
     }
 
     public boolean saveAccountInfo(UserAccountInfo userAccountInfo){
-        if (userInfoRepository.findByEmail(userAccountInfo.getEmail()) != null) {
+        if (userInfoRepository.findByEmail(userAccountInfo.getEmail()) != null || userInfoRepository.findByUserName(userAccountInfo.getUserName()) != null) {
             return false;
         } else {
             UserAccountInfoModel userAccountInfoModel = new UserAccountInfoModel();

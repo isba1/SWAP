@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class UserProfile {
 
-    private String name;
+    private String userName;
 
     private Integer followersCount;
 

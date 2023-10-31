@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 const Register = (props) =>{
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-    const [name, setName] = useState('');
+    const [userName, setUserName] = useState('');
     const [number, setNumber] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
@@ -19,7 +19,7 @@ const Register = (props) =>{
     const handleSubmit = async (event) =>{
         event.preventDefault();
         const userInfoRequestBody = {
-            fullName: name,
+            userName: userName,
             email: email,
             password: pass,
             phone: number,
@@ -30,14 +30,15 @@ const Register = (props) =>{
         // write axios request to sign up end point here
         try {
             const response = await axios.post(`http://localhost:8080/login/saveAccountInfo`, userInfoRequestBody);
-            setEmailStatus(response.data)
+            setEmailStatus(response.data);
+            //console.log(emailStatus);
             if (emailStatus) {
                 navigate('/newUserInterests');
             } else {
-                setEmailStatus('Email already exists. Please choose a different email.');
+                setEmailStatus('Email or username already exists. Please choose a different one.');
                 setEmail('');
                 setPass('');
-                setName('');
+                setUserName('');
                 setNumber('');
                 setCity('');
                 setState('');
@@ -53,7 +54,7 @@ const Register = (props) =>{
     return (<div className= {styles.formcontainer}>
         <h1 className={styles.header}>Want To Start Swapping? Register!</h1>
         <form className={styles.form} onSubmit={handleSubmit}>
-            <input value={name} name="name" id="name" placeholder= "Full Name" onChange={(e) =>setName(e.target.value)}></input>
+            <input value={userName} name="Username" id="Username" placeholder= "Username" onChange={(e) =>setUserName(e.target.value)}></input>
             <input value={email} type="Email" placeholder = "Email Address" id= "Email" name="Email" onChange={(e) =>setEmail(e.target.value)}></input>
             <input value={pass} type="Password" placeholder = "Password" id= "Password" name="Password" onChange={(e) =>setPass(e.target.value)}></input>
             <input value={number} type="Number" placeholder="Phone Number" id="Number" name="Number" onChange={(e) =>setNumber(e.target.value)}></input>

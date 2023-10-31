@@ -30,7 +30,7 @@ public class TradesOffered {
 
     private ObjectId theirUserID;
 
-    private String theirName;
+    private String theirUserName;
 
     private String theirPostDescription;
 
