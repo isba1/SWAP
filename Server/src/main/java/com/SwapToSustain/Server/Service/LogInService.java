@@ -32,12 +32,20 @@ public class LogInService {
         return userAccountInfoModel != null;
     }
 
-    public void saveAccountInfo(UserAccountInfo userAccountInfo){
-        UserAccountInfoModel userAccountInfoModel = new UserAccountInfoModel();
+    public boolean saveAccountInfo(UserAccountInfo userAccountInfo){
+        if (userInfoRepository.findByEmail(userAccountInfo.getEmail()) != null) {
+            return false;
+        } else {
+            UserAccountInfoModel userAccountInfoModel = new UserAccountInfoModel();
 
-        dtoConverter.convertDTO(userAccountInfoModel, userAccountInfo);
+            dtoConverter.convertDTO(userAccountInfoModel, userAccountInfo);
 
-        userInfoRepository.save(userAccountInfoModel);
+            userInfoRepository.save(userAccountInfoModel);
+
+            return true;
+        }
+
+
     }
 
     public void deleteUser(String email, String password){
