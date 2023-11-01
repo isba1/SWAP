@@ -31,8 +31,7 @@ const Register = (props) =>{
         try {
             const response = await axios.post(`http://localhost:8080/login/saveAccountInfo`, userInfoRequestBody);
             setEmailStatus(response.data);
-            //console.log(emailStatus);
-            if (emailStatus) {
+            if (response.data) {
                 navigate('/newUserInterests');
             } else {
                 setEmailStatus('Email or username already exists. Please choose a different one.');
