@@ -25,7 +25,8 @@ const Login = (props) =>{
                 const decodedToken = JSON.parse(atob(payload));
                 // const userObjectID = convertUuidToObjectId(decodedToken.userID);
                 setUserId(decodedToken.userID);
-                console.log(decodedToken);
+                // const testResponse = await axios.get(`http://localhost:8080/test/findUser?userID=${decodedToken.userID}`)
+                // console.log(testResponse.data);
                 navigate('/home');
             }
         } catch (error) {
