@@ -4,13 +4,14 @@ import lombok.Data;
 import org.bson.types.ObjectId;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class TradesOffered {
 
     private List<String> myBase64Images;
 
-    private ObjectId myPostID;
+    private UUID myPostID;
 
     private String myName;
 
@@ -26,9 +27,9 @@ public class TradesOffered {
 
     private List<String> theirBase64Images;
 
-    private ObjectId theirPostID;
+    private UUID theirPostID;
 
-    private ObjectId theirUserID;
+    private UUID theirUserID;
 
     private String theirUserName;
 

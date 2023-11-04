@@ -4,6 +4,7 @@ import lombok.Data;
 import org.bson.types.ObjectId;
 
 import java.util.List;
+import java.util.UUID;
 
 
 // this will be used for the posts for the feed because I need the postID for when making offers
@@ -12,7 +13,7 @@ public class PersonalUserPost {
 
     private List<String> base64Images;
 
-    private ObjectId postID;
+    private UUID postID;
 
     private String name;
 

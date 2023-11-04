@@ -6,10 +6,12 @@ import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.UserInfoRepository;
 import com.SwapToSustain.Server.Repository.UserPostRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class LogInService {
@@ -22,6 +24,12 @@ public class LogInService {
 
     @Autowired
     private UserPostRepository userPostRepository;
+
+    public UUID findUserID(String email, String password) {
+        final UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByEmailAndPassword(email, password);
+
+        return userAccountInfoModel.getUserID();
+    }
 
     public boolean userAuthentication(String email, String password){
 
