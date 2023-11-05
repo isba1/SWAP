@@ -101,6 +101,11 @@ button{
     text-align: left;
 }
 
+.titlename{
+    font-size: 40px;
+    text-align: center;
+}
+
 .name{
     font-size: 30px;
     text-align: left;

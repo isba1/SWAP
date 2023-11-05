@@ -1,20 +1,60 @@
-import React from 'react';
-import "./components/homescreen.css" 
+import React, { useState, useRef, useEffect } from 'react';
+import { Suspense } from 'react';
+import "./components/homescreen.css";
 import SideBar from './components/SideBar';
 import HomeBar from './components/Homebar';
-import HomePosts from './components/HomePosts';
 
-function Homescreen() {
-  return (<div className='homerow'>
-    <div className='homecolumnleft'>
-      <SideBar/>
+const LazyHomePosts = React.lazy(() => import('./components/HomePosts'));
+
+const Homescreen = () => {
+  const [loadedPosts, setLoadedPosts] = useState(0);
+  const postsRef = useRef(null);
+
+  //this will be the myuser's userid/token
+  const testUserID = "6541c6def9b63a435d721a4d";
+  //this will be a FeedUserPost object
+  const FeedUserTest = {
+    postID: '65455ac4a32a064718ba3fc6',
+    userID: '6541c7aaf9b63a435d721a50',
+    userName: 'ExampleUser',
+    name: 'Gray Sweatpants',
+    postDescription: 'Gray Sweapants',
+    postCategory: 'EXAMPLE',
+    postBrand: 'EXAMPLE',
+    postStyle: 'EXAMPLE',
+    postSize: 'EXAMPLE',
+  }
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        //console.log('Element is intersecting');
+        setLoadedPosts((prevLoadedPosts) => prevLoadedPosts + 1);
+      } else {
+        //console.log('Element is not intersecting');
+      }
+    });
+
+    observer.observe(postsRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className='homerow'>
+      <div className='homecolumnleft'>
+        <SideBar />
+      </div>
+      <div className='homecolumnright'>
+        <HomeBar />
+        {Array.from({ length: loadedPosts }).map((_, index) => (
+          <Suspense key={index} fallback={<div>Loading post...</div>}>
+            <LazyHomePosts FeedUserPostObject={FeedUserTest} UserID={testUserID}/>
+          </Suspense>
+        ))}
+        <div ref={postsRef}></div>
+      </div>
     </div>
-    <div className='homecolumnright'>
-      <HomeBar/>
-      <HomePosts/>
-    </div>
-  </div>
   );
-}
+};
 
 export default Homescreen;
