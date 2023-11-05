@@ -1,12 +1,16 @@
-
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../style.module.css';
 
+const brandsList = ["Nike", "Adidas", "Puma", "Under Armor", "Ralph Lauren", "Calvin Klein", "Levi's", "Tommy Hilfiger", "Patagonia", "Lacoste", "Other"];
+const styleList = ["Casual", "Formal", "Vintage", "Streetware", "Goth", "Other"];
+const shirtSizeList = ["S", "M", "L", "XL", "XXL"];
+const jacketSizeList = ["S", "M", "L", "XL", "XXL"];
+
 const InterestSelection = (props) => {
     const [brands, setBrands] = useState([]);
-    const [clothingCategory, setClothingCategory] = useState([]);
+    const [clothingStyle, setClothingStyle] = useState([]);
     const [shirtSize, setShirtSize] = useState('');
     const [shoeSize, setShoeSize] = useState('');
     const [pantSize, setPantSize] = useState('');
@@ -14,93 +18,118 @@ const InterestSelection = (props) => {
 
     const navigate = useNavigate();
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleBrandChange = (brand) => {
+        if (brands.includes(brand)) {
+            setBrands(brands.filter((b) => b !== brand));
+        } else {
+            setBrands([...brands, brand]);
+        }
+    };
+
+    const handleStyleChange = (style) => {
+        if (clothingStyle.includes(style)) {
+            setClothingStyle(clothingStyle.filter((s) => s !== style));
+        } else {
+            setClothingStyle([...clothingStyle, style]);
+        }
+    };
+
+    const handleSubmit = async () => {
         const userPreferenceRequestBody = {
             brands,
-            clothingCategory,
+            clothingStyle,
             shirtSize,
             shoeSize,
             pantSize,
             jacketSize
         }
 
+        const userID = sessionStorage.getItem("userID");
+
         try {
-            await axios.post(`http://localhost:8080/login/saveAccountInfo`, userPreferenceRequestBody);
+            await axios.post(`http://localhost:8080/newUserInterests/saveUserInterests?userID=${userID}`, userPreferenceRequestBody);
             navigate('/home');
         } catch (error) {
             console.error(error);
         }
-
-        // props.onFormSwitch('passwordCreation');
     }
 
     return (
         <div className={styles.formcontainer}>
             <h1 className={styles.header}>Tell Us About Your Fashion Interests</h1>
-            <form className={styles.form} onSubmit={handleSubmit}>
 
-                <label className={styles.name}>Brands:</label>
-                <select onChange={e => setBrands(prev => [...prev, e.target.value])}>
-                    <option value="BrandA">Brand A</option>
-                    <option value="BrandB">Brand B</option>
-                    <option value="BrandC">Brand C</option>
-                    {/* ... */}
-                </select>
+            <label className={styles.name}>Brands:</label>
+            <div className={styles.checklistContainer}>
+                {brandsList.map((brand) => (
+                    <button
+                        key={brand}
+                        className={`${styles.checkboxButton} ${brands.includes(brand) ? styles.selected : ''}`}
+                        onClick={() => handleBrandChange(brand)}
+                    >
+                        {brand}
+                    </button>
+                ))}
+            </div>
 
-                <label className={styles.name}>Clothing style:</label>
-                <select onChange={e => setClothingCategory(e.target.value)}>
-                    <option value="Casual">Casual</option>
-                    <option value="Formal">Formal</option>
-                    <option value="Vintage">Vintage</option>
-                    <option value="Streetwear">Streetwear</option>
-                    <option value="Bohemian">Bohemian</option>
-                    <option value="Preppy">Preppy</option>
-                    <option value="Androgynous">Androgynous</option>
-                    <option value="Goth">Goth</option>
-                    <option value="Hipster">Hipster</option>
-                </select>
+            <label className={styles.name}>Clothing Styles:</label>
+            <div className={styles.checklistContainer}>
+                {styleList.map((style) => (
+                    <button
+                        key={style}
+                        className={`${styles.checkboxButton} ${clothingStyle.includes(style) ? styles.selected : ''}`}
+                        onClick={() => handleStyleChange(style)}
+                    >
+                        {style}
+                    </button>
+                ))}
+            </div>
 
-                <label className={styles.name}>Shirt Size:</label>
-                <select onChange={e => setShirtSize(e.target.value)}>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                </select>
+            <label className={styles.name}>Shirt Size:</label>
+            <div className={styles.checklistContainer}>
+                {shirtSizeList.map((size) => (
+                    <button
+                        key={size}
+                        className={`${styles.checkboxButton} ${shirtSize === size ? styles.selected : ''}`}
+                        onClick={() => setShirtSize(size)}
+                    >
+                        {size}
+                    </button>
+                ))}
+            </div>
 
-                <label className={styles.name}>Shoe Size:</label>
-                <select onChange={e => setShoeSize(e.target.value)}>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
+            <label className={styles.name}>Jacket Size:</label>
+            <div className={styles.checklistContainer}>
+                {jacketSizeList.map((size) => (
+                    <button
+                        key={size}
+                        className={`${styles.checkboxButton} ${jacketSize === size ? styles.selected : ''}`}
+                        onClick={() => setJacketSize(size)}
+                    >
+                        {size}
+                    </button>
+                ))}
+            </div>
 
-                <label className={styles.name}>Pant Size:</label>
-                <select onChange={e => setPantSize(e.target.value)}>
-                    <option value="28">28</option>
-                    <option value="30">30</option>
-                    <option value="32">32</option>
-                    <option value="34">34</option>
-                    <option value="36">36</option>
-                    {/* ... */}
-                </select>
+            <label className={styles.name}>Shoe Size:</label>
+            <input
+                type="text"
+                placeholder="Enter Shoe Size"
+                value={shoeSize}
+                onChange={(e) => setShoeSize(e.target.value)}
+                className={styles.inputBox}
+            />
 
-                <label className={styles.name}>Jacket Size:</label>
-                <select onChange={e => setJacketSize(e.target.value)}>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                </select>
-                <button type="submit" className={styles.linkbtn}>Submit Interests</button>
+            <label className={styles.name}>Pant Size:</label>
+            <input
+                type="text"
+                placeholder="Enter Pant Size"
+                value={pantSize}
+                onChange={(e) => setPantSize(e.target.value)}
+                className={styles.inputBox}
+            />
 
-            </form>
+            <button type="button" onClick={handleSubmit} className={styles.linkbtn}>Submit Interests</button>
+
         </div>
     );
 }

@@ -12,7 +12,6 @@ const Register = (props) =>{
     const [state, setState] = useState('');
     const [zip, setZip] = useState('');
     const [emailStatus, setEmailStatus] = useState('');
-    // const [userId, setUserId] = useState(null);
 
 
 
@@ -37,7 +36,6 @@ const Register = (props) =>{
                 const token = response.data.tokenString;
                 const payload = token.split('.')[1];
                 const decodedToken = JSON.parse(atob(payload));
-                // setUserId(decodedToken.userID);
                 sessionStorage.setItem("userID", decodedToken.userID);
 
                 navigate('/newUserInterests');
@@ -50,7 +48,6 @@ const Register = (props) =>{
                 setCity('');
                 setState('');
                 setZip('');
-                setUserId(null);
             }
 
         } catch (error) {
