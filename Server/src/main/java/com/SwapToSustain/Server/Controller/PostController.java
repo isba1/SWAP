@@ -5,8 +5,6 @@ import com.SwapToSustain.Server.Service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-
 @RestController
 @RequestMapping("/post")
 public class PostController {
@@ -17,8 +15,8 @@ public class PostController {
     @PostMapping(value = "/newPost")
     @CrossOrigin(origins = "http://localhost:3000")
     public void newPost(@RequestBody NewUserPost newUserPost,
-                        @RequestParam(name = "UserID") String objectID) {
-        postService.saveUserPost(newUserPost, objectID);
+                        @RequestParam(name = "userID") String userID) {
+        postService.saveUserPost(newUserPost, userID);
     }
 
 }

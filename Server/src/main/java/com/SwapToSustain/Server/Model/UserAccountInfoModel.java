@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 
 @Document(collection = "UserInfo")
 @Data
@@ -18,8 +19,7 @@ import java.util.List;
 public class UserAccountInfoModel {
 
     @Id
-    private ObjectId userID = ObjectId.get(); // unique id used by the DB
-
+    private UUID userID = UUID.randomUUID(); // unique id used by the DB
     private String userName;
     private String email;
     private String password;
@@ -29,14 +29,14 @@ public class UserAccountInfoModel {
     private String zipCode;
     private List<String> interestCategory;
     private List<String> interestBrand;
-    private HashSet<ObjectId> following;
-    private HashSet<ObjectId> followers;
+    private HashSet<UUID> following;
+    private HashSet<UUID> followers;
 
     //first objectID is item yours (seller), and second one is the item that someone else has offered to trade (buyer)
-    private HashMap<ObjectId,ObjectId> offeredMe;
+    private HashMap<UUID,UUID> offeredMe;
 
     //first objectID is the item that I am interested in (seller), and the second one is the item that I am offering (buyer)
-    private HashMap<ObjectId, ObjectId> myOffers;
+    private HashMap<UUID, UUID> myOffers;
 
     private String pantSize;
     private String shoeSize;

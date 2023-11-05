@@ -12,6 +12,8 @@ const Register = (props) =>{
     const [state, setState] = useState('');
     const [zip, setZip] = useState('');
     const [emailStatus, setEmailStatus] = useState('');
+    // const [userId, setUserId] = useState(null);
+
 
 
     const navigate = useNavigate();
@@ -30,8 +32,14 @@ const Register = (props) =>{
         // write axios request to sign up end point here
         try {
             const response = await axios.post(`http://localhost:8080/login/saveAccountInfo`, userInfoRequestBody);
-            setEmailStatus(response.data);
-            if (response.data) {
+            setEmailStatus(response.data.loginSuccess);
+            if (response.data.loginSuccess) {
+                const token = response.data.tokenString;
+                const payload = token.split('.')[1];
+                const decodedToken = JSON.parse(atob(payload));
+                // setUserId(decodedToken.userID);
+                sessionStorage.setItem("userID", decodedToken.userID);
+
                 navigate('/newUserInterests');
             } else {
                 setEmailStatus('Email or username already exists. Please choose a different one.');
@@ -42,6 +50,7 @@ const Register = (props) =>{
                 setCity('');
                 setState('');
                 setZip('');
+                setUserId(null);
             }
 
         } catch (error) {
@@ -65,6 +74,16 @@ const Register = (props) =>{
         {emailStatus && <p className={styles['error-message']}>{emailStatus}</p>}
 
         <button className={styles.linkbtn} onClick={() => props.onFormSwitch('login')}>Already have an account? Login here!</button>
+
+        {/* You can use userId wherever you need it in your component */}
+        {/*{userId && (*/}
+        {/*    <div>*/}
+        {/*        <p>User ID: {userId}</p>*/}
+        {/*        /!* Example: Pass userId as a prop to a child component *!/*/}
+        {/*        <ChildComponent userId={userId} />*/}
+        {/*    </div>*/}
+        {/*)}*/}
+
     </div>)
     }
 

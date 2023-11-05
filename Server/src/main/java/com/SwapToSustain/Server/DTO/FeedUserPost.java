@@ -4,15 +4,16 @@ import lombok.Data;
 import org.bson.types.ObjectId;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class FeedUserPost {
 
     private List<String> base64Images;
 
-    private ObjectId postID;
+    private UUID postID;
 
-    private ObjectId userID;
+    private UUID userID;
 
     private String userName;
 

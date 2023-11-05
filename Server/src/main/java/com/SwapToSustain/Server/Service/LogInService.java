@@ -1,15 +1,21 @@
 package com.SwapToSustain.Server.Service;
 
+import com.SwapToSustain.Server.Components.TokenInterface;
 import com.SwapToSustain.Server.Converter.DTOConverter;
+import com.SwapToSustain.Server.DTO.LoginAuthentication;
 import com.SwapToSustain.Server.DTO.UserAccountInfo;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.UserInfoRepository;
 import com.SwapToSustain.Server.Repository.UserPostRepository;
+import com.SwapToSustain.Server.Util.TokenValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
+
+import static com.SwapToSustain.Server.Config.LoginConfig.GENERAL_TOKEN_EXPIRATION;
 
 @Service
 public class LogInService {
@@ -22,6 +28,57 @@ public class LogInService {
 
     @Autowired
     private UserPostRepository userPostRepository;
+
+    @Autowired
+    private TokenInterface tokenInterface;
+
+    private UUID findUserID(String email, String password) {
+        final UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByEmailAndPassword(email, password);
+
+        return userAccountInfoModel.getUserID();
+    }
+
+    public LoginAuthentication loginAndTokenGeneration(boolean ret, String email, String password) {
+
+        LoginAuthentication loginAuthentication = new LoginAuthentication();
+
+        UUID foundAccount = findUserID(email, password);
+
+        if (ret) {
+            loginAuthentication.setLoginSuccess(ret);
+
+            TokenValue tokenValue = new TokenValue(foundAccount, GENERAL_TOKEN_EXPIRATION);
+            String token = tokenInterface.generateToken(tokenValue);
+
+            loginAuthentication.setTokenString(token);
+
+            return loginAuthentication;
+
+        } else {
+            loginAuthentication.setLoginSuccess(ret);
+            loginAuthentication.setTokenString("");
+            return loginAuthentication;
+        }
+    }
+
+    public LoginAuthentication newUserAndTokenGeneration(UserAccountInfo userAccountInfo) {
+        saveAccountInfo(userAccountInfo);
+
+        LoginAuthentication loginAuthentication = new LoginAuthentication();
+
+        UUID foundAccount = findUserID(userAccountInfo.getEmail(), userAccountInfo.getPassword());
+
+        loginAuthentication.setLoginSuccess(true);
+
+        TokenValue tokenValue = new TokenValue(foundAccount, GENERAL_TOKEN_EXPIRATION);
+        String token = tokenInterface.generateToken(tokenValue);
+
+        loginAuthentication.setTokenString(token);
+
+        return loginAuthentication;
+
+
+    }
 
     public boolean userAuthentication(String email, String password){
 

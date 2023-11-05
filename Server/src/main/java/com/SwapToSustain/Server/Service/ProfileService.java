@@ -12,10 +12,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ProfileService {
@@ -32,8 +29,8 @@ public class ProfileService {
     public UserProfile getUserProfileInfo(String userID) {
         UserProfile userProfile = new UserProfile();
 
-        UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserID(new ObjectId(userID));
-        List<UserPostModel> userPostModels = userPostRepository.findAllByUserID(new ObjectId(userID));
+        UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(userID));
+        List<UserPostModel> userPostModels = userPostRepository.findAllByUserID(UUID.fromString(userID));
 
         dtoConverter.convertDTO(userPostModels, userAccountInfoModel, userProfile);
 
@@ -44,10 +41,10 @@ public class ProfileService {
 
         ArrayList<TradesOffered> tradeOffers = new ArrayList<>();
 
-        UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserID(new ObjectId(userID));
-        HashMap<ObjectId, ObjectId> tradeOfferIDMap = userAccountInfoModel.getOfferedMe();
+        UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(userID));
+        HashMap<UUID, UUID> tradeOfferIDMap = userAccountInfoModel.getOfferedMe();
 
-        for (Map.Entry<ObjectId, ObjectId> entry : tradeOfferIDMap.entrySet()) {
+        for (Map.Entry<UUID, UUID> entry : tradeOfferIDMap.entrySet()) {
             UserPostModel myPost = userPostRepository.findByPostID(entry.getKey());
             UserPostModel theirPost = userPostRepository.findByPostID(entry.getValue());
 
@@ -62,10 +59,10 @@ public class ProfileService {
     public List<TradesOffered> getTradesIOffer(String userID) {
         ArrayList<TradesOffered> tradeOffers = new ArrayList<>();
 
-        UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserID(new ObjectId(userID));
-        HashMap<ObjectId, ObjectId> tradeOfferIDMap = userAccountInfoModel.getMyOffers();
+        UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(userID));
+        HashMap<UUID, UUID> tradeOfferIDMap = userAccountInfoModel.getMyOffers();
 
-        for (Map.Entry<ObjectId, ObjectId> entry : tradeOfferIDMap.entrySet()) {
+        for (Map.Entry<UUID, UUID> entry : tradeOfferIDMap.entrySet()) {
             UserPostModel myPost = userPostRepository.findByPostID(entry.getValue());
             UserPostModel theirPost = userPostRepository.findByPostID(entry.getKey());
 

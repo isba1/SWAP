@@ -10,7 +10,7 @@ public interface UserInfoRepository extends MongoRepository<UserAccountInfoModel
 
      UserAccountInfoModel findByEmailAndPassword(String email, String password);
 
-     UserAccountInfoModel findByUserID(ObjectId objectID);
+     UserAccountInfoModel findByUserID(UUID userID);
 
      UserAccountInfoModel findByEmail(String email);
 
