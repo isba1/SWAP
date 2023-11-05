@@ -38,7 +38,7 @@ const Register = (props) =>{
                 const payload = token.split('.')[1];
                 const decodedToken = JSON.parse(atob(payload));
                 // setUserId(decodedToken.userID);
-                localStorage.setItem("userID", decodedToken.userID);
+                sessionStorage.setItem("userID", decodedToken.userID);
 
                 navigate('/newUserInterests');
             } else {
