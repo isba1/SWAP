@@ -29,17 +29,6 @@ const Login = (props) =>{
         }
     };
 
-    // const convertUuidToObjectId = (uuid) => {
-    //     // Assuming uuid is a string in the format 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
-    //     // Remove hyphens and convert to hexadecimal
-    //     const hexString = uuid.replace(/-/g, '');
-    //
-    //     // Convert hexadecimal string to ObjectId
-    //     const objectId = new ObjectId(hexString, 16);
-    //
-    //     // Return the ObjectId as a string
-    //     return objectId.toString();
-    // };
 
     return (<div className= {styles.formcontainer}>
         <h1 className={styles.header}>Welcome Back!</h1>
@@ -56,14 +45,6 @@ const Login = (props) =>{
         )}
         <button className={styles.linkbtn} onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here!</button>
 
-        {/* You can use userId wherever you need it in your component */}
-        {/*{userId && (*/}
-        {/*    <div>*/}
-        {/*        <p>User ID: {userId}</p>*/}
-        {/*        /!* Example: Pass userId as a prop to a child component *!/*/}
-        {/*        <ChildComponent userId={userId} />*/}
-        {/*    </div>*/}
-        {/*)}*/}
 
     </div>)
 }

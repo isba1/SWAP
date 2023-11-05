@@ -72,14 +72,6 @@ const Register = (props) =>{
 
         <button className={styles.linkbtn} onClick={() => props.onFormSwitch('login')}>Already have an account? Login here!</button>
 
-        {/* You can use userId wherever you need it in your component */}
-        {/*{userId && (*/}
-        {/*    <div>*/}
-        {/*        <p>User ID: {userId}</p>*/}
-        {/*        /!* Example: Pass userId as a prop to a child component *!/*/}
-        {/*        <ChildComponent userId={userId} />*/}
-        {/*    </div>*/}
-        {/*)}*/}
 
     </div>)
     }
