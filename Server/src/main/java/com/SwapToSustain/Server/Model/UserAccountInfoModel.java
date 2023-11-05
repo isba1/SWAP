@@ -3,7 +3,6 @@ package com.SwapToSustain.Server.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -27,7 +26,7 @@ public class UserAccountInfoModel {
     private String city;
     private String state;
     private String zipCode;
-    private List<String> interestCategory;
+    private List<String> interestStyle;
     private List<String> interestBrand;
     private HashSet<UUID> following;
     private HashSet<UUID> followers;
