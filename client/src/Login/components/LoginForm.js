@@ -2,14 +2,13 @@ import axios from 'axios';
 import React, {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import styles from '../style.module.css';
-import jwtDecode from 'jwt-decode';
 
 
 const Login = (props) =>{
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [loginStatus, setLoginStatus] = useState('');
-    const [userId, setUserId] = useState(null);
+    // const [userId, setUserId] = useState(null);
     const navigate = useNavigate();
 
 
@@ -24,7 +23,8 @@ const Login = (props) =>{
                 const payload = token.split('.')[1];
                 const decodedToken = JSON.parse(atob(payload));
                 // const userObjectID = convertUuidToObjectId(decodedToken.userID);
-                setUserId(decodedToken.userID);
+                // setUserId(decodedToken.userID);
+                localStorage.setItem('userID', decodedToken.userID);
                 // const testResponse = await axios.get(`http://localhost:8080/test/findUser?userID=${decodedToken.userID}`)
                 // console.log(testResponse.data);
                 navigate('/home');
