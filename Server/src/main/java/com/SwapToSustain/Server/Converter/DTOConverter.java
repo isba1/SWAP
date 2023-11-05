@@ -4,7 +4,6 @@ import com.SwapToSustain.Server.DTO.*;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.UserPostRepository;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +18,7 @@ public class DTOConverter {
 
     public void convertDTO(UserAccountInfoModel userAccountInfoModel, UserInterests userInterests){
         userAccountInfoModel.setInterestBrand(userInterests.getBrands());
-        userAccountInfoModel.setInterestCategory(userInterests.getClothingCategory());
+        userAccountInfoModel.setInterestStyle(userInterests.getClothingStyle());
         userAccountInfoModel.setPantSize(userInterests.getPantSize());
         userAccountInfoModel.setShirtSize(userInterests.getShirtSize());
         userAccountInfoModel.setJacketSize(userInterests.getJacketSize());
@@ -121,6 +120,21 @@ public class DTOConverter {
             postModelToPersonalPost(userPostModel, personalUserPost);
 
             personalUserPosts.add(personalUserPost);
+        }
+
+    }
+
+    public void convertDTO (List<UserProfileSearch> userProfileSearches, List<UserAccountInfoModel> userAccountInfoModelList) {
+
+        for (UserAccountInfoModel userAccountInfoModel : userAccountInfoModelList) {
+
+            UserProfileSearch userProfileSearch = new UserProfileSearch();
+            userProfileSearch.setUserID(userAccountInfoModel.getUserID());
+            userProfileSearch.setUserName(userAccountInfoModel.getUserName());
+            userProfileSearch.setFollowersCount(userAccountInfoModel.getFollowers().size());
+            userProfileSearch.setFollowingCount(userAccountInfoModel.getFollowing().size());
+
+            userProfileSearches.add(userProfileSearch);
         }
 
     }

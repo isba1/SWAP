@@ -9,7 +9,7 @@ public class UserInterests {
 
     private List<String> brands;
 
-    private List<String> clothingCategory;
+    private List<String> clothingStyle;
 
     private String shirtSize;
 
