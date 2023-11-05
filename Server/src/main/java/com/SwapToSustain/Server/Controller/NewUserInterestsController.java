@@ -18,7 +18,7 @@ public class NewUserInterestsController {
     @PostMapping("/saveUserInterests")
     @CrossOrigin(origins = "http://localhost:3000")
     public void saveUserInterests(
-            @RequestParam(name = "userID") UUID userID,
+            @RequestParam(name = "userID") String userID,
             @RequestBody UserInterests userInterests) {
         newUserService.saveUserInterests(userID, userInterests);
     }

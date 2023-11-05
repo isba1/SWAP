@@ -20,9 +20,9 @@ public class NewUserInterestsService {
     private DTOConverter dtoConverter;
 
 
-    public void saveUserInterests(UUID userID, UserInterests userInterests){
+    public void saveUserInterests(String userID, UserInterests userInterests){
 
-        UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserID(userID);
+        UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(userID));
 
         dtoConverter.convertDTO(userAccountInfoModel, userInterests);
 
