@@ -5,8 +5,8 @@ import styles from '../style.module.css';
 
 const brandsList = ["Nike", "Adidas", "Puma", "Under Armor", "Ralph Lauren", "Calvin Klein", "Levi's", "Tommy Hilfiger", "Patagonia", "Lacoste", "Other"];
 const styleList = ["Casual", "Formal", "Vintage", "Streetware", "Goth", "Other"];
-const shirtSizeList = ["S", "M", "L", "XL", "XXL"];
-const jacketSizeList = ["S", "M", "L", "XL", "XXL"];
+const shirtSizeList = ["XS", "S", "M", "L", "XL", "XXL"];
+const jacketSizeList = ["XS", "S", "M", "L", "XL", "XXL"];
 
 const InterestSelection = (props) => {
     const [brands, setBrands] = useState([]);

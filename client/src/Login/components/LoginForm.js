@@ -8,7 +8,6 @@ const Login = (props) =>{
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [loginStatus, setLoginStatus] = useState('');
-    // const [userId, setUserId] = useState(null);
     const navigate = useNavigate();
 
 
@@ -22,11 +21,7 @@ const Login = (props) =>{
                 const token = response.data.tokenString;
                 const payload = token.split('.')[1];
                 const decodedToken = JSON.parse(atob(payload));
-                // const userObjectID = convertUuidToObjectId(decodedToken.userID);
-                // setUserId(decodedToken.userID);
                 sessionStorage.setItem('userID', decodedToken.userID);
-                // const testResponse = await axios.get(`http://localhost:8080/test/findUser?userID=${decodedToken.userID}`)
-                // console.log(testResponse.data);
                 navigate('/home');
             }
         } catch (error) {
