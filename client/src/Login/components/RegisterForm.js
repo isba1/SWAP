@@ -6,18 +6,22 @@ import { useNavigate } from 'react-router-dom'
 const Register = (props) =>{
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-    const [name, setName] = useState('');
+    const [userName, setUserName] = useState('');
     const [number, setNumber] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [zip, setZip] = useState('');
+    const [emailStatus, setEmailStatus] = useState('');
+    // const [userId, setUserId] = useState(null);
+
+
 
     const navigate = useNavigate();
 
     const handleSubmit = async (event) =>{
         event.preventDefault();
         const userInfoRequestBody = {
-            fullName: name,
+            userName: userName,
             email: email,
             password: pass,
             phone: number,
@@ -27,9 +31,27 @@ const Register = (props) =>{
         }
         // write axios request to sign up end point here
         try {
-            await axios.post(`http://localhost:8080/login/saveAccountInfo`, userInfoRequestBody);
+            const response = await axios.post(`http://localhost:8080/login/saveAccountInfo`, userInfoRequestBody);
+            setEmailStatus(response.data.loginSuccess);
+            if (response.data.loginSuccess) {
+                const token = response.data.tokenString;
+                const payload = token.split('.')[1];
+                const decodedToken = JSON.parse(atob(payload));
+                // setUserId(decodedToken.userID);
+                sessionStorage.setItem("userID", decodedToken.userID);
 
-            navigate('/newUserInterests');
+                navigate('/newUserInterests');
+            } else {
+                setEmailStatus('Email or username already exists. Please choose a different one.');
+                setEmail('');
+                setPass('');
+                setUserName('');
+                setNumber('');
+                setCity('');
+                setState('');
+                setZip('');
+                setUserId(null);
+            }
 
         } catch (error) {
             console.error(error);
@@ -40,7 +62,7 @@ const Register = (props) =>{
     return (<div className= {styles.formcontainer}>
         <h1 className={styles.header}>Want To Start Swapping? Register!</h1>
         <form className={styles.form} onSubmit={handleSubmit}>
-            <input value={name} name="name" id="name" placeholder= "Full Name" onChange={(e) =>setName(e.target.value)}></input>
+            <input value={userName} name="Username" id="Username" placeholder= "Username" onChange={(e) =>setUserName(e.target.value)}></input>
             <input value={email} type="Email" placeholder = "Email Address" id= "Email" name="Email" onChange={(e) =>setEmail(e.target.value)}></input>
             <input value={pass} type="Password" placeholder = "Password" id= "Password" name="Password" onChange={(e) =>setPass(e.target.value)}></input>
             <input value={number} type="Number" placeholder="Phone Number" id="Number" name="Number" onChange={(e) =>setNumber(e.target.value)}></input>
@@ -49,7 +71,19 @@ const Register = (props) =>{
             <input value={zip} type="Zip" placeholder="Zip-Code" id="Zip" name= "Zip" onChange={(e) =>setZip(e.target.value)}></input>
             <button type="submit">Register</button>
         </form>
+        {emailStatus && <p className={styles['error-message']}>{emailStatus}</p>}
+
         <button className={styles.linkbtn} onClick={() => props.onFormSwitch('login')}>Already have an account? Login here!</button>
+
+        {/* You can use userId wherever you need it in your component */}
+        {/*{userId && (*/}
+        {/*    <div>*/}
+        {/*        <p>User ID: {userId}</p>*/}
+        {/*        /!* Example: Pass userId as a prop to a child component *!/*/}
+        {/*        <ChildComponent userId={userId} />*/}
+        {/*    </div>*/}
+        {/*)}*/}
+
     </div>)
     }
 

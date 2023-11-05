@@ -9,6 +9,10 @@ import java.util.UUID;
 
 public interface UserPostRepository extends MongoRepository<UserPostModel, UUID> {
 
-    List<UserPostModel> findAllByUserID(ObjectId userID);
+    List<UserPostModel> findAllByUserID(UUID userID);
+
+    UserPostModel findByPostID(UUID postID);
+
+    void deleteByPostID(UUID postID);
 
 }

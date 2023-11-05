@@ -2,17 +2,17 @@ package com.SwapToSustain.Server.DTO;
 
 import lombok.Data;
 
-import java.util.List;
+import java.util.UUID;
 
 @Data
-public class UserProfile {
+public class UserProfileSearch {
+
+    private UUID userID;
 
     private String userName;
 
     private Integer followersCount;
 
     private Integer followingCount;
-
-    private List<PersonalUserPost> personalUserPosts;
 
 }

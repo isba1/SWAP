@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import styles from '../style.module.css';
 
@@ -7,24 +7,44 @@ import styles from '../style.module.css';
 const Login = (props) =>{
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-    const [loginStatus, setLoginStatus] = useState(null);
+    const [loginStatus, setLoginStatus] = useState('');
+    // const [userId, setUserId] = useState(null);
     const navigate = useNavigate();
 
-    // write axios request to log in end point here
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
             const response = await axios.get(`http://localhost:8080/login/reoccurringUser?email=${email}&password=${pass}`);
-            setLoginStatus(response.data);
-            if (response.data) {
+            setLoginStatus(response.data.loginSuccess);
+            if (response.data.loginSuccess) {
+                const token = response.data.tokenString;
+                const payload = token.split('.')[1];
+                const decodedToken = JSON.parse(atob(payload));
+                // const userObjectID = convertUuidToObjectId(decodedToken.userID);
+                // setUserId(decodedToken.userID);
+                sessionStorage.setItem('userID', decodedToken.userID);
+                // const testResponse = await axios.get(`http://localhost:8080/test/findUser?userID=${decodedToken.userID}`)
+                // console.log(testResponse.data);
                 navigate('/home');
             }
-
         } catch (error) {
             console.error(error);
         }
     };
+
+    // const convertUuidToObjectId = (uuid) => {
+    //     // Assuming uuid is a string in the format 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+    //     // Remove hyphens and convert to hexadecimal
+    //     const hexString = uuid.replace(/-/g, '');
+    //
+    //     // Convert hexadecimal string to ObjectId
+    //     const objectId = new ObjectId(hexString, 16);
+    //
+    //     // Return the ObjectId as a string
+    //     return objectId.toString();
+    // };
 
     return (<div className= {styles.formcontainer}>
         <h1 className={styles.header}>Welcome Back!</h1>
@@ -34,12 +54,22 @@ const Login = (props) =>{
             <input value={pass} type="Password" placeholder = "Password" id= "Password" name="Password" onChange={(e) =>setPass(e.target.value)}></input>
             <button type="submit">Log In</button>
         </form>
-        {loginStatus !== null && (
-            <p className={`${loginStatus ? '' : styles['error-message']}`}>
-                {loginStatus ? 'Login successful' : 'Invalid credentials'}
+        {loginStatus === false && (
+            <p className={styles['error-message']}>
+                Invalid credentials
             </p>
         )}
         <button className={styles.linkbtn} onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here!</button>
+
+        {/* You can use userId wherever you need it in your component */}
+        {/*{userId && (*/}
+        {/*    <div>*/}
+        {/*        <p>User ID: {userId}</p>*/}
+        {/*        /!* Example: Pass userId as a prop to a child component *!/*/}
+        {/*        <ChildComponent userId={userId} />*/}
+        {/*    </div>*/}
+        {/*)}*/}
+
     </div>)
 }
 

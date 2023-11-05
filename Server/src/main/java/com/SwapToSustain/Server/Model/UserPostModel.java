@@ -17,9 +17,9 @@ import java.util.UUID;
 public class UserPostModel {
 
     @Id
-    private ObjectId postID = ObjectId.get();
+    private UUID postID = UUID.randomUUID();
 
-    private ObjectId userID;
+    private UUID userID;
 
     private List<String> base64Images;
 

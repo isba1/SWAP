@@ -1,22 +1,23 @@
 package com.SwapToSustain.Server.DTO;
 
-import java.util.List;
 
 import lombok.Data;
 
 @Data
-public class UserInterests {
-
-    private List<String> brands;
-
-    private List<String> clothingStyle;
+public class UserSearchCriteria {
 
     private String shirtSize;
 
     private String shoeSize;
 
+    private String jacketSize;
+
     private String pantSize;
 
-    private String jacketSize;
+    private String interestBrand;
+
+    private String interestStyle;
+
+
 
 }
