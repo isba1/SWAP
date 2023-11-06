@@ -11,7 +11,7 @@ const Homescreen = () => {
   const postsRef = useRef(null);
 
   //this will be the myuser's userid/token
-  const testUserID = "6541c6def9b63a435d721a4d";
+  const userID = sessionStorage.getItem("userID");
   //this will be a FeedUserPost object
   const FeedUserTest = {
     postID: '65455ac4a32a064718ba3fc6',
@@ -48,7 +48,7 @@ const Homescreen = () => {
         <HomeBar />
         {Array.from({ length: loadedPosts }).map((_, index) => (
           <Suspense key={index} fallback={<div>Loading post...</div>}>
-            <LazyHomePosts FeedUserPostObject={FeedUserTest} UserID={testUserID}/>
+            <LazyHomePosts FeedUserPostObject={FeedUserTest} UserID={userID}/>
           </Suspense>
         ))}
         <div ref={postsRef}></div>

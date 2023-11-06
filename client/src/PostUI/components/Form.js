@@ -75,9 +75,9 @@ const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
                     postSize: size
                 }
             console.log(postRequestBody);
-            const testUserID = "6535f4d4c8497a19ddd89a7e";
+            const userID = sessionStorage.getItem("userID");
             // Send the array of Uint8Arrays to the backend
-            await axios.post(`http://localhost:8080/post/newPost?userID=${testUserID}`, postRequestBody);
+            await axios.post(`http://localhost:8080/post/newPost?userID=${userID}`, postRequestBody);
 
             //console.log('Images uploaded successfully.');
             setProductName('');
