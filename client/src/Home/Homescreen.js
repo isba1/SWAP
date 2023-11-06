@@ -13,9 +13,10 @@ const Homescreen = () => {
   //this will be the myuser's userid/token
   const userID = sessionStorage.getItem("userID");
   //this will be a FeedUserPost object
+  
   const FeedUserTest = {
-    postID: '65455ac4a32a064718ba3fc6',
-    userID: '6541c7aaf9b63a435d721a50',
+    postID: '',
+    userID: '',
     userName: 'ExampleUser',
     name: 'Gray Sweatpants',
     postDescription: 'Gray Sweapants',
@@ -24,7 +25,7 @@ const Homescreen = () => {
     postStyle: 'EXAMPLE',
     postSize: 'EXAMPLE',
   }
-
+  
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {

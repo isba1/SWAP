@@ -7,9 +7,8 @@ function NameList({array, toggle, post, myid}) {
     console.log(`Button Clicked for ${name}`);
     console.log(item.postID);
     //temp is supposted to be the postID of the post you chose to offer
-    const temp = "6543fc5d0d9510298230d106";
     try{
-      //await axios.post(`http://localhost:8080/offer/makeOffer?sellerPostID=${post.postID}&sellerUserID=${post.userID}&buyerPostID=${temp}&buyerUserID=${myid}`);
+      await axios.post(`http://localhost:8080/offer/makeOffer?sellerPostID=${post.postID}&sellerUserID=${post.userID}&buyerPostID=${item.postID}&buyerUserID=${myid}`);
       toggle();
     }catch (error){
       console.error(error);
