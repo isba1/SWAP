@@ -5,6 +5,7 @@ function NameList({array, toggle, post, myid}) {
 
   const handleButtonClick = async (name, item) =>{
     console.log(`Button Clicked for ${name}`);
+    //not sure if I have to convert ID for post of not
     console.log(item.postID);
     //temp is supposted to be the postID of the post you chose to offer
     try{
