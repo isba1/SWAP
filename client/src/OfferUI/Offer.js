@@ -21,7 +21,6 @@ const Offer = ({SellerPost, myID}) => {
 
     const toggleModal = () => {
         if (modal){
-            console.log(data);
             setData(null);
         }
         setModal(!modal);
