@@ -63,11 +63,12 @@ body{
     margin: 0.5rem 0;
 }
 
-.search-bar {
-    display: flex;
+.search {
+    position: relative;
+    width: 80%;
 }
 
-.search-bar input {
+/* .search-bar input {
     width: 50%;
     min-width: 300px;
     padding: 12px 24px;
@@ -76,3 +77,22 @@ body{
     border: 1px;
     outline: none;
 }
+
+select {
+    position: fixed;
+    height: 55px;
+    font-size: 10px;
+    border: 1px solid #ccc; 
+    border-radius: 10px; 
+    width: 50px;
+}
+
+header {
+    position: fixed;
+    top: 0px;
+}
+
+.filter-container {
+    display: flex;
+    gap: 10px;
+} */
