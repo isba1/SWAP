@@ -18,21 +18,22 @@ function HomeBar() {
   // check if there's functionality for if the search result is empty
   const handleSearch = async () => {
     // Create a request body with search criteria
-    const searchCriteria = {
-      userName: searchInput,
-      shirtSize: selectedShirtSize,
-      shoeSize: selectedShoeSize,
-      jacketSize: selectedJacketSize,
-      pantSize: selectedPantSize,
-      interestBrand: selectedBrand,
-      interestStyle: selectedStyle,
-    };
+    // const searchCriteria = {
+    //   userName: searchInput,
+    //   shirtSize: selectedShirtSize,
+    //   shoeSize: selectedShoeSize,
+    //   jacketSize: selectedJacketSize,
+    //   pantSize: selectedPantSize,
+    //   interestBrand: selectedBrand,
+    //   interestStyle: selectedStyle,
+    // };
 
     try {
-      // Send a POST request to the backend using Axios
-      const response = await axios.post(
-          "http://localhost:8080/search/searchUsers",
-          searchCriteria
+      // Send a GET request to the backend using Axios
+      const response = await axios.get(
+          `http://localhost:8080/search/searchUsers?userName=${searchInput}&shirtSize=${selectedShirtSize}&shoeSize=
+          ${selectedShoeSize}&jacketSize=${selectedJacketSize}&pantSize=${selectedPantSize}&interestBrand=${selectedBrand}
+          &interestStyle=${selectedStyle}`
       );
 
       // Handle the received data and update search results
