@@ -15,6 +15,7 @@ function SizeMenu({selectedOption, setSelectedOption}) {
         <option value="M">Medium</option>
         <option value="L">Large</option>
         <option value="XL">Xtra Large</option>
+        <option value="XXL">XXL</option>
       </select>
     </div>
   );
