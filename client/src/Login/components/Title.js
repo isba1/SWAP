@@ -3,7 +3,7 @@ import styles from '../style.module.css';
 
 function Title(){
     return (<div className={styles.title}>
-            <h1 className={styles.name}>Swap Wear Apparel Platform</h1>
+            <h1 className={styles.titlename}>Swap Wear Apparel Platform</h1>
         </div>);
 }
 

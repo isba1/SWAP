@@ -1,6 +1,7 @@
 body{
     margin: 0;
     padding: 0;
+    background-color: #EFF2E4;
 }
 
 .row{
@@ -100,13 +101,87 @@ button{
     text-align: left;
 }
 
-.name{
-    font-size: 50px;
+.titlename{
+    font-size: 40px;
     text-align: center;
 }
+
+.name{
+    font-size: 30px;
+    text-align: left;
+}
+
 
 .error-message {
     color: red;
     font-size: 1.2rem;
 }
+
+
+.checklistContainer {
+    display: flex;
+    flex-wrap: wrap; /* Adjust as needed */
+}
+
+.checkboxLabel {
+    display: flex;
+    align-items: center;
+    margin-right: 10px; /* Adjust the margin between buttons */
+}
+
+.checkboxText {
+    margin-left: 8px;
+}
+
+.checkboxLabel input {
+    display: none; /* Hide the default checkbox */
+}
+
+.checkboxLabel span {
+    cursor: pointer;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.checkboxLabel input:checked + span {
+    background-color: #4caf50; /* Change the background color when checked */
+    color: #fff; /* Change text color when checked */
+}
+
+.checkboxButton {
+    display: inline-block;
+    padding: 10px;
+    background-color: #1b5e20; /* Dark green color */
+    color: #fff;
+    border: none;
+    border-radius: 15px; /* Adjust the value for more or less rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border 0.3s; /* Smooth transition on hover */
+    margin: 5px 5px 20px;
+}
+
+.checkboxButton:hover {
+    background-color: #fff; /* White on hover */
+    color: #1b5e20; /* Dark green text on hover */
+    border: 2px solid #1b5e20; /* Dark green border on hover */
+}
+
+.checkboxButton.selected {
+    background-color: #fff; /* White in selected state */
+    color: #1b5e20; /* Dark green text in selected state */
+    border: 2px solid #1b5e20; /* Dark green border in selected state */
+}
+
+.inputBox {
+    /* Increase vertical spacing */
+    margin: 10px 0 20px;
+    padding: 8px;
+    border: none;
+    border-radius: 15px;
+    font-size: 15px;
+    border: 2px solid #1A3E2F;
+    width: 150px; /* Adjust the width of the input box */
+}
+
 

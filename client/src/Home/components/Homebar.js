@@ -157,6 +157,5 @@ function HomeBar() {
       </main>{" "}
     </div>
   );
-}
 
 export default HomeBar;

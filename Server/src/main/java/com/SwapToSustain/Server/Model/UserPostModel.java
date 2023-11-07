@@ -17,16 +17,22 @@ import java.util.UUID;
 public class UserPostModel {
 
     @Id
-    private ObjectId postID = ObjectId.get();
+    private UUID postID = UUID.randomUUID();
 
-    private ObjectId userID;
+    private UUID userID;
 
-    private String base64Image;
+    private List<String> base64Images;
+
+    private String name;
 
     private String postDescription;
 
     private String postCategory;
 
     private String postBrand;
+
+    private String postStyle;
+
+    private String postSize;
 
 }

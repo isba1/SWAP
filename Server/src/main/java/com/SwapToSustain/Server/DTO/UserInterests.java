@@ -1,15 +1,15 @@
 package com.SwapToSustain.Server.DTO;
 
-import lombok.Data;
-
 import java.util.List;
+
+import lombok.Data;
 
 @Data
 public class UserInterests {
 
     private List<String> brands;
 
-    private List<String> clothingCategory;
+    private List<String> clothingStyle;
 
     private String shirtSize;
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from "react";
+import React, {useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import styles from '../style.module.css';
 
@@ -7,24 +7,28 @@ import styles from '../style.module.css';
 const Login = (props) =>{
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
-    const [loginStatus, setLoginStatus] = useState(null);
+    const [loginStatus, setLoginStatus] = useState('');
     const navigate = useNavigate();
 
-    // write axios request to log in end point here
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
             const response = await axios.get(`http://localhost:8080/login/reoccurringUser?email=${email}&password=${pass}`);
-            setLoginStatus(response.data);
-            if (response.data) {
+            setLoginStatus(response.data.loginSuccess);
+            if (response.data.loginSuccess) {
+                const token = response.data.tokenString;
+                const payload = token.split('.')[1];
+                const decodedToken = JSON.parse(atob(payload));
+                sessionStorage.setItem('userID', decodedToken.userID);
                 navigate('/home');
             }
-
         } catch (error) {
             console.error(error);
         }
     };
+
 
     return (<div className= {styles.formcontainer}>
         <h1 className={styles.header}>Welcome Back!</h1>
@@ -34,12 +38,14 @@ const Login = (props) =>{
             <input value={pass} type="Password" placeholder = "Password" id= "Password" name="Password" onChange={(e) =>setPass(e.target.value)}></input>
             <button type="submit">Log In</button>
         </form>
-        {loginStatus !== null && (
-            <p className={`${loginStatus ? '' : styles['error-message']}`}>
-                {loginStatus ? 'Login successful' : 'Invalid credentials'}
+        {loginStatus === false && (
+            <p className={styles['error-message']}>
+                Invalid credentials
             </p>
         )}
         <button className={styles.linkbtn} onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here!</button>
+
+
     </div>)
 }
 

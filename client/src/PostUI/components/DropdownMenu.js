@@ -9,6 +9,7 @@ function DropdownMenu({selectedOption, setSelectedOption}) {
   return (
     <div>
       <select value={selectedOption} onChange={handleSelectChange}>
+        <option value="" disabled>Choose a Clothing Category</option>
         <option value="Tops">Tops</option>
         <option value="Bottoms">Bottoms</option>
         <option value="Outerwear">Outerwear</option>

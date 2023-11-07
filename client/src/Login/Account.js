@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Picture from "./components/Accountpic";
 import InterestSelection from "./components/InterestSelection";
 import Login from "./components/LoginForm";
-import PasswordCreation from "./components/PasswordCreation";
 import Register from "./components/RegisterForm";
 import Title from "./components/Title";
 import styles from "./style.module.css";
@@ -21,9 +20,6 @@ function Account() {
       break;
     case 'register':
       renderedComponent = <Register onFormSwitch={switchScreen} />;
-      break;
-    case 'passwordCreation':
-      renderedComponent = <PasswordCreation onFormSwitch={switchScreen} />;
       break;
     case 'interests':
       renderedComponent = <InterestSelection onFormSwitch={switchScreen} />;
