@@ -14,10 +14,12 @@ function HomeBar() {
   const [selectedPantSize, setSelectedPantSize] = useState("all");
 
   // Function to handle the search when the "Search" button is clicked
+
+  // check if there's functionality for if the search result is empty
   const handleSearch = async () => {
     // Create a request body with search criteria
     const searchCriteria = {
-      searchInput,
+      userName: searchInput,
       shirtSize: selectedShirtSize,
       shoeSize: selectedShoeSize,
       jacketSize: selectedJacketSize,
