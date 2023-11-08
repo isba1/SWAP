@@ -17,14 +17,13 @@ public class SearchController {
 
      @GetMapping("/searchUsers")
      @CrossOrigin("http://localhost:3000")
-     public List<UserProfileSearch> getUsers(@RequestParam(name = "userName") String userName,
-                                             @RequestParam(name = "shirtSize") String shirtSize,
-                                             @RequestParam(name = "shoeSize") String shoeSize,
-                                             @RequestParam(name = "jacketSize") String jacketSize,
-                                             @RequestParam(name = "pantSize") String pantSize,
-                                             @RequestParam(name = "interestBrand") String interestBrand,
-                                             @RequestParam(name = "interestStyle") String interestStyle) throws IllegalAccessException {
-
+     public List<UserProfileSearch> getUsers(@RequestParam(name = "userName", required = false) String userName,
+                                             @RequestParam(name = "shirtSize", required = false) String shirtSize,
+                                             @RequestParam(name = "shoeSize", required = false) String shoeSize,
+                                             @RequestParam(name = "jacketSize", required = false) String jacketSize,
+                                             @RequestParam(name = "pantSize", required = false) String pantSize,
+                                             @RequestParam(name = "interestBrand", required = false) String interestBrand,
+                                             @RequestParam(name = "interestStyle", required = false) String interestStyle) throws IllegalAccessException {
           UserSearchCriteria userSearchCriteria = new UserSearchCriteria();
           userSearchCriteria.setUserName(userName);
           userSearchCriteria.setShirtSize(shirtSize);
@@ -33,6 +32,7 @@ public class SearchController {
           userSearchCriteria.setPantSize(pantSize);
           userSearchCriteria.setInterestBrand(interestBrand);
           userSearchCriteria.setInterestStyle(interestStyle);
+
 
           return searchService.findUsers(userSearchCriteria);
      }

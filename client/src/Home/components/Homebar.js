@@ -5,13 +5,13 @@ import "./homescreen.css";
 function HomeBar() {
   // State to store search results and user input
   const [searchResults, setSearchResults] = useState([]);
-  const [searchInput, setSearchInput] = useState("");
-  const [selectedBrand, setSelectedBrand] = useState("all");
-  const [selectedStyle, setSelectedStyle] = useState("all");
-  const [selectedShirtSize, setSelectedShirtSize] = useState("all");
-  const [selectedShoeSize, setSelectedShoeSize] = useState("all");
-  const [selectedJacketSize, setSelectedJacketSize] = useState("all");
-  const [selectedPantSize, setSelectedPantSize] = useState("all");
+  const [searchInput, setSearchInput] = useState(null);
+  const [selectedBrand, setSelectedBrand] = useState(null);
+  const [selectedStyle, setSelectedStyle] = useState(null);
+  const [selectedShirtSize, setSelectedShirtSize] = useState(null);
+  const [selectedShoeSize, setSelectedShoeSize] = useState(null);
+  const [selectedJacketSize, setSelectedJacketSize] = useState(null);
+  const [selectedPantSize, setSelectedPantSize] = useState(null);
 
   // Function to handle the search when the "Search" button is clicked
 
@@ -74,51 +74,51 @@ function HomeBar() {
                 value={selectedBrand}
                 onChange={(e) => setSelectedBrand(e.target.value)}
             >
-              <option value="all">All Brands</option>
-              <option value="nike">Nike</option>
-              <option value="adidas">Adidas</option>
-              <option value="puma">Puma</option>
-              <option value="underarmor">Under Armor</option>
-              <option value="ck">Calvin Klein</option>
-              <option value="ralphlauren"> Ralph Lauren</option>
-              <option value="levis">Levi's</option>
-              <option value="tommy">Tommy Hilfiger</option>
+              <option value="null">Choose Brand</option>
+              <option value="Nike">Nike</option>
+              <option value="Adidas">Adidas</option>
+              <option value="Puma">Puma</option>
+              <option value="Under Armor">Under Armor</option>
+              <option value="Calvin Klein">Calvin Klein</option>
+              <option value="Ralph Lauren"> Ralph Lauren</option>
+              <option value="Levis">Levi's</option>
+              <option value="Tommy Hilfiger">Tommy Hilfiger</option>
               <option value="Patagonia">Patagonia</option>
               <option value="Lacoste">Lacoste</option>
-              <option value="other">Other</option>
+              <option value="Other">Other</option>
             </select>
             {/* Style filter */}
             <select
                 value={selectedStyle}
                 onChange={(e) => setSelectedStyle(e.target.value)}
             >
-              <option value="all">All Styles</option>
-              <option value="casual">Casual</option>
-              <option value="formal">Formal</option>
-              <option value="vintage">Vintage</option>
-              <option value="streetwear">Streetwear</option>
-              <option value="goth">Goth</option>
-              <option value="other">Other</option>
+              <option value="null">Choose Style</option>
+              <option value="Casual">Casual</option>
+              <option value="Formal">Formal</option>
+              <option value="Vintage">Vintage</option>
+              <option value="Streetware">Streetware</option>
+              <option value="Goth">Goth</option>
+              <option value="Other">Other</option>
             </select>
             {/* Shirt Size filter */}
             <select
                 value={selectedShirtSize}
                 onChange={(e) => setSelectedShirtSize(e.target.value)}
             >
-              <option value="all">All Shirt Sizes</option>
-              <option value="xs">XS</option>
-              <option value="s">S</option>
-              <option value="m">M</option>
-              <option value="l">L</option>
-              <option value="xl">XL</option>
-              <option value="xxl">XXL</option>
+              <option value="null">Choose Shirt Size</option>
+              <option value="XS">XS</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+              <option value="XXL">XXL</option>
             </select>
             {/* Shoe Size filter */}
             <select
                 value={selectedShoeSize}
                 onChange={(e) => setSelectedShoeSize(e.target.value)}
             >
-              <option value="all">All Shoe Sizes</option>
+              <option value="null">Choose Shoe Size</option>
               <option value="5">5</option>
               <option value="6">6</option>
               <option value="7">7</option>
@@ -131,26 +131,26 @@ function HomeBar() {
                 value={selectedJacketSize}
                 onChange={(e) => setSelectedJacketSize(e.target.value)}
             >
-              <option value="all">All Jacket Sizes</option>
-              <option value="xs">XS</option>
-              <option value="s">S</option>
-              <option value="m">M</option>
-              <option value="l">L</option>
-              <option value="xl">XL</option>
-              <option value="xxl">XXL</option>
+              <option value="null">Choose Jacket Size</option>
+              <option value="XS">XS</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+              <option value="XXL">XXL</option>
             </select>
             {/* Pant Size filter */}
             <select
                 value={selectedPantSize}
                 onChange={(e) => setSelectedPantSize(e.target.value)}
             >
-              <option value="all">All Pant Sizes</option>
-              <option value="xs">XS</option>
-              <option value="s">S</option>
-              <option value="m">M</option>
-              <option value="l">L</option>
-              <option value="xl">XL</option>
-              <option value="xxl">XXL</option>
+              <option value="null">Choose Pant Size</option>
+              <option value="XS">XS</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="XL">XL</option>
+              <option value="XXL">XXL</option>
             </select>
           </div>
         </header>
