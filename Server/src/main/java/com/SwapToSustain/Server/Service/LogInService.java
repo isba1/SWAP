@@ -42,9 +42,9 @@ public class LogInService {
 
         LoginAuthentication loginAuthentication = new LoginAuthentication();
 
-        UUID foundAccount = findUserID(email, password);
-
         if (ret) {
+            UUID foundAccount = findUserID(email, password);
+
             loginAuthentication.setLoginSuccess(ret);
 
             TokenValue tokenValue = new TokenValue(foundAccount, GENERAL_TOKEN_EXPIRATION);

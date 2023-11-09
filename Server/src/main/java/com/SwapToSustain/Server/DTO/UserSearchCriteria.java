@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 public class UserSearchCriteria {
 
+    private String userName;
+
     private String shirtSize;
 
     private String shoeSize;
@@ -17,7 +19,6 @@ public class UserSearchCriteria {
     private String interestBrand;
 
     private String interestStyle;
-
 
 
 }
