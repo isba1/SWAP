@@ -162,8 +162,4 @@ function HomeBar() {
       </div>
   );
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 87badbf8aedba4f7aea5b3a7e3f7e1eec13d8035
 export default HomeBar;
