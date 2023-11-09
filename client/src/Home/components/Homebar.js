@@ -12,6 +12,7 @@ function HomeBar() {
   const [selectedShoeSize, setSelectedShoeSize] = useState(null);
   const [selectedJacketSize, setSelectedJacketSize] = useState(null);
   const [selectedPantSize, setSelectedPantSize] = useState(null);
+  const [isPopupOpen, setPopupOpen] = useState(false);
 
   // Function to handle the search when the "Search" button is clicked
 
@@ -31,7 +32,7 @@ function HomeBar() {
     try {
       // Send a GET request to the backend using Axios
       const response = await axios.get(
-          `http://localhost:8080/search/searchUsers?userName=${searchInput}&shirtSize=${selectedShirtSize}&shoeSize=
+        `http://localhost:8080/search/searchUsers?userName=${searchInput}&shirtSize=${selectedShirtSize}&shoeSize=
           ${selectedShoeSize}&jacketSize=${selectedJacketSize}&pantSize=${selectedPantSize}&interestBrand=${selectedBrand}
           &interestStyle=${selectedStyle}`
       );
@@ -47,123 +48,138 @@ function HomeBar() {
   const displaySearchResults = () => {
     // Maps over the searchResults array and generates a list of search results to be displayed in the UI.
     return searchResults.map((result) => (
-        <div key={result.userID} className="search-result">
-          <h3>{result.userName}</h3>
-          <p>Followers: {result.followersCount}</p>
-          <p>Following: {result.followingCount}</p>
-        </div>
+      <div key={result.userID} className="search-result">
+        <h3>{result.userName}</h3>
+        <p>Followers: {result.followersCount}</p>
+        <p>Following: {result.followingCount}</p>
+      </div>
     ));
   };
 
+  const togglePopup = () => {
+    setPopupOpen(!isPopupOpen);
+  };
+
   return (
-      <div>
-        <header>
-          <div className="search-bar">
-            <input
-                id="search"
-                type="search"
-                placeholder="&#x1F50D;Search for other profiles with similar interests..."
-                value={searchInput}
-                onChange={(e) => setSearchInput(e.target.value)}
-            />
-            <button onClick={handleSearch}>Search</button>
+    <div>
+      <header>
+        <div className="search-bar">
+          <input
+            id="search"
+            type="search"
+            placeholder="&#x1F50D;Search for other profiles with similar interests..."
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+          <button onClick={handleSearch}>Search</button>
+        </div>
+
+        {/* Add a button to open the popup */}
+        <button className="view-offers-button" onClick={togglePopup}>
+          View Your Offers
+        </button>
+
+        <div className="filter-container">
+          {/* Brands filter */}
+          <select
+            value={selectedBrand}
+            onChange={(e) => setSelectedBrand(e.target.value)}
+          >
+            <option value="null">Choose Brand</option>
+            <option value="Nike">Nike</option>
+            <option value="Adidas">Adidas</option>
+            <option value="Puma">Puma</option>
+            <option value="Under Armor">Under Armor</option>
+            <option value="Calvin Klein">Calvin Klein</option>
+            <option value="Ralph Lauren"> Ralph Lauren</option>
+            <option value="Levi's">Levi's</option>
+            <option value="Tommy Hilfiger">Tommy Hilfiger</option>
+            <option value="Patagonia">Patagonia</option>
+            <option value="Lacoste">Lacoste</option>
+            <option value="Other">Other</option>
+          </select>
+          {/* Style filter */}
+          <select
+            value={selectedStyle}
+            onChange={(e) => setSelectedStyle(e.target.value)}
+          >
+            <option value="null">Choose Style</option>
+            <option value="Casual">Casual</option>
+            <option value="Formal">Formal</option>
+            <option value="Vintage">Vintage</option>
+            <option value="Streetware">Streetware</option>
+            <option value="Goth">Goth</option>
+            <option value="Other">Other</option>
+          </select>
+          {/* Shirt Size filter */}
+          <select
+            value={selectedShirtSize}
+            onChange={(e) => setSelectedShirtSize(e.target.value)}
+          >
+            <option value="null">Choose Shirt Size</option>
+            <option value="XS">XS</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="XXL">XXL</option>
+          </select>
+          {/* Shoe Size filter */}
+          <select
+            value={selectedShoeSize}
+            onChange={(e) => setSelectedShoeSize(e.target.value)}
+          >
+            <option value="null">Choose Shoe Size</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="7">8</option>
+            <option value="7">9</option>
+            <option value="other">other</option>
+          </select>
+          {/* Jacket Size filter */}
+          <select
+            value={selectedJacketSize}
+            onChange={(e) => setSelectedJacketSize(e.target.value)}
+          >
+            <option value="null">Choose Jacket Size</option>
+            <option value="XS">XS</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="XXL">XXL</option>
+          </select>
+          {/* Pant Size filter */}
+          <select
+            value={selectedPantSize}
+            onChange={(e) => setSelectedPantSize(e.target.value)}
+          >
+            <option value="null">Choose Pant Size</option>
+            <option value="XS">XS</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="XXL">XXL</option>
+          </select>
+        </div>
+      </header>
+      {/* Create the popup */}
+      {isPopupOpen && (
+        <div className="popup">
+          <div className="popup-content">
+            <h2>Your Offers</h2>
+            {/* Add content to display offers here */}
+            <button onClick={togglePopup}>Close</button>
           </div>
-          <div className="filter-container">
-            {/* Brands filter */}
-            <select
-                value={selectedBrand}
-                onChange={(e) => setSelectedBrand(e.target.value)}
-            >
-              <option value="null">Choose Brand</option>
-              <option value="Nike">Nike</option>
-              <option value="Adidas">Adidas</option>
-              <option value="Puma">Puma</option>
-              <option value="Under Armor">Under Armor</option>
-              <option value="Calvin Klein">Calvin Klein</option>
-              <option value="Ralph Lauren"> Ralph Lauren</option>
-              <option value="Levi's">Levi's</option>
-              <option value="Tommy Hilfiger">Tommy Hilfiger</option>
-              <option value="Patagonia">Patagonia</option>
-              <option value="Lacoste">Lacoste</option>
-              <option value="Other">Other</option>
-            </select>
-            {/* Style filter */}
-            <select
-                value={selectedStyle}
-                onChange={(e) => setSelectedStyle(e.target.value)}
-            >
-              <option value="null">Choose Style</option>
-              <option value="Casual">Casual</option>
-              <option value="Formal">Formal</option>
-              <option value="Vintage">Vintage</option>
-              <option value="Streetware">Streetware</option>
-              <option value="Goth">Goth</option>
-              <option value="Other">Other</option>
-            </select>
-            {/* Shirt Size filter */}
-            <select
-                value={selectedShirtSize}
-                onChange={(e) => setSelectedShirtSize(e.target.value)}
-            >
-              <option value="null">Choose Shirt Size</option>
-              <option value="XS">XS</option>
-              <option value="S">S</option>
-              <option value="M">M</option>
-              <option value="L">L</option>
-              <option value="XL">XL</option>
-              <option value="XXL">XXL</option>
-            </select>
-            {/* Shoe Size filter */}
-            <select
-                value={selectedShoeSize}
-                onChange={(e) => setSelectedShoeSize(e.target.value)}
-            >
-              <option value="null">Choose Shoe Size</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="7">8</option>
-              <option value="7">9</option>
-              <option value="other">other</option>
-            </select>
-            {/* Jacket Size filter */}
-            <select
-                value={selectedJacketSize}
-                onChange={(e) => setSelectedJacketSize(e.target.value)}
-            >
-              <option value="null">Choose Jacket Size</option>
-              <option value="XS">XS</option>
-              <option value="S">S</option>
-              <option value="M">M</option>
-              <option value="L">L</option>
-              <option value="XL">XL</option>
-              <option value="XXL">XXL</option>
-            </select>
-            {/* Pant Size filter */}
-            <select
-                value={selectedPantSize}
-                onChange={(e) => setSelectedPantSize(e.target.value)}
-            >
-              <option value="null">Choose Pant Size</option>
-              <option value="XS">XS</option>
-              <option value="S">S</option>
-              <option value="M">M</option>
-              <option value="L">L</option>
-              <option value="XL">XL</option>
-              <option value="XXL">XXL</option>
-            </select>
-          </div>
-        </header>
-        <main className="container">
-          <div className="search-display">{displaySearchResults()}</div>
-          <div className="posts-container"></div>
-        </main>
-        {" "}
-      </div>
+        </div>
+      )}
+      <main className="container">
+        <div className="search-display">{displaySearchResults()}</div>
+        <div className="posts-container"></div>
+      </main>{" "}
+    </div>
   );
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 87badbf8aedba4f7aea5b3a7e3f7e1eec13d8035
 export default HomeBar;
