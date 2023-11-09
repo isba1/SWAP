@@ -81,7 +81,7 @@ function HomeBar() {
               <option value="Under Armor">Under Armor</option>
               <option value="Calvin Klein">Calvin Klein</option>
               <option value="Ralph Lauren"> Ralph Lauren</option>
-              <option value="Levis">Levi's</option>
+              <option value="Levi's">Levi's</option>
               <option value="Tommy Hilfiger">Tommy Hilfiger</option>
               <option value="Patagonia">Patagonia</option>
               <option value="Lacoste">Lacoste</option>

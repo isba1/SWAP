@@ -7,6 +7,8 @@ const brandsList = ["Nike", "Adidas", "Puma", "Under Armor", "Ralph Lauren", "Ca
 const styleList = ["Casual", "Formal", "Vintage", "Streetware", "Goth", "Other"];
 const shirtSizeList = ["XS", "S", "M", "L", "XL", "XXL"];
 const jacketSizeList = ["XS", "S", "M", "L", "XL", "XXL"];
+const pantSizeList = ["XS", "S", "M", "L", "XL", "XXL"];
+
 
 const InterestSelection = (props) => {
     const [brands, setBrands] = useState([]);
@@ -110,6 +112,19 @@ const InterestSelection = (props) => {
                 ))}
             </div>
 
+            <label className={styles.name}>Pant Size:</label>
+            <div className={styles.checklistContainer}>
+                {pantSizeList.map((size) => (
+                    <button
+                        key={size}
+                        className={`${styles.checkboxButton} ${pantSize === size ? styles.selected : ''}`}
+                        onClick={() => setPantSize(size)}
+                    >
+                        {size}
+                    </button>
+                ))}
+            </div>
+
             <label className={styles.name}>Shoe Size:</label>
             <input
                 type="text"
@@ -119,14 +134,6 @@ const InterestSelection = (props) => {
                 className={styles.inputBox}
             />
 
-            <label className={styles.name}>Pant Size:</label>
-            <input
-                type="text"
-                placeholder="Enter Pant Size"
-                value={pantSize}
-                onChange={(e) => setPantSize(e.target.value)}
-                className={styles.inputBox}
-            />
 
             <button type="button" onClick={handleSubmit} className={styles.linkbtn}>Submit Interests</button>
 
