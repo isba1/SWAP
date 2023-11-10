@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./homescreen.css";
+import ViewOffersButton from "./ViewOffers";
 
 function HomeBar() {
   // State to store search results and user input
@@ -74,10 +75,8 @@ function HomeBar() {
           <button onClick={handleSearch}>Search</button>
         </div>
 
-        {/* Add a button to open the popup */}
-        <button className="view-offers-button" onClick={togglePopup}>
-          View Your Offers
-        </button>
+        {/* view offers button to open the popup */}
+        <ViewOffersButton onClick={togglePopup} />
 
         <div className="filter-container">
           {/* Brands filter */}
@@ -165,16 +164,6 @@ function HomeBar() {
           </select>
         </div>
       </header>
-      {/* Create the popup */}
-      {isPopupOpen && (
-        <div className="popup">
-          <div className="popup-content">
-            <h2>Your Offers</h2>
-            {/* Add content to display offers here */}
-            <button onClick={togglePopup}>Close</button>
-          </div>
-        </div>
-      )}
       <main className="container">
         <div className="search-display">{displaySearchResults()}</div>
         <div className="posts-container"></div>

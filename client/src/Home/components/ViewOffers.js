@@ -1,0 +1,79 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
+function ViewOffersButton({ onClick }) {
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [tradeOffers, setTradeOffers] = useState([]);
+
+  useEffect(() => {
+    // Fetch trade offers when the component mounts
+    fetchTradeOffers();
+  }, []);
+
+  const fetchTradeOffers = async () => {
+    try {
+      // Replace 'YOUR_USER_ID' with the actual user ID or fetch it from your authentication state
+      const userID = "YOUR_USER_ID";
+
+      // Fetch trade offers from the backend
+      const response = await axios.get(
+        `http://localhost:8080/offer/itemsToOffer?userID=${userID}`
+      );
+      setTradeOffers(response.data);
+    } catch (error) {
+      console.error("Error fetching trade offers:", error);
+    }
+  };
+
+  const togglePopup = () => {
+    setPopupOpen(!isPopupOpen);
+  };
+  console.log(tradeOffers);
+  return (
+    <div>
+      <button className="view-offers-button" onClick={togglePopup}>
+        View Your Offers
+      </button>
+
+      {isPopupOpen && (
+        <div className="popup">
+          <div className="popup-content">
+            <h2>Your Offers</h2>
+            {tradeOffers.map((offer) => (
+              <div key={offer.myPostID}>
+                {/* Display offer details */}
+                <p>Name of Your Product: {offer.myName}</p>
+                <img
+                  src={`data:image/png;base64, ${offer.myBase64Images[0]}`} // Assuming the first image, adjust accordingly
+                  alt="Your Product"
+                />
+
+                <p>Your Product Description: {offer.myPostDescription}</p>
+                <p>Your Product Category: {offer.myPostCategory}</p>
+                <p>Your Product Brand: {offer.myPostBrand}</p>
+                <p>Your Product Style: {offer.myPostStyle}</p>
+                <p>Your Product Size: {offer.myPostSize}</p>
+
+                <p>Name of Their Product: {offer.theirUserName}</p>
+                <img
+                  src={`data:image/png;base64, ${offer.theirBase64Images[0]}`} // Assuming the first image, adjust accordingly
+                  alt="Their Product"
+                />
+
+                <p>Their Product Description: {offer.theirPostDescription}</p>
+                <p>Their Product Category: {offer.theirPostCategory}</p>
+                <p>Their Product Brand: {offer.theirPostBrand}</p>
+                <p>Their Product Style: {offer.theirPostStyle}</p>
+                <p>Their Product Size: {offer.theirPostSize}</p>
+                {/* Add more details as needed */}
+              </div>
+            ))}
+            <button onClick={togglePopup}>Close</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default ViewOffersButton;
