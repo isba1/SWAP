@@ -53,7 +53,7 @@ function MyProfilePage (){
     
         observer.observe(postsRef.current);
         return () => observer.disconnect();
-      }, [loadedPosts, totalPosts]);
+      }, [loadedPosts, totalPosts, myposts]);
 
     return(<div>
             <div className='profileheader'>
