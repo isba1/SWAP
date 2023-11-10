@@ -38,12 +38,12 @@ body{
     position: sticky;
     top: -54px;
     z-index: 2;
+    margin-bottom: 25px;
 }
 
 .hometitle{
     color: #1A3E2F;
     font-size: 25px;
-    padding-top: 20px;
 }
 
 .homesidecontainer{
