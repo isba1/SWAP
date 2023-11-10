@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { Suspense } from 'react';
 import "./profile.css";
+import { useNavigate } from 'react-router-dom';
 
 const LazyProfilePosts = React.lazy(() => import('./MyProfilePosts'));
 
@@ -13,6 +14,11 @@ function MyProfilePage (){
     const postsRef = useRef(null);
     const [myposts, setMyPosts] = useState([]);
     const [totalPosts, setTotalPosts] = useState(0);
+    const navigate = useNavigate();
+
+    const handleChange = async (event) => {
+        navigate('/home');
+    }
 
     useEffect(() =>{
         if (data === null){
@@ -55,6 +61,7 @@ function MyProfilePage (){
                 <p>Loading...</p>
             ) : (
                 <div className='profilehorizontalcontainer'>
+                <button className='homebutton' onClick={handleChange}>Home</button>
                 <h1>{data.userName}</h1>
                 <p>Followers: {data.followersCount}</p>
                 <p>Following: {data.followingCount}</p>
