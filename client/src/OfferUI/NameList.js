@@ -4,9 +4,9 @@ import axios from 'axios';
 function NameList({array, toggle, post, myid}) {
 
   const handleButtonClick = async (name, item) =>{
-    console.log(`Button Clicked for ${name}`);
+    //console.log(`Button Clicked for ${name}`);
     //not sure if I have to convert ID for post of not
-    console.log(item.postID);
+    //console.log(item.postID);
     //temp is supposted to be the postID of the post you chose to offer
     try{
       await axios.post(`http://localhost:8080/offer/makeOffer?sellerPostID=${post.postID}&sellerUserID=${post.userID}&buyerPostID=${item.postID}&buyerUserID=${myid}`);
@@ -27,7 +27,7 @@ function NameList({array, toggle, post, myid}) {
   return (
     <div>
       {array.map((item, index) => (
-        <button key={index} onClick={() => handleButtonClick(item.name, item)}>
+        <button className='namebutton' key={index} onClick={() => handleButtonClick(item.name, item)}>
           <img src={item.base64Images[0]} alt={item.name}/>
         </button>
       ))}

@@ -70,6 +70,21 @@ body{
     width: 80%;
 }
 
+.namebutton{
+    margin-left: 10px;
+}
+.searchbutton{
+    margin-left: 10px;
+}
+.searchbarinput{
+    width: 50%;
+}
+select {
+    height: 55px;
+    font-size: 10px;
+    max-width: 20%;
+}
+
 /* .search-bar input {
     width: 50%;
     min-width: 300px;
