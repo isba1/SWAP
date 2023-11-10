@@ -3,9 +3,9 @@ import axios from 'axios';
 import { Suspense } from 'react';
 import "./profile.css";
 
-const LazyProfilePosts = React.lazy(() => import('./ProfilePosts'));
+const LazyProfilePosts = React.lazy(() => import('./MyProfilePosts'));
 
-function ProfilePage (){
+function MyProfilePage (){
     const userID = sessionStorage.getItem("userID");
     const [loadedPosts, setLoadedPosts] = useState(0);
     const [data, setData] = useState(null);
@@ -70,4 +70,4 @@ function ProfilePage (){
     </div>)
 }
 
-export default ProfilePage;
+export default MyProfilePage;

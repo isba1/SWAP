@@ -17,6 +17,9 @@ function HomeBar() {
 
   // check if there's functionality for if the search result is empty
   const handleSearch = async () => {
+    if (searchInput === ""){
+      setSearchInput(null);
+    }
     // Create a request body with search criteria
     // const searchCriteria = {
     //   userName: searchInput,
