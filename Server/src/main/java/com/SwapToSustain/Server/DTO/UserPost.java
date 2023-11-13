@@ -1,7 +1,6 @@
 package com.SwapToSustain.Server.DTO;
 
 import lombok.Data;
-import org.bson.types.ObjectId;
 
 import java.util.List;
 import java.util.UUID;
@@ -9,7 +8,7 @@ import java.util.UUID;
 
 // this will be used for the posts for the feed because I need the postID for when making offers
 @Data
-public class PersonalUserPost {
+public class UserPost {
 
     private List<String> base64Images;
 

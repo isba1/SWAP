@@ -57,36 +57,37 @@ public class DTOConverter {
         userPostModel.setPostSize(newUserPost.getPostSize());
     }
 
-    private void postModelToPersonalPost(UserPostModel userPostModel, PersonalUserPost personalUserPost) {
-        personalUserPost.setBase64Images(userPostModel.getBase64Images());
-        personalUserPost.setPostID(userPostModel.getPostID());
-        personalUserPost.setName(userPostModel.getPostName());
-        personalUserPost.setPostDescription(userPostModel.getPostDescription());
-        personalUserPost.setPostCategory(userPostModel.getPostCategory());
-        personalUserPost.setPostBrand(userPostModel.getPostBrand());
-        personalUserPost.setPostStyle(userPostModel.getPostStyle());
-        personalUserPost.setPostSize(userPostModel.getPostSize());
+    private void postModelToPersonalPost(UserPostModel userPostModel, UserPost userPost) {
+        userPost.setBase64Images(userPostModel.getBase64Images());
+        userPost.setPostID(userPostModel.getPostID());
+        userPost.setName(userPostModel.getPostName());
+        userPost.setPostDescription(userPostModel.getPostDescription());
+        userPost.setPostCategory(userPostModel.getPostCategory());
+        userPost.setPostBrand(userPostModel.getPostBrand());
+        userPost.setPostStyle(userPostModel.getPostStyle());
+        userPost.setPostSize(userPostModel.getPostSize());
     }
 
     public void convertDTO(List<UserPostModel> userPostModels, UserAccountInfoModel userAccountInfoModel,  UserProfile userProfile) {
 
+        userProfile.setUserID(userAccountInfoModel.getUserID());
         userProfile.setUserName(userAccountInfoModel.getUserName());
         userProfile.setFollowersCount(userAccountInfoModel.getFollowers().size());
         userProfile.setFollowingCount(userAccountInfoModel.getFollowing().size());
 
-        ArrayList<PersonalUserPost> personalUserPosts = new ArrayList<>();
+        ArrayList<UserPost> userPosts = new ArrayList<>();
 
         for (UserPostModel userPostModel: userPostModels) {
 
-            PersonalUserPost personalUserPost = new PersonalUserPost();
+            UserPost userPost = new UserPost();
 
-            postModelToPersonalPost(userPostModel, personalUserPost);
+            postModelToPersonalPost(userPostModel, userPost);
 
-            personalUserPosts.add(personalUserPost);
+            userPosts.add(userPost);
 
         }
 
-        userProfile.setPersonalUserPosts(personalUserPosts);
+        userProfile.setUserPosts(userPosts);
 
     }
 
@@ -116,29 +117,29 @@ public class DTOConverter {
             return newTradeOffer;
     }
 
-    public void convertDTOForPersonalPosts(List<UserPostModel> userPostModels, List<PersonalUserPost> personalUserPosts) {
+    public void convertDTOForPersonalPosts(List<UserPostModel> userPostModels, List<UserPost> userPosts) {
 
         for (UserPostModel userPostModel: userPostModels) {
-            PersonalUserPost personalUserPost = new PersonalUserPost();
+            UserPost userPost = new UserPost();
 
-            postModelToPersonalPost(userPostModel, personalUserPost);
+            postModelToPersonalPost(userPostModel, userPost);
 
-            personalUserPosts.add(personalUserPost);
+            userPosts.add(userPost);
         }
 
     }
 
-    public void convertDTOForSearch(List<UserProfileSearch> userProfileSearches, List<UserAccountInfoModel> userAccountInfoModelList) {
+    public void convertDTOForCompactProfile(List<UserProfileCompact> userProfileCompacts, List<UserAccountInfoModel> userAccountInfoModelList) {
 
         for (UserAccountInfoModel userAccountInfoModel : userAccountInfoModelList) {
 
-            UserProfileSearch userProfileSearch = new UserProfileSearch();
-            userProfileSearch.setUserID(userAccountInfoModel.getUserID());
-            userProfileSearch.setUserName(userAccountInfoModel.getUserName());
-            userProfileSearch.setFollowersCount(userAccountInfoModel.getFollowers().size());
-            userProfileSearch.setFollowingCount(userAccountInfoModel.getFollowing().size());
+            UserProfileCompact userProfileCompact = new UserProfileCompact();
+            userProfileCompact.setUserID(userAccountInfoModel.getUserID());
+            userProfileCompact.setUserName(userAccountInfoModel.getUserName());
+            userProfileCompact.setFollowersCount(userAccountInfoModel.getFollowers().size());
+            userProfileCompact.setFollowingCount(userAccountInfoModel.getFollowing().size());
 
-            userProfileSearches.add(userProfileSearch);
+            userProfileCompacts.add(userProfileCompact);
         }
 
     }

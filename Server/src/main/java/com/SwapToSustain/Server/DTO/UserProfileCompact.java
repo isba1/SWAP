@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.UUID;
 
 @Data
-public class UserProfileSearch {
+public class UserProfileCompact {
 
     private UUID userID;
 
