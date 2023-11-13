@@ -112,7 +112,7 @@ public class ProfileService {
 
         UserProfile userProfile = new UserProfile();
 
-        dtoConverter.convertDTO(userPostModels ,userAccountInfoModelFound, userProfile);
+        dtoConverter.convertDTO(userPostModels, userAccountInfoModelFound, userProfile);
 
         return userProfile;
     }
