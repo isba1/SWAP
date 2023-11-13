@@ -3,6 +3,7 @@ package com.SwapToSustain.Server.Converter;
 import com.SwapToSustain.Server.DTO.*;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
+import com.SwapToSustain.Server.Repository.UserInfoRepository;
 import com.SwapToSustain.Server.Repository.UserPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,9 @@ public class DTOConverter {
 
     @Autowired
     UserPostRepository userPostRepository;
+
+    @Autowired
+    UserInfoRepository userInfoRepository;
 
     public void convertDTO(UserAccountInfoModel userAccountInfoModel, UserInterests userInterests){
         userAccountInfoModel.setInterestBrand(userInterests.getBrands());
@@ -45,7 +49,7 @@ public class DTOConverter {
         ArrayList<String> base64Images = new ArrayList<>(newUserPost.getBase64Images());
         userPostModel.setUserID(userId);
         userPostModel.setBase64Images(base64Images);
-        userPostModel.setName(newUserPost.getName());
+        userPostModel.setPostName(newUserPost.getName());
         userPostModel.setPostDescription(newUserPost.getPostDescription());
         userPostModel.setPostCategory(newUserPost.getPostCategory());
         userPostModel.setPostBrand(newUserPost.getPostBrand());
@@ -56,7 +60,7 @@ public class DTOConverter {
     private void postModelToPersonalPost(UserPostModel userPostModel, PersonalUserPost personalUserPost) {
         personalUserPost.setBase64Images(userPostModel.getBase64Images());
         personalUserPost.setPostID(userPostModel.getPostID());
-        personalUserPost.setName(userPostModel.getName());
+        personalUserPost.setName(userPostModel.getPostName());
         personalUserPost.setPostDescription(userPostModel.getPostDescription());
         personalUserPost.setPostCategory(userPostModel.getPostCategory());
         personalUserPost.setPostBrand(userPostModel.getPostBrand());
@@ -93,7 +97,7 @@ public class DTOConverter {
             TradesOffered newTradeOffer = new TradesOffered();
             newTradeOffer.setMyBase64Images(myPost.getBase64Images());
             newTradeOffer.setMyPostID(myPost.getPostID());
-            newTradeOffer.setMyName(myPost.getName());
+            newTradeOffer.setMyName(myPost.getPostName());
             newTradeOffer.setMyPostDescription(myPost.getPostDescription());
             newTradeOffer.setMyPostCategory(myPost.getPostCategory());
             newTradeOffer.setMyPostBrand(myPost.getPostBrand());
@@ -102,7 +106,7 @@ public class DTOConverter {
             newTradeOffer.setTheirBase64Images(theirPost.getBase64Images());
             newTradeOffer.setTheirPostID(theirPost.getPostID());
             newTradeOffer.setTheirUserID(theirPost.getUserID());
-            newTradeOffer.setTheirUserName(theirPost.getName());
+            newTradeOffer.setTheirUserName(theirPost.getPostName());
             newTradeOffer.setTheirPostDescription(theirPost.getPostDescription());
             newTradeOffer.setTheirPostCategory(theirPost.getPostCategory());
             newTradeOffer.setTheirPostBrand(theirPost.getPostBrand());
@@ -112,7 +116,7 @@ public class DTOConverter {
             return newTradeOffer;
     }
 
-    public void convertDTO (List<UserPostModel> userPostModels, ArrayList<PersonalUserPost> personalUserPosts) {
+    public void convertDTOForPersonalPosts(List<UserPostModel> userPostModels, List<PersonalUserPost> personalUserPosts) {
 
         for (UserPostModel userPostModel: userPostModels) {
             PersonalUserPost personalUserPost = new PersonalUserPost();
@@ -124,7 +128,7 @@ public class DTOConverter {
 
     }
 
-    public void convertDTO (List<UserProfileSearch> userProfileSearches, List<UserAccountInfoModel> userAccountInfoModelList) {
+    public void convertDTOForSearch(List<UserProfileSearch> userProfileSearches, List<UserAccountInfoModel> userAccountInfoModelList) {
 
         for (UserAccountInfoModel userAccountInfoModel : userAccountInfoModelList) {
 
@@ -135,6 +139,29 @@ public class DTOConverter {
             userProfileSearch.setFollowingCount(userAccountInfoModel.getFollowing().size());
 
             userProfileSearches.add(userProfileSearch);
+        }
+
+    }
+
+
+    public void convertDTOForFeedPosts (List<FeedUserPost> userFeedPosts, List<UserPostModel> userPostModels) {
+
+        for (UserPostModel userPostModel: userPostModels) {
+            UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserID(userPostModel.getUserID());
+
+            FeedUserPost feedUserPost = new FeedUserPost();
+            feedUserPost.setBase64Images(userPostModel.getBase64Images());
+            feedUserPost.setPostID(userPostModel.getPostID());
+            feedUserPost.setUserID(userPostModel.getUserID());
+            feedUserPost.setUserName(userAccountInfoModel.getUserName());
+            feedUserPost.setPostName(userPostModel.getPostName());
+            feedUserPost.setPostDescription(userPostModel.getPostDescription());
+            feedUserPost.setPostCategory(userPostModel.getPostCategory());
+            feedUserPost.setPostBrand(userPostModel.getPostBrand());
+            feedUserPost.setPostStyle(userPostModel.getPostStyle());
+            feedUserPost.setPostSize(userPostModel.getPostSize());
+
+            userFeedPosts.add(feedUserPost);
         }
 
     }

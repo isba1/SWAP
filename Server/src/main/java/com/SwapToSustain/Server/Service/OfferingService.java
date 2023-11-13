@@ -6,7 +6,6 @@ import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.UserInfoRepository;
 import com.SwapToSustain.Server.Repository.UserPostRepository;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +44,7 @@ public class OfferingService {
 
         List<UserPostModel> userPostModels = userPostRepository.findAllByUserID(UUID.fromString(userID));
 
-        dtoConverter.convertDTO(userPostModels, personalUserPosts);
+        dtoConverter.convertDTOForPersonalPosts(userPostModels, personalUserPosts);
 
         return personalUserPosts;
 
@@ -65,7 +64,7 @@ public class OfferingService {
 
     }
 
-    public void declineOffer(String sellerPostID, String sellerUserID, String buyerPostID, String buyerUserID) {
+    public void declineOffer(String sellerPostID, String sellerUserID, String buyerUserID) {
 
         UserAccountInfoModel sellerAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(sellerUserID));
         sellerAccountInfoModel.getOfferedMe().remove(UUID.fromString(sellerPostID));
