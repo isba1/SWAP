@@ -1,7 +1,7 @@
 package com.SwapToSustain.Server.Service;
 
 import com.SwapToSustain.Server.Converter.DTOConverter;
-import com.SwapToSustain.Server.DTO.PersonalUserPost;
+import com.SwapToSustain.Server.DTO.UserPost;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.UserInfoRepository;
@@ -38,15 +38,15 @@ public class OfferingService {
 
     }
 
-    public List<PersonalUserPost> getItemsToOffer(String userID) {
+    public List<UserPost> getItemsToOffer(String userID) {
 
-        ArrayList<PersonalUserPost> personalUserPosts = new ArrayList<>();
+        ArrayList<UserPost> userPosts = new ArrayList<>();
 
         List<UserPostModel> userPostModels = userPostRepository.findAllByUserID(UUID.fromString(userID));
 
-        dtoConverter.convertDTOForPersonalPosts(userPostModels, personalUserPosts);
+        dtoConverter.convertDTOForPersonalPosts(userPostModels, userPosts);
 
-        return personalUserPosts;
+        return userPosts;
 
     }
 
