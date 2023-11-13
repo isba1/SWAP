@@ -1,7 +1,6 @@
 package com.SwapToSustain.Server.DTO;
 
 import lombok.Data;
-import org.bson.types.ObjectId;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,7 +16,7 @@ public class FeedUserPost {
 
     private String userName;
 
-    private String name;
+    private String postName;
 
     private String postDescription;
 

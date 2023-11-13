@@ -12,7 +12,7 @@ function App() {
               <Route path="/login" element={<Account/>} />
               <Route path="/home" element={<Homescreen/>} />
               <Route path="/newUserInterests" element={<InterestSelection/>} />
-              <Route path ="/myprofile" element={<ProfilePage/>} />
+              <Route path ="/myProfile" element={<ProfilePage/>} />
               {/* Add more routes as needed */}
           </Routes>
       </Router>

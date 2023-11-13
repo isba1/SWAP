@@ -26,7 +26,7 @@ public class SearchService {
     @Autowired
     private CustomRepository customRepository;
 
-    public List<UserProfileSearch> findUsers(UserSearchCriteria userSearchCriteria) throws IllegalAccessException {
+    public List<UserProfileSearch> findUsers(UserSearchCriteria userSearchCriteria) {
         List<UserProfileSearch> userProfileSearches = new ArrayList<>();
 
         if (!Objects.equals(userSearchCriteria.getUserName(), "null")) {
@@ -35,12 +35,12 @@ public class SearchService {
             List<UserAccountInfoModel> userAccountInfoModelList = new ArrayList<>();
             userAccountInfoModelList.add(userAccountInfoModel);
 
-            dtoConverter.convertDTO(userProfileSearches, userAccountInfoModelList);
+            dtoConverter.convertDTOForSearch(userProfileSearches, userAccountInfoModelList);
 
         } else {
 
             List<UserAccountInfoModel> userAccountInfoModelList = customRepository.findByDynamicCriteria(userSearchCriteria);
-            dtoConverter.convertDTO(userProfileSearches, userAccountInfoModelList);
+            dtoConverter.convertDTOForSearch(userProfileSearches, userAccountInfoModelList);
 
         }
 
