@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./homescreen.css";
+import { useNavigate } from 'react-router-dom';
 
 function HomeBar() {
   // State to store search results and user input
@@ -12,11 +13,20 @@ function HomeBar() {
   const [selectedShoeSize, setSelectedShoeSize] = useState(null);
   const [selectedJacketSize, setSelectedJacketSize] = useState(null);
   const [selectedPantSize, setSelectedPantSize] = useState(null);
+  const navigate = useNavigate();
+
+  const handleProfileChange = async (userName, id) => {
+      navigate(`/userprofile/${userName}?profileid=${id}`);
+}
 
   // Function to handle the search when the "Search" button is clicked
 
   // check if there's functionality for if the search result is empty
   const handleSearch = async () => {
+    if (searchInput === ""){
+      setSearchInput(null);
+      return;
+    }
     // Create a request body with search criteria
     // const searchCriteria = {
     //   userName: searchInput,
@@ -48,9 +58,9 @@ function HomeBar() {
     // Maps over the searchResults array and generates a list of search results to be displayed in the UI.
     return searchResults.map((result) => (
         <div key={result.userID} className="search-result">
-          <h3>{result.userName}</h3>
-          <p>Followers: {result.followersCount}</p>
-          <p>Following: {result.followingCount}</p>
+          <button className="searchexbutton" onClick={() => handleProfileChange(result.userName, result.userID)}>{result.userName}</button>
+          <p className="smallspace">Followers: {result.followersCount}</p>
+          <p className="smallspace">Following: {result.followingCount}</p>
         </div>
     ));
   };
@@ -58,15 +68,16 @@ function HomeBar() {
   return (
       <div>
         <header>
-          <div className="search-bar">
+          <div>
             <input
                 id="search"
                 type="search"
                 placeholder="&#x1F50D;Search for other profiles with similar interests..."
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
+                className="searchbarinput"
             />
-            <button onClick={handleSearch}>Search</button>
+            <button className="searchbutton" onClick={handleSearch}>Search</button>
           </div>
           <div className="filter-container">
             {/* Brands filter */}

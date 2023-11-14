@@ -2,25 +2,36 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { Suspense } from 'react';
 import "./profile.css";
+import { useNavigate, useParams } from 'react-router-dom';
 
-const LazyProfilePosts = React.lazy(() => import('./ProfilePosts'));
+const LazyProfilePosts = React.lazy(() => import('./OtherProfilePosts'));
 
 function ProfilePage (){
+    const navigate = useNavigate();
     const userID = sessionStorage.getItem("userID");
+    const { username } = useParams();
+    const id = new URLSearchParams(window.location.search).get('profileid');
+    if (userID === id){
+      navigate('/myprofile');
+    }
     const [loadedPosts, setLoadedPosts] = useState(0);
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const postsRef = useRef(null);
-    const [myposts, setMyPosts] = useState([]);
+    const [posts, setPosts] = useState([]);
     const [totalPosts, setTotalPosts] = useState(0);
+
+    const handleChange = async (event) => {
+        navigate('/home');
+    }
 
     useEffect(() =>{
         if (data === null){
-            axios.get(`http://localhost:8080/profile/myProfile?UserID=${userID}`)
+            axios.get(`http://localhost:8080/search/singleUser?userID=${userID}`)
             .then((response) => {
                 setData(response.data);
-                setMyPosts(response.data.personalUserPosts);
-                setTotalPosts(response.data.personalUserPosts.length);
+                setPosts(response.data.userPosts);
+                setTotalPosts(response.data.userPosts.length);
                 setLoading(false);
             })
             .catch((error) => {
@@ -28,15 +39,14 @@ function ProfilePage (){
                 setLoading(false);
             });
         }
-    }, []);
-
-    const loadMorePosts = () =>{
-        if (loadedPosts < myposts.length){
-            setLoadedPosts((prevLoadedPosts) => prevLoadedPosts + 1);
-        }
-    };
+    }, [data, userID]);
 
     useEffect(() => {
+        const loadMorePosts = () =>{
+            if (loadedPosts < posts.length){
+                setLoadedPosts((prevLoadedPosts) => prevLoadedPosts + 1);
+            }
+        };
         const observer = new IntersectionObserver((entries) => {
           if (entries[0].isIntersecting) {
             //console.log('Element is intersecting');
@@ -48,7 +58,7 @@ function ProfilePage (){
     
         observer.observe(postsRef.current);
         return () => observer.disconnect();
-      }, [loadedPosts, totalPosts]);
+      }, [loadedPosts, totalPosts, posts]);
 
     return(<div>
             <div className='profileheader'>
@@ -56,15 +66,16 @@ function ProfilePage (){
                 <p>Loading...</p>
             ) : (
                 <div className='profilehorizontalcontainer'>
-                <h1>{data.userName}</h1>
+                <button className='homebutton' onClick={handleChange}>Home</button>
+                <h1>{username}</h1>
                 <p>Followers: {data.followersCount}</p>
                 <p>Following: {data.followingCount}</p>
                 </div>
             )}
             </div>
-            {myposts.slice(0, loadedPosts).map((post, index) => (
+            {posts.slice(0, loadedPosts).map((post, index) => (
                 <Suspense key={index} fallback={<div>Loading post...</div>}>
-                    <LazyProfilePosts PostObject={post} />
+                    <LazyProfilePosts PostObject={post} UserID={userID}/>
                 </Suspense>
             ))}
         <div ref={postsRef}></div>
