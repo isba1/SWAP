@@ -38,12 +38,12 @@ body{
     position: sticky;
     top: -54px;
     z-index: 2;
+    margin-bottom: 25px;
 }
 
 .hometitle{
     color: #1A3E2F;
     font-size: 25px;
-    padding-top: 20px;
 }
 
 .homesidecontainer{
@@ -63,11 +63,37 @@ body{
     font-size: 17px;
     margin: 0.5rem 0;
 }
+.searchexbutton{
+    border: none;
+    background-color: transparent;
+    border-radius: 20px;
+    cursor: pointer;
+    color: #1A3E2F;
+    font-size: 17px;
+    margin: 0;
+    padding: 0;
+    font-size:larger;
+}
 
 
 .search {
     position: relative;
     width: 80%;
+}
+
+.namebutton{
+    margin-left: 10px;
+}
+.searchbutton{
+    margin-left: 10px;
+}
+.searchbarinput{
+    width: 50%;
+}
+select {
+    height: 55px;
+    font-size: 10px;
+    max-width: 20%;
 }
 
 /* .search-bar input {
