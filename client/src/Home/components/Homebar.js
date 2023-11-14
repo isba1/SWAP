@@ -59,8 +59,8 @@ function HomeBar() {
     return searchResults.map((result) => (
         <div key={result.userID} className="search-result">
           <button className="searchexbutton" onClick={() => handleProfileChange(result.userName, result.userID)}>{result.userName}</button>
-          <p>Followers: {result.followersCount}</p>
-          <p>Following: {result.followingCount}</p>
+          <p className="smallspace">Followers: {result.followersCount}</p>
+          <p className="smallspace">Following: {result.followingCount}</p>
         </div>
     ));
   };

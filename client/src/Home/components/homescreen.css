@@ -73,12 +73,22 @@ body{
     margin: 0;
     padding: 0;
     font-size:larger;
+    text-decoration: underline;
 }
 
 
 .search {
     position: relative;
     width: 80%;
+}
+
+.search-result{
+    display: flex;
+    flex-direction: row;
+}
+
+.smallspace{
+    margin-left: 15px;
 }
 
 .namebutton{
