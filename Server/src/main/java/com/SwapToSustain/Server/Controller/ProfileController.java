@@ -2,6 +2,7 @@ package com.SwapToSustain.Server.Controller;
 
 import com.SwapToSustain.Server.DTO.TradesOffered;
 import com.SwapToSustain.Server.DTO.UserProfile;
+import com.SwapToSustain.Server.DTO.UserProfileCompact;
 import com.SwapToSustain.Server.Service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,5 +36,33 @@ public class ProfileController {
     public List<TradesOffered> getOffersSent(@RequestParam(name = "UserID") String userID) {
         return profileService.getTradesIOffer(userID);
     }
+
+    @GetMapping("/followers")
+    @CrossOrigin("http://localhost:3000")
+    public List<UserProfileCompact> getMyFollowers(@RequestParam(name = "userID") String userID) {
+        return profileService.getMyFollowers(userID);
+    }
+
+    @GetMapping("/following")
+    @CrossOrigin("http://localhost:3000")
+    public List<UserProfileCompact> getMyFollowing(@RequestParam(name = "userID") String userID) {
+        return profileService.getMyFollowing(userID);
+    }
+
+    @GetMapping("/singleFollower")
+    @CrossOrigin("http://localhost:3000")
+    public UserProfile getIndividualFollower(@RequestParam(name = "userID") String userID) {
+        return profileService.getIndividualProfile(userID);
+    }
+
+    @GetMapping("/singleFollowing")
+    @CrossOrigin("http://localhost:3000")
+    public UserProfile getIndividualFollowing(@RequestParam(name = "userID") String userID) {
+        return profileService.getIndividualProfile(userID);
+    }
+
+
+
+
 
 }

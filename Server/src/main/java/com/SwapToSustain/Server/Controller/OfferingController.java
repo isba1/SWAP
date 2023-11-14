@@ -1,6 +1,6 @@
 package com.SwapToSustain.Server.Controller;
 
-import com.SwapToSustain.Server.DTO.PersonalUserPost;
+import com.SwapToSustain.Server.DTO.UserPost;
 import com.SwapToSustain.Server.Service.OfferingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +34,7 @@ public class OfferingController {
     // the offer button. It will display all of their items that they can offer to trade
     @GetMapping("/itemsToOffer")
     @CrossOrigin("http://localhost:3000")
-    public List<PersonalUserPost> getItemsToOffer(@RequestParam(name = "userID") String userID) {
+    public List<UserPost> getItemsToOffer(@RequestParam(name = "userID") String userID) {
 
         return offeringService.getItemsToOffer(userID);
 
@@ -55,9 +55,8 @@ public class OfferingController {
     @CrossOrigin("http://localhost:3000")
     public void declineOffer(@RequestParam(name = "sellerPostID") String sellerPostID,
                              @RequestParam(name = "sellerUserID") String sellerUserID,
-                             @RequestParam(name = "buyerPostID") String buyerPostID,
                              @RequestParam(name = "buyerUserID") String buyerUserID) {
-        offeringService.declineOffer(sellerPostID, sellerUserID, buyerPostID, buyerUserID);
+        offeringService.declineOffer(sellerPostID, sellerUserID, buyerUserID);
     }
 
 

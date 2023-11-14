@@ -3,9 +3,12 @@ package com.SwapToSustain.Server.DTO;
 import lombok.Data;
 
 import java.util.List;
+import java.util.UUID;
 
 @Data
 public class UserProfile {
+
+    private UUID userID;
 
     private String userName;
 
@@ -13,6 +16,6 @@ public class UserProfile {
 
     private Integer followingCount;
 
-    private List<PersonalUserPost> personalUserPosts;
+    private List<UserPost> userPosts;
 
 }

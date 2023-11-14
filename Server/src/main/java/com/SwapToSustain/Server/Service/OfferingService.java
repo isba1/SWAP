@@ -1,12 +1,11 @@
 package com.SwapToSustain.Server.Service;
 
 import com.SwapToSustain.Server.Converter.DTOConverter;
-import com.SwapToSustain.Server.DTO.PersonalUserPost;
+import com.SwapToSustain.Server.DTO.UserPost;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.UserInfoRepository;
 import com.SwapToSustain.Server.Repository.UserPostRepository;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,15 +38,15 @@ public class OfferingService {
 
     }
 
-    public List<PersonalUserPost> getItemsToOffer(String userID) {
+    public List<UserPost> getItemsToOffer(String userID) {
 
-        ArrayList<PersonalUserPost> personalUserPosts = new ArrayList<>();
+        ArrayList<UserPost> userPosts = new ArrayList<>();
 
         List<UserPostModel> userPostModels = userPostRepository.findAllByUserID(UUID.fromString(userID));
 
-        dtoConverter.convertDTO(userPostModels, personalUserPosts);
+        dtoConverter.convertDTOForPersonalPosts(userPostModels, userPosts);
 
-        return personalUserPosts;
+        return userPosts;
 
     }
 
@@ -65,7 +64,7 @@ public class OfferingService {
 
     }
 
-    public void declineOffer(String sellerPostID, String sellerUserID, String buyerPostID, String buyerUserID) {
+    public void declineOffer(String sellerPostID, String sellerUserID, String buyerUserID) {
 
         UserAccountInfoModel sellerAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(sellerUserID));
         sellerAccountInfoModel.getOfferedMe().remove(UUID.fromString(sellerPostID));
