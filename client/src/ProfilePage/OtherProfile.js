@@ -30,8 +30,8 @@ function ProfilePage (){
             axios.get(`http://localhost:8080/search/singleUser?userID=${userID}`)
             .then((response) => {
                 setData(response.data);
-                setPosts(response.data.personalUserPosts);
-                setTotalPosts(response.data.personalUserPosts.length);
+                setPosts(response.data.userPosts);
+                setTotalPosts(response.data.userPosts.length);
                 setLoading(false);
             })
             .catch((error) => {

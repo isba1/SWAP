@@ -25,6 +25,7 @@ function HomeBar() {
   const handleSearch = async () => {
     if (searchInput === ""){
       setSearchInput(null);
+      return;
     }
     // Create a request body with search criteria
     // const searchCriteria = {

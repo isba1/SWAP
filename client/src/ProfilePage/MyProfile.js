@@ -25,8 +25,8 @@ function MyProfilePage (){
             axios.get(`http://localhost:8080/profile/myProfile?UserID=${userID}`)
             .then((response) => {
                 setData(response.data);
-                setMyPosts(response.data.personalUserPosts);
-                setTotalPosts(response.data.personalUserPosts.length);
+                setMyPosts(response.data.userPosts);
+                setTotalPosts(response.data.userPosts.length);
                 setLoading(false);
             })
             .catch((error) => {
