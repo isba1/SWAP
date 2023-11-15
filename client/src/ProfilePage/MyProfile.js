@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Suspense } from 'react';
 import "./profile.css";
 import { useNavigate } from 'react-router-dom';
+import MyFollowers from './MyFollowers';
+import MyFollowering from './MyFollowing';
 
 const LazyProfilePosts = React.lazy(() => import('./MyProfilePosts'));
 
@@ -63,8 +65,8 @@ function MyProfilePage (){
                 <div className='profilehorizontalcontainer'>
                 <button className='homebutton' onClick={handleChange}>Home</button>
                 <h1>{data.userName}</h1>
-                <p>Followers: {data.followersCount}</p>
-                <p>Following: {data.followingCount}</p>
+                <MyFollowers place={`Followers: ${data.followersCount}`} myID={userID}/>
+                <MyFollowering place={`Following: ${data.followingCount}`}/>
                 </div>
             )}
             </div>

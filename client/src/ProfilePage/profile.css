@@ -138,3 +138,57 @@ body{
     align-items: center;
     gap: 30px;
 }
+
+.showfollowbutton{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: #1A3E2F;
+    margin: 0;
+    padding: 0;
+}
+
+
+body.active-modal {
+    overflow-y: hidden;
+}
+
+
+.showfollowmodal, .showfollowoverlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.showfollowoverlay {
+    background: rgba(49,49,49,0.8);
+}
+.showfollowmodal-content {
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    background: #EFF2E4;
+    padding: 14px 28px;
+    border-radius: 10px;
+    width: 1000px;
+    height: 600px;
+    color: #1A3E2F;
+    font-size: 20px;
+}
+
+.showfollowclose-modal {
+    position: absolute;
+    top: 5%;
+    right: 2%;
+    background-color: transparent;
+    color: #1A3E2F;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+}
