@@ -203,3 +203,71 @@ header {
     margin-top: 10px;
     cursor: pointer;
   }
+
+.popup-content {
+    border: 2px solid #1A3E2F;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vh;
+    text-align: left;
+
+}
+
+.offer-item {
+    border: 2px solid #1A3E2F;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.your-offer,
+.their-offer {
+  width: 100%;
+  /* padding: 10px; */
+  text-align: left;
+}
+
+/* Media query for responsiveness */
+@media screen and (max-width: 768px) {
+  .offer-item {
+    flex-direction: column;
+}
+
+.your-offer,
+.their-offer {
+    width: 100%;
+    /* padding: 10px; */
+  }
+}
+
+.offer-actions {
+    display: flex;
+    justify-content: space-around; /* Place buttons horizontally */
+    width: 100%;
+    /* padding-top: 10px; */
+}
+  
+.offer-actions button {
+    /* padding: 8px 16px; */
+    margin-bottom: 10px;
+}
+.image-container {
+    width: 100%;
+    max-width: 200px; /* Adjust maximum width as needed */
+    margin-bottom: 10px;
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: auto;
+    border: 2px solid #1A3E2F;
+    border-radius: 20px; 
+  }
+  

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./homescreen.css";
 
+const Offers = React.lazy(() => import("./Offers")); // Import the Offers container
+
 function ViewOffersButton({ onClick }) {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [tradeOffers, setTradeOffers] = useState([]);
@@ -57,7 +59,28 @@ function ViewOffersButton({ onClick }) {
     setPopupOpen(!isPopupOpen);
   };
 
-  console.log(tradeOffers);
+  const closePopup = () => {
+    setPopupOpen(false);
+  };
+
+  // Simulated test data similar to FeedUserTest for testing ViewOffersButton component
+  const TestOffer = {
+    myPostID: "123",
+    myName: "Test Product",
+    myBase64Images: ["base64data1", "base64data2"],
+    myPostDescription: "Test Product Description",
+    myPostCategory: "Test Category",
+    myPostBrand: "Test Brand",
+    myPostStyle: "Test Style",
+    myPostSize: "Test Size",
+    theirUserName: "Their Username",
+    theirBase64Images: ["theirBase64data1", "theirBase64data2"],
+    theirPostDescription: "Their Product Description",
+    theirPostCategory: "Their Category",
+    theirPostBrand: "Their Brand",
+    theirPostStyle: "Their Style",
+    theirPostSize: "Their Size",
+  };
 
   return (
     <div>
@@ -68,39 +91,17 @@ function ViewOffersButton({ onClick }) {
       {isPopupOpen && (
         <div className="popup">
           <div className="popup-content">
-            <h2>Your Offers</h2>
-            {tradeOffers.map((offer) => (
-              <div key={offer.myPostID}>
-                {/* Display offer details */}
-                <p>Name of Your Product: {offer.myName}</p>
-                <img
-                  src={`data:image/png;base64, ${offer.myBase64Images[0]}`}
-                  alt="Your Product"
-                />
-                <p>Your Product Description: {offer.myPostDescription}</p>
-                <p>Your Product Category: {offer.myPostCategory}</p>
-                <p>Your Product Brand: {offer.myPostBrand}</p>
-                <p>Your Product Style: {offer.myPostStyle}</p>
-                <p>Your Product Size: {offer.myPostSize}</p>
-
-                <p>Name of Their Product: {offer.theirUserName}</p>
-                <img
-                  src={`data:image/png;base64, ${offer.theirBase64Images[0]}`}
-                  alt="Their Product"
-                />
-                <p>Their Product Description: {offer.theirPostDescription}</p>
-                <p>Their Product Category: {offer.theirPostCategory}</p>
-                <p>Their Product Brand: {offer.theirPostBrand}</p>
-                <p>Their Product Style: {offer.theirPostStyle}</p>
-                <p>Their Product Size: {offer.theirPostSize}</p>
-
-                <button onClick={() => acceptOffer(offer)}>Accept Offer</button>
-                <button onClick={() => declineOffer(offer)}>
-                  Decline Offer
-                </button>
-              </div>
-            ))}
-            <button onClick={togglePopup}>Close</button>
+            {/* <h2>Test Offer</h2> */}
+            <React.Suspense fallback={<div>Loading test offer...</div>}>
+              <Offers
+                tradeOffers={[TestOffer]}
+                acceptOffer={() => {}}
+                declineOffer={() => {}}
+              />
+            </React.Suspense>
+            <button className="close-button" onClick={closePopup}>
+              Close
+            </button>
           </div>
         </div>
       )}
