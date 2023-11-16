@@ -227,6 +227,17 @@ header {
     padding: 10px;
 }
 
+.offer-details {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .offer-details > div {
+    flex: 1;
+  }  
+
 .your-offer,
 .their-offer {
   width: 100%;
@@ -258,6 +269,7 @@ header {
     /* padding: 8px 16px; */
     margin-bottom: 10px;
 }
+
 .image-container {
     width: 100%;
     max-width: 200px; /* Adjust maximum width as needed */
@@ -271,3 +283,28 @@ header {
     border-radius: 20px; 
   }
   
+/* Styles for the buttons */
+.accept-button,
+.decline-button {
+  background-color: #1A3E2F;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Adding transition effect */
+}
+
+/* Hover effect */
+.accept-button:hover,
+.decline-button:hover {
+  background-color: white;
+  color: #1A3E2F;
+  border-color: #1A3E2F; /* Border color on hover */
+}
+
+/* Normal state */
+.accept-button,
+.decline-button {
+  border: 2px solid transparent; /* Initial border set as transparent */
+}

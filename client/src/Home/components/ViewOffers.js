@@ -91,12 +91,11 @@ function ViewOffersButton({ onClick }) {
       {isPopupOpen && (
         <div className="popup">
           <div className="popup-content">
-            {/* <h2>Test Offer</h2> */}
             <React.Suspense fallback={<div>Loading test offer...</div>}>
               <Offers
                 tradeOffers={[TestOffer]}
-                acceptOffer={() => {}}
-                declineOffer={() => {}}
+                acceptOffer={acceptOffer}
+                declineOffer={declineOffer}
               />
             </React.Suspense>
             <button className="close-button" onClick={closePopup}>

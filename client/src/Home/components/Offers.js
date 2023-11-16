@@ -4,11 +4,11 @@ import "./homescreen.css";
 function Offers({ tradeOffers, acceptOffer, declineOffer }) {
   return (
     <div className="offers-container">
-      <h2>Your Offers</h2>
+      <h2>Your Trade Offers</h2>
       {tradeOffers.map((offer) => (
         <div key={offer.myPostID} className="offer-item">
           <div className="your-offer">
-            <p>Name of Your Product: {offer.myName}</p>
+            <p>Your Product: {offer.myName}</p>
             <div className="image-container">
               <img
                 src={`data:image/png;base64, ${offer.myBase64Images[0]}`}
@@ -38,10 +38,16 @@ function Offers({ tradeOffers, acceptOffer, declineOffer }) {
           </div>
 
           <div className="offer-actions">
-            <button className="button" onClick={() => acceptOffer(offer)}>
+            <button
+              className="accept-button"
+              onClick={() => acceptOffer(offer)}
+            >
               Accept
             </button>
-            <button className="button" onClick={() => declineOffer(offer)}>
+            <button
+              className="decline-button"
+              onClick={() => declineOffer(offer)}
+            >
               Decline
             </button>
           </div>
