@@ -66,7 +66,7 @@ function MyProfilePage (){
                 <button className='homebutton' onClick={handleChange}>Home</button>
                 <h1>{data.userName}</h1>
                 <MyFollowers place={`Followers: ${data.followersCount}`} myID={userID}/>
-                <MyFollowering place={`Following: ${data.followingCount}`}/>
+                <MyFollowering place={`Following: ${data.followingCount}`} myID={userID}/>
                 </div>
             )}
             </div>

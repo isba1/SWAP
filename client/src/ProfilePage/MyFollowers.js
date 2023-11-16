@@ -5,13 +5,22 @@ import "./profile.css";
 const MyFollowers = ({place, myID}) =>{
     const [modal, setModal] = useState(false);
     const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        const fetchData = async() => {
-            const response = await axios.get(`http://localhost:8080/profile/followers?userID=${myID}`);
-            const user = await response.data;
-            setData(user);
-        }
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const response = await axios.get(`http://localhost:8080/profile/followers?userID=${myID}`);
+                const user = response.data;
+                setData(user);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
         if (modal) {
             fetchData();
         }
@@ -39,6 +48,21 @@ const MyFollowers = ({place, myID}) =>{
           <div className="showfollowmodal-content">
             <h2>Followers:</h2>
             <button className="showfollowclose-modal" onClick={toggleModal}>X</button>
+            {loading ? (
+                            <p>Loading...</p>
+                        ) : (
+                            <div>
+                                {data && data.length > 0 ? (
+                                    <ul>
+                                        {data.map(item => (
+                                            <li key={item.id}>{/* Render your item content here */}</li>
+                                        ))}
+                                    </ul>
+                                ) : (
+                                    <p>You have no followers! Get connected with other users!</p>
+                                )}
+                            </div>
+                        )}
             </div> 
         </div>
       )}
