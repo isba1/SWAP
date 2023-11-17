@@ -55,12 +55,19 @@ function ViewOffersButton({ onClick }) {
     }
   };
 
+  // To toggle scrolling on the main page
+  const toggleScroll = () => {
+    document.body.style.overflow = isPopupOpen ? "auto" : "hidden";
+  };
+
   const togglePopup = () => {
     setPopupOpen(!isPopupOpen);
+    toggleScroll(); // Toggle scrolling on the main page
   };
 
   const closePopup = () => {
     setPopupOpen(false);
+    toggleScroll(); // Toggle scrolling on the main page
   };
 
   // Simulated test data similar to FeedUserTest for testing ViewOffersButton component

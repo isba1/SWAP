@@ -205,6 +205,7 @@ header {
   }
 
 .popup-content {
+    position: fixed;
     border: 2px solid #1A3E2F;
     border-radius: 20px;
     padding: 20px;
@@ -212,9 +213,16 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100vh;
+    height: 80vh;
+    width: 50vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999; /* Higher z-index to overlay */
     text-align: left;
-
+    /* Enable overflow and make the content scrollable */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Hide horizontal scrollbar (if not needed) */
 }
 
 .offer-item {

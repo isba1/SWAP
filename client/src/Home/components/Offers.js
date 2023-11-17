@@ -4,37 +4,37 @@ import "./homescreen.css";
 function Offers({ tradeOffers, acceptOffer, declineOffer }) {
   return (
     <div className="offers-container">
-      <h2>Your Trade Offers</h2>
+      <h1>Your Trade Offers</h1>
       {tradeOffers.map((offer) => (
         <div key={offer.myPostID} className="offer-item">
           <div className="your-offer">
-            <p>Your Product: {offer.myName}</p>
+            <h2>Your Product:</h2>
             <div className="image-container">
               <img
                 src={`data:image/png;base64, ${offer.myBase64Images[0]}`}
                 alt="Your Product"
               />
             </div>
-            <p>Your Product Description: {offer.myPostDescription}</p>
-            <p>Your Product Category: {offer.myPostCategory}</p>
-            <p>Your Product Brand: {offer.myPostBrand}</p>
-            <p>Your Product Style: {offer.myPostStyle}</p>
-            <p>Your Product Size: {offer.myPostSize}</p>
+            <p>Description: {offer.myPostDescription}</p>
+            <p>Category: {offer.myPostCategory}</p>
+            <p> Brand: {offer.myPostBrand}</p>
+            <p>Style: {offer.myPostStyle}</p>
+            <p>Size: {offer.myPostSize}</p>
           </div>
 
           <div className="their-offer">
-            <p>Name of Their Product: {offer.theirUserName}</p>
+            <h2>{offer.theirUserName}'s Product:</h2>
             <div className="image-container">
               <img
                 src={`data:image/png;base64, ${offer.theirBase64Images[0]}`}
                 alt="Their Product"
               />
             </div>
-            <p>Their Product Description: {offer.theirPostDescription}</p>
-            <p>Their Product Category: {offer.theirPostCategory}</p>
-            <p>Their Product Brand: {offer.theirPostBrand}</p>
-            <p>Their Product Style: {offer.theirPostStyle}</p>
-            <p>Their Product Size: {offer.theirPostSize}</p>
+            <p>Description: {offer.theirPostDescription}</p>
+            <p>Category: {offer.theirPostCategory}</p>
+            <p>Brand: {offer.theirPostBrand}</p>
+            <p>Style: {offer.theirPostStyle}</p>
+            <p>Size: {offer.theirPostSize}</p>
           </div>
 
           <div className="offer-actions">
