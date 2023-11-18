@@ -1,6 +1,6 @@
 import React from "react";
 import "./profile.css";
-import OtherProfileOffer from "../OfferUI/Offer";
+import OtherProfileOffer from "../OfferUI/OtherProfileOffer";
 
 function OtherProfilePosts({PostObject, UserID, SellerId}){
     //add thing for useEffect to get the FeedPost
