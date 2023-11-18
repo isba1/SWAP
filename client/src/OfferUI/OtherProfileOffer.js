@@ -10,11 +10,9 @@ const OtherProfileOffer = ({SellerPost, myID, sellerid}) => {
     useEffect(() => {
         async function fetchData() {
             //this fetches data about your posts when you press the Offer button
-            if (data === null){
-                const response = await axios.get(`http://localhost:8080/offer/itemsToOffer?userID=${myID}`);
-                const user = await response.data;
-                setData(user);
-            }
+            const response = await axios.get(`http://localhost:8080/offer/itemsToOffer?userID=${myID}`);
+            const user = await response.data;
+            setData(user);
         }
         if (modal) {
             fetchData();

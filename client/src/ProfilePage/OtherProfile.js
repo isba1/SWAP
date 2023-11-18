@@ -39,7 +39,7 @@ function ProfilePage (){
                 setLoading(false);
             });
         }
-    }, [data, userID]);
+    }, [data, id]);
 
     useEffect(() => {
         const loadMorePosts = () =>{
