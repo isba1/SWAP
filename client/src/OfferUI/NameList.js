@@ -9,7 +9,7 @@ function NameList({array, toggle, post, myid}) {
     //console.log(item.postID);
     //temp is supposted to be the postID of the post you chose to offer
     try{
-      await axios.post(`http://localhost:8080/offer/makeOffer?sellerPostID=${post.postID}&sellerUserID=${post.userID}&buyerPostID=${item.postID}&buyerUserID=${myid}`);
+      await axios.post(`http://localhost:8080/offer/makeOffer?sellerPostID=${post.postID}&sellerUserID=${post.userName}&buyerPostID=${item.postID}&buyerUserID=${myid}`);
       toggle();
     }catch (error){
       console.error(error);
