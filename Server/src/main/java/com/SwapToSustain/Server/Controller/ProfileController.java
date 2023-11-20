@@ -18,47 +18,47 @@ public class ProfileController {
     
     @GetMapping("/myProfile")
     @CrossOrigin("http://localhost:3000")
-    public UserProfile getMyProfile(@RequestParam(name = "UserID") String userID) {
-        return profileService.getUserProfileInfo(userID);
+    public UserProfile getMyProfile(@RequestParam(name = "UserID") String userName) {
+        return profileService.getUserProfileInfo(userName);
     }
 
 
     // this queries all the offers user has for their own product
     @GetMapping("/offersReceived")
     @CrossOrigin("http://localhost:3000")
-    public List<TradesOffered> getReceivedOffers(@RequestParam(name = "UserID") String userID) {
-        return profileService.getTradesOfferedMe(userID);
+    public List<TradesOffered> getReceivedOffers(@RequestParam(name = "UserID") String userName) {
+        return profileService.getTradesOfferedMe(userName);
     }
 
 
     @GetMapping("/offersSent")
     @CrossOrigin("http://localhost:3000")
-    public List<TradesOffered> getOffersSent(@RequestParam(name = "UserID") String userID) {
-        return profileService.getTradesIOffer(userID);
+    public List<TradesOffered> getOffersSent(@RequestParam(name = "UserID") String userName) {
+        return profileService.getTradesIOffer(userName);
     }
 
     @GetMapping("/followers")
     @CrossOrigin("http://localhost:3000")
-    public List<UserProfileCompact> getMyFollowers(@RequestParam(name = "userID") String userID) {
-        return profileService.getMyFollowers(userID);
+    public List<UserProfileCompact> getMyFollowers(@RequestParam(name = "userID") String userName) {
+        return profileService.getMyFollowers(userName);
     }
 
     @GetMapping("/following")
     @CrossOrigin("http://localhost:3000")
-    public List<UserProfileCompact> getMyFollowing(@RequestParam(name = "userID") String userID) {
-        return profileService.getMyFollowing(userID);
+    public List<UserProfileCompact> getMyFollowing(@RequestParam(name = "userID") String userName) {
+        return profileService.getMyFollowing(userName);
     }
 
     @GetMapping("/singleFollower")
     @CrossOrigin("http://localhost:3000")
-    public UserProfile getIndividualFollower(@RequestParam(name = "userID") String userID) {
-        return profileService.getIndividualProfile(userID);
+    public UserProfile getIndividualFollower(@RequestParam(name = "userID") String userName) {
+        return profileService.getIndividualProfile(userName);
     }
 
     @GetMapping("/singleFollowing")
     @CrossOrigin("http://localhost:3000")
-    public UserProfile getIndividualFollowing(@RequestParam(name = "userID") String userID) {
-        return profileService.getIndividualProfile(userID);
+    public UserProfile getIndividualFollowing(@RequestParam(name = "userID") String userName) {
+        return profileService.getIndividualProfile(userName);
     }
 
 

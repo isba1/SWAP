@@ -54,9 +54,9 @@ public class SearchService {
         return userProfileCompacts;
     }
 
-    public UserProfile getSingleUser(String userID) {
-        UserAccountInfoModel userAccountInfoModelFound = userInfoRepository.findByUserID(UUID.fromString(userID));
-        List<UserPostModel> userPostModels = userPostRepository.findAllByUserID(UUID.fromString(userID));
+    public UserProfile getSingleUser(String userName) {
+        UserAccountInfoModel userAccountInfoModelFound = userInfoRepository.findByUserName(userName);
+        List<UserPostModel> userPostModels = userPostRepository.findAllByUserID(userAccountInfoModelFound.getUserID());
 
         UserProfile userProfile = new UserProfile();
 

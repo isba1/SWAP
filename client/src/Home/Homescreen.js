@@ -11,7 +11,7 @@ const Homescreen = () => {
   const postsRef = useRef(null);
 
   //this will be the myuser's userid/token
-  const userID = sessionStorage.getItem("userID");
+  const userID = sessionStorage.getItem("userName");
   //this will be a FeedUserPost object
   
   const FeedUserTest = {

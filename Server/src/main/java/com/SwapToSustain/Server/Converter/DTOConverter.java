@@ -44,10 +44,11 @@ public class DTOConverter {
     }
 
 
-    public void convertDTO(UserPostModel userPostModel, NewUserPost newUserPost, UUID userId) {
+    public void convertDTO(UserPostModel userPostModel, NewUserPost newUserPost, UUID userId, String userName) {
 
         ArrayList<String> base64Images = new ArrayList<>(newUserPost.getBase64Images());
         userPostModel.setUserID(userId);
+        userPostModel.setUserName(userName);
         userPostModel.setBase64Images(base64Images);
         userPostModel.setPostName(newUserPost.getName());
         userPostModel.setPostDescription(newUserPost.getPostDescription());

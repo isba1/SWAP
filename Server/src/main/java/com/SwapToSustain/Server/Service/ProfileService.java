@@ -26,22 +26,22 @@ public class ProfileService {
     @Autowired
     DTOConverter dtoConverter;
 
-    public UserProfile getUserProfileInfo(String userID) {
+    public UserProfile getUserProfileInfo(String userName) {
         UserProfile userProfile = new UserProfile();
 
-        UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(userID));
-        List<UserPostModel> userPostModels = userPostRepository.findAllByUserID(UUID.fromString(userID));
+        UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserName(userName);
+        List<UserPostModel> userPostModels = userPostRepository.findAllByUserName(userName);
 
         dtoConverter.convertDTO(userPostModels, userAccountInfoModel, userProfile);
 
         return userProfile;
     }
 
-    public List<TradesOffered> getTradesOfferedMe(String userID) {
+    public List<TradesOffered> getTradesOfferedMe(String userName) {
 
         ArrayList<TradesOffered> tradeOffers = new ArrayList<>();
 
-        UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(userID));
+        UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserName(userName);
         HashMap<UUID, UUID> tradeOfferIDMap = userAccountInfoModel.getOfferedMe();
 
         for (Map.Entry<UUID, UUID> entry : tradeOfferIDMap.entrySet()) {
@@ -56,10 +56,10 @@ public class ProfileService {
 
     }
 
-    public List<TradesOffered> getTradesIOffer(String userID) {
+    public List<TradesOffered> getTradesIOffer(String userName) {
         ArrayList<TradesOffered> tradeOffers = new ArrayList<>();
 
-        UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(userID));
+        UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserName(userName);
         HashMap<UUID, UUID> tradeOfferIDMap = userAccountInfoModel.getMyOffers();
 
         for (Map.Entry<UUID, UUID> entry : tradeOfferIDMap.entrySet()) {
@@ -73,9 +73,9 @@ public class ProfileService {
         return tradeOffers;
     }
 
-    public List<UserProfileCompact> getMyFollowers(String userID) {
+    public List<UserProfileCompact> getMyFollowers(String userName) {
 
-        UserAccountInfoModel myAccount = userInfoRepository.findByUserID(UUID.fromString(userID));
+        UserAccountInfoModel myAccount = userInfoRepository.findByUserName(userName);
         List<UserAccountInfoModel> followersAccountInfoModels = new ArrayList<>();
 
         for (UUID id: myAccount.getFollowers()) {
@@ -89,8 +89,8 @@ public class ProfileService {
         return userProfileCompacts;
     }
 
-    public List<UserProfileCompact> getMyFollowing(String userID) {
-        UserAccountInfoModel myAccount = userInfoRepository.findByUserID(UUID.fromString(userID));
+    public List<UserProfileCompact> getMyFollowing(String userName) {
+        UserAccountInfoModel myAccount = userInfoRepository.findByUserName(userName);
         List<UserAccountInfoModel> followingAccountInfoModels = new ArrayList<>();
 
         for (UUID id: myAccount.getFollowing()) {
@@ -105,10 +105,10 @@ public class ProfileService {
 
     }
 
-    public UserProfile getIndividualProfile(String userID) {
+    public UserProfile getIndividualProfile(String userName) {
 
-        UserAccountInfoModel userAccountInfoModelFound = userInfoRepository.findByUserID(UUID.fromString(userID));
-        List<UserPostModel> userPostModels = userPostRepository.findAllByUserID(UUID.fromString(userID));
+        UserAccountInfoModel userAccountInfoModelFound = userInfoRepository.findByUserName(userName);
+        List<UserPostModel> userPostModels = userPostRepository.findAllByUserID(userAccountInfoModelFound.getUserID());
 
         UserProfile userProfile = new UserProfile();
 

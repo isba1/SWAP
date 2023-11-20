@@ -8,7 +8,7 @@ const LazyProfilePosts = React.lazy(() => import('./OtherProfilePosts'));
 
 function ProfilePage (){
     const navigate = useNavigate();
-    const userID = sessionStorage.getItem("userID");
+    const userID = sessionStorage.getItem("userName");
     const { username } = useParams();
     const id = new URLSearchParams(window.location.search).get('profileid');
     if (userID === id){

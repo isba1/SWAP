@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class TokenValue {
 
     // The unique identifier for the user
-    private final UUID userID;
+    private final String userName;
 
     // Timestamp when the token was issued
     private final Instant issuedAt;
@@ -23,8 +23,8 @@ public class TokenValue {
     // A unique identifier for the token
     private final String UUID;
 
-    public TokenValue(UUID userID, Timeout timeout) {
-        this.userID = userID;
+    public TokenValue(String userName, Timeout timeout) {
+        this.userName = userName;
         this.issuedAt = Instant.now();
         this.timeout = timeout;
         this.UUID = java.util.UUID.randomUUID().toString();
