@@ -10,8 +10,7 @@ function ProfilePage (){
     const navigate = useNavigate();
     const userID = sessionStorage.getItem("userName");
     const { username } = useParams();
-    const id = new URLSearchParams(window.location.search).get('profileid');
-    if (userID === id){
+    if (userID === username){
       navigate('/myprofile');
     }
     const [loadedPosts, setLoadedPosts] = useState(0);
@@ -27,7 +26,7 @@ function ProfilePage (){
 
     useEffect(() =>{
         if (data === null){
-            axios.get(`http://localhost:8080/search/singleUser?userID=${id}`)
+            axios.get(`http://localhost:8080/search/singleUser?userID=${username}`)
             .then((response) => {
                 setData(response.data);
                 setPosts(response.data.userPosts);
@@ -39,7 +38,7 @@ function ProfilePage (){
                 setLoading(false);
             });
         }
-    }, [data, userID]);
+    }, [data, username]);
 
     useEffect(() => {
         const loadMorePosts = () =>{
