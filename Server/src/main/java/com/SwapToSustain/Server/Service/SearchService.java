@@ -39,10 +39,13 @@ public class SearchService {
         if (!Objects.equals(userSearchCriteria.getUserName(), "null")) {
 
             UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserName(userSearchCriteria.getUserName());
-            List<UserAccountInfoModel> userAccountInfoModelList = new ArrayList<>();
-            userAccountInfoModelList.add(userAccountInfoModel);
 
-            dtoConverter.convertDTOForCompactProfile(userProfileCompacts, userAccountInfoModelList);
+            if (userAccountInfoModel != null) {
+                List<UserAccountInfoModel> userAccountInfoModelList = new ArrayList<>();
+                userAccountInfoModelList.add(userAccountInfoModel);
+
+                dtoConverter.convertDTOForCompactProfile(userProfileCompacts, userAccountInfoModelList);
+            }
 
         } else {
 
