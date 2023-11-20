@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const LazyProfilePosts = React.lazy(() => import('./MyProfilePosts'));
 
 function MyProfilePage (){
-    const userID = sessionStorage.getItem("userID");
+    const userID = sessionStorage.getItem("userName");
     const [loadedPosts, setLoadedPosts] = useState(0);
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);

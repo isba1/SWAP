@@ -25,10 +25,10 @@ public class OfferingService {
     @Autowired
     DTOConverter dtoConverter;
 
-    public void makeOffer(String buyerPostID, String buyerUserID, String sellerPostID, String sellerUserID) {
+    public void makeOffer(String buyerPostID, String buyerUserName, String sellerPostID, String sellerUserName) {
 
-        UserAccountInfoModel sellerUserAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(sellerUserID));
-        UserAccountInfoModel buyerUserAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(buyerUserID));
+        UserAccountInfoModel sellerUserAccountInfoModel = userInfoRepository.findByUserName(sellerUserName);
+        UserAccountInfoModel buyerUserAccountInfoModel = userInfoRepository.findByUserName(buyerUserName);
 
         sellerUserAccountInfoModel.getOfferedMe().put(UUID.fromString(sellerPostID), UUID.fromString(buyerPostID));
         buyerUserAccountInfoModel.getMyOffers().put(UUID.fromString(sellerPostID), UUID.fromString(buyerPostID));
@@ -38,11 +38,11 @@ public class OfferingService {
 
     }
 
-    public List<UserPost> getItemsToOffer(String userID) {
+    public List<UserPost> getItemsToOffer(String userName) {
 
         ArrayList<UserPost> userPosts = new ArrayList<>();
 
-        List<UserPostModel> userPostModels = userPostRepository.findAllByUserID(UUID.fromString(userID));
+        List<UserPostModel> userPostModels = userPostRepository.findAllByUserName(userName);
 
         dtoConverter.convertDTOForPersonalPosts(userPostModels, userPosts);
 
@@ -50,26 +50,26 @@ public class OfferingService {
 
     }
 
-    public void acceptOffer(String sellerPostID, String sellerUserID, String buyerPostID, String buyerUserID) {
+    public void acceptOffer(String sellerPostID, String sellerUserName, String buyerPostID, String buyerUserName) {
 
-        UserAccountInfoModel sellerAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(sellerUserID));
+        UserAccountInfoModel sellerAccountInfoModel = userInfoRepository.findByUserName(sellerUserName);
         sellerAccountInfoModel.getOfferedMe().remove(UUID.fromString(sellerPostID));
 
         userPostRepository.deleteByPostID(UUID.fromString(sellerPostID));
 
-        UserAccountInfoModel buyerAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(buyerUserID));
+        UserAccountInfoModel buyerAccountInfoModel = userInfoRepository.findByUserName(buyerUserName);
         buyerAccountInfoModel.getMyOffers().remove(UUID.fromString(sellerPostID));
 
         userPostRepository.deleteByPostID(UUID.fromString(buyerPostID));
 
     }
 
-    public void declineOffer(String sellerPostID, String sellerUserID, String buyerUserID) {
+    public void declineOffer(String sellerPostID, String sellerUserName, String buyerUserName) {
 
-        UserAccountInfoModel sellerAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(sellerUserID));
+        UserAccountInfoModel sellerAccountInfoModel = userInfoRepository.findByUserName(sellerUserName);
         sellerAccountInfoModel.getOfferedMe().remove(UUID.fromString(sellerPostID));
 
-        UserAccountInfoModel buyerAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(buyerUserID));
+        UserAccountInfoModel buyerAccountInfoModel = userInfoRepository.findByUserName(buyerUserName);
         buyerAccountInfoModel.getMyOffers().remove(UUID.fromString(sellerPostID));
     }
 

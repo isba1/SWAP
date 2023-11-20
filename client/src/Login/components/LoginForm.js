@@ -21,7 +21,7 @@ const Login = (props) =>{
                 const token = response.data.tokenString;
                 const payload = token.split('.')[1];
                 const decodedToken = JSON.parse(atob(payload));
-                sessionStorage.setItem('userID', decodedToken.userID);
+                sessionStorage.setItem('userName', decodedToken.userName);
                 navigate('/home');
             }
         } catch (error) {

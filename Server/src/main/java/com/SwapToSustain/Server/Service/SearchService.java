@@ -39,10 +39,13 @@ public class SearchService {
         if (!Objects.equals(userSearchCriteria.getUserName(), "null")) {
 
             UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserName(userSearchCriteria.getUserName());
-            List<UserAccountInfoModel> userAccountInfoModelList = new ArrayList<>();
-            userAccountInfoModelList.add(userAccountInfoModel);
 
-            dtoConverter.convertDTOForCompactProfile(userProfileCompacts, userAccountInfoModelList);
+            if (userAccountInfoModel != null) {
+                List<UserAccountInfoModel> userAccountInfoModelList = new ArrayList<>();
+                userAccountInfoModelList.add(userAccountInfoModel);
+
+                dtoConverter.convertDTOForCompactProfile(userProfileCompacts, userAccountInfoModelList);
+            }
 
         } else {
 
@@ -54,9 +57,9 @@ public class SearchService {
         return userProfileCompacts;
     }
 
-    public UserProfile getSingleUser(String userID) {
-        UserAccountInfoModel userAccountInfoModelFound = userInfoRepository.findByUserID(UUID.fromString(userID));
-        List<UserPostModel> userPostModels = userPostRepository.findAllByUserID(UUID.fromString(userID));
+    public UserProfile getSingleUser(String userName) {
+        UserAccountInfoModel userAccountInfoModelFound = userInfoRepository.findByUserName(userName);
+        List<UserPostModel> userPostModels = userPostRepository.findAllByUserID(userAccountInfoModelFound.getUserID());
 
         UserProfile userProfile = new UserProfile();
 

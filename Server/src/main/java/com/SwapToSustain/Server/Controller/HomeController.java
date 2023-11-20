@@ -16,8 +16,8 @@ public class HomeController {
 
     @GetMapping
     @CrossOrigin("http://localhost:3000")
-    public List<FeedUserPost> getRecommendedFeed(@RequestParam(name = "userID") String userID) {
-        return homeService.getRecommendedFeed(userID);
+    public List<FeedUserPost> getRecommendedFeed(@RequestParam(name = "userID") String userName) {
+        return homeService.getRecommendedFeed(userName);
     }
 
 }

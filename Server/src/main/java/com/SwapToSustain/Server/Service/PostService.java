@@ -2,7 +2,9 @@ package com.SwapToSustain.Server.Service;
 
 import com.SwapToSustain.Server.Converter.DTOConverter;
 import com.SwapToSustain.Server.DTO.NewUserPost;
+import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
+import com.SwapToSustain.Server.Repository.UserInfoRepository;
 import com.SwapToSustain.Server.Repository.UserPostRepository;
 import com.fasterxml.jackson.databind.deser.std.UUIDDeserializer;
 import org.bson.types.ObjectId;
@@ -19,15 +21,18 @@ public class PostService {
     private UserPostRepository userPostRepository;
 
     @Autowired
+    private UserInfoRepository userInfoRepository;
+
+    @Autowired
     private DTOConverter dtoConverter;
 
-    public void saveUserPost(NewUserPost newUserPost, String postID) {
+    public void saveUserPost(NewUserPost newUserPost, String userName) {
 
         UserPostModel userPostModel = new UserPostModel();
 
-        final UUID realID = UUID.fromString(postID);
+        UserAccountInfoModel accountInfoModel = userInfoRepository.findByUserName(userName);
 
-        dtoConverter.convertDTO(userPostModel, newUserPost, realID);
+        dtoConverter.convertDTO(userPostModel, newUserPost, accountInfoModel.getUserID(), accountInfoModel.getUserName());
 
         userPostRepository.save(userPostModel);
 

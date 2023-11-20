@@ -20,6 +20,8 @@ public class UserPostModel {
 
     private UUID userID;
 
+    private String userName;
+
     private List<String> base64Images;
 
     private String postName;

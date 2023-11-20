@@ -75,7 +75,7 @@ const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
                     postSize: size
                 }
             console.log(postRequestBody);
-            const userID = sessionStorage.getItem("userID");
+            const userID = sessionStorage.getItem("userName");
             // Send the array of Uint8Arrays to the backend
             await axios.post(`http://localhost:8080/post/newPost?userID=${userID}`, postRequestBody);
 

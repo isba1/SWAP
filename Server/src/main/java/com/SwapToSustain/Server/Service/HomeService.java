@@ -26,11 +26,11 @@ public class HomeService {
     @Autowired
     DTOConverter dtoConverter;
 
-    public List<FeedUserPost> getRecommendedFeed(String userID) {
+    public List<FeedUserPost> getRecommendedFeed(String userName) {
 
         List<FeedUserPost> recommendedFeedPosts = new ArrayList<>();
 
-        UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(userID));
+        UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserName(userName);
 
         List<UserPostModel> recommendedByStyleAndBrand = userPostRepository.findByPostStyleOrPostBrandOrPostSizeIn
                 (userAccountInfoModel.getInterestStyle(), userAccountInfoModel.getInterestBrand());

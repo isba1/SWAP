@@ -41,8 +41,8 @@ public class SearchController {
 
      @GetMapping("/singleUser")
      @CrossOrigin("http://localhost:3000")
-     public UserProfile getSingleUser(@RequestParam(name = "userID") String userID) {
-          return searchService.getSingleUser(userID);
+     public UserProfile getSingleUser(@RequestParam(name = "userID") String userName) {
+          return searchService.getSingleUser(userName);
      }
 
 
