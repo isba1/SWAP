@@ -16,7 +16,7 @@ function HomeBar() {
   const navigate = useNavigate();
 
   const handleProfileChange = async (userName, id) => {
-      navigate(`/userprofile/${userName}?profileid=${id}`);
+      navigate(`/userprofile/${userName}`);
 }
 
   // Function to handle the search when the "Search" button is clicked
@@ -58,7 +58,7 @@ function HomeBar() {
     // Maps over the searchResults array and generates a list of search results to be displayed in the UI.
     return searchResults.map((result) => (
         <div key={result.userID} className="search-result">
-          <button className="searchexbutton" onClick={() => handleProfileChange(result.userName, result.userID)}>{result.userName}</button>
+          <button className="searchexbutton" onClick={() => handleProfileChange(result.userName)}>{result.userName}</button>
           <p className="smallspace">Followers: {result.followersCount}</p>
           <p className="smallspace">Following: {result.followingCount}</p>
         </div>
