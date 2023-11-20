@@ -15,7 +15,7 @@ function HomeBar() {
   const [selectedPantSize, setSelectedPantSize] = useState(null);
   const navigate = useNavigate();
 
-  const handleProfileChange = async (userName, id) => {
+  const handleProfileChange = async (userName) => {
       navigate(`/userprofile/${userName}`);
 }
 
