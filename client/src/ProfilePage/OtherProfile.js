@@ -27,7 +27,7 @@ function ProfilePage (){
 
     useEffect(() =>{
         if (data === null){
-            axios.get(`http://localhost:8080/search/singleUser?userID=${userID}`)
+            axios.get(`http://localhost:8080/search/singleUser?userID=${id}`)
             .then((response) => {
                 setData(response.data);
                 setPosts(response.data.userPosts);
