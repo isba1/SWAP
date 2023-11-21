@@ -39,13 +39,13 @@ public class ProfileController {
 
     @GetMapping("/followers")
     @CrossOrigin("http://localhost:3000")
-    public List<UserProfileCompact> getMyFollowers(@RequestParam(name = "userID") String userName) {
+    public List<UserProfileCompact> getFollowers(@RequestParam(name = "userID") String userName) {
         return profileService.getMyFollowers(userName);
     }
 
     @GetMapping("/following")
     @CrossOrigin("http://localhost:3000")
-    public List<UserProfileCompact> getMyFollowing(@RequestParam(name = "userID") String userName) {
+    public List<UserProfileCompact> getFollowing(@RequestParam(name = "userID") String userName) {
         return profileService.getMyFollowing(userName);
     }
 
