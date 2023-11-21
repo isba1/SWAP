@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import axios from "axios";
 import "./profile.css";
 import { useNavigate } from 'react-router-dom';
+
+const NameButton = React.lazy(() => import('./FollowerFollowing'));
 
 const MyFollowers = ({place, myID}) =>{
     const [modal, setModal] = useState(false);
@@ -59,13 +61,15 @@ const MyFollowers = ({place, myID}) =>{
                         ) : (
                             <div>
                                 {data && data.length > 0 ? (
-                                    <div>
-                                        {data.map(item => (
-                                            <div key={item.userID}>
-                                                <button className="followexbutton" onClick={() => handleProfileChange(item.userName)}>{item.userName}</button>
-                                            </div>
-                                        ))}
-                                    </div>
+                                <Suspense fallback={<p>Loading followers...</p>}>
+                                    {data.map(item => (
+                                    <NameButton
+                                        key={item.userID}
+                                        userName={item.userName}
+                                        click={() => handleProfileChange(item.userName)}
+                                    />
+                                    ))}
+                                </Suspense>
                                 ) : (
                                     <div>
                                         <p>You have no followers! Get connected with other users!</p>
