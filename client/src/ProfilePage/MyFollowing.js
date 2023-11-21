@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./profile.css";
+import { useNavigate } from 'react-router-dom';
 
 const MyFollowing = ({place, myID}) =>{
     const [modal, setModal] = useState(false);
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
+
+    const navigate = useNavigate();
+    const handleProfileChange = async (userName) => {
+        navigate(`/userprofile/${userName}`);
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -53,13 +59,17 @@ const MyFollowing = ({place, myID}) =>{
                         ) : (
                             <div>
                                 {data && data.length > 0 ? (
-                                    <ul>
+                                    <div>
                                         {data.map(item => (
-                                            <li key={item.id}>{/* Render your item content here */}</li>
+                                            <div key={item.userID}>
+                                                <button className="followexbutton" onClick={() => handleProfileChange(item.userName)}>{item.userName}</button>
+                                            </div>
                                         ))}
-                                    </ul>
+                                    </div>
                                 ) : (
-                                    <p>You aren't following anyone! Get connected with other users!</p>
+                                    <div>
+                                        <p>You aren't following anyone! Get connected with other users!</p>
+                                    </div>
                                 )}
                             </div>
                         )}
