@@ -18,7 +18,7 @@ public class FollowerController {
         followerService.addFollower(loginUserName, userNameToFollow);
     }
 
-    @GetMapping("/add")
+    @GetMapping("/remove")
     @CrossOrigin("http://localhost:3000")
     public void removeFollowing(@RequestParam(name = "loginUserName") String loginUserName,
                                 @RequestParam(name = "userNameToRemoveFollow") String userNameToRemoveFollow) {
