@@ -28,16 +28,4 @@ public class FollowerController {
                                 @RequestParam(name = "userNameToRemoveFollow") String userNameToRemoveFollow) {
         followerService.removeFollowing(loginUserName, userNameToRemoveFollow);
     }
-
-    @GetMapping("/followers")
-    @CrossOrigin("http://localhost:3000")
-    public List<UserProfileCompact> getFollowers(@RequestParam(name = "loginUserName") String loginUserName) {
-        return followerService.getFollowersOrFollowings(loginUserName, true);
-    }
-
-    @GetMapping("/followings")
-    @CrossOrigin("http://localhost:3000")
-    public List<UserProfileCompact> getFollowings(@RequestParam(name = "loginUserName") String loginUserName) {
-        return followerService.getFollowersOrFollowings(loginUserName, false);
-    }
 }
