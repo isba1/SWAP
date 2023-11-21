@@ -1,8 +1,12 @@
 package com.SwapToSustain.Server.Controller;
 
+import com.SwapToSustain.Server.DTO.UserProfileCompact;
 import com.SwapToSustain.Server.Service.FollowerService;
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/follow")
@@ -25,4 +29,15 @@ public class FollowerController {
         followerService.removeFollowing(loginUserName, userNameToRemoveFollow);
     }
 
+    @GetMapping("/followers")
+    @CrossOrigin("http://localhost:3000")
+    public List<UserProfileCompact> getFollowers(@RequestParam(name = "loginUserName") String loginUserName) {
+        return followerService.getFollowersOrFollowings(loginUserName, true);
+    }
+
+    @GetMapping("/followings")
+    @CrossOrigin("http://localhost:3000")
+    public List<UserProfileCompact> getFollowings(@RequestParam(name = "loginUserName") String loginUserName) {
+        return followerService.getFollowersOrFollowings(loginUserName, false);
+    }
 }
