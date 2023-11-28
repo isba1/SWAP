@@ -3,7 +3,6 @@ package com.SwapToSustain.Server.Model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -21,9 +20,11 @@ public class UserPostModel {
 
     private UUID userID;
 
+    private String userName;
+
     private List<String> base64Images;
 
-    private String name;
+    private String postName;
 
     private String postDescription;
 

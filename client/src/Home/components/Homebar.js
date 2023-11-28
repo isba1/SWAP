@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./homescreen.css";
 import ViewOffersButton from "./ViewOffers";
+import { useNavigate } from 'react-router-dom';
 
 function HomeBar() {
   // State to store search results and user input
@@ -15,10 +16,20 @@ function HomeBar() {
   const [selectedPantSize, setSelectedPantSize] = useState(null);
   const [isPopupOpen, setPopupOpen] = useState(false);
 
+  const navigate = useNavigate();
+
+  const handleProfileChange = async (userName) => {
+      navigate(`/userprofile/${userName}`);
+}
+
   // Function to handle the search when the "Search" button is clicked
 
   // check if there's functionality for if the search result is empty
   const handleSearch = async () => {
+    if (searchInput === ""){
+      setSearchInput(null);
+      return;
+    }
     // Create a request body with search criteria
     // const searchCriteria = {
     //   userName: searchInput,
@@ -49,11 +60,11 @@ function HomeBar() {
   const displaySearchResults = () => {
     // Maps over the searchResults array and generates a list of search results to be displayed in the UI.
     return searchResults.map((result) => (
-      <div key={result.userID} className="search-result">
-        <h3>{result.userName}</h3>
-        <p>Followers: {result.followersCount}</p>
-        <p>Following: {result.followingCount}</p>
-      </div>
+        <div key={result.userID} className="search-result">
+          <button className="searchexbutton" onClick={() => handleProfileChange(result.userName)}>{result.userName}</button>
+          <p className="smallspace">Followers: {result.followersCount}</p>
+          <p className="smallspace">Following: {result.followingCount}</p>
+        </div>
     ));
   };
 

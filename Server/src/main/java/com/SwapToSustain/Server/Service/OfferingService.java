@@ -1,12 +1,11 @@
 package com.SwapToSustain.Server.Service;
 
 import com.SwapToSustain.Server.Converter.DTOConverter;
-import com.SwapToSustain.Server.DTO.PersonalUserPost;
+import com.SwapToSustain.Server.DTO.UserPost;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.UserInfoRepository;
 import com.SwapToSustain.Server.Repository.UserPostRepository;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +25,10 @@ public class OfferingService {
     @Autowired
     DTOConverter dtoConverter;
 
-    public void makeOffer(String buyerPostID, String buyerUserID, String sellerPostID, String sellerUserID) {
+    public void makeOffer(String buyerPostID, String buyerUserName, String sellerPostID, String sellerUserName) {
 
-        UserAccountInfoModel sellerUserAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(sellerUserID));
-        UserAccountInfoModel buyerUserAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(buyerUserID));
+        UserAccountInfoModel sellerUserAccountInfoModel = userInfoRepository.findByUserName(sellerUserName);
+        UserAccountInfoModel buyerUserAccountInfoModel = userInfoRepository.findByUserName(buyerUserName);
 
         sellerUserAccountInfoModel.getOfferedMe().put(UUID.fromString(sellerPostID), UUID.fromString(buyerPostID));
         buyerUserAccountInfoModel.getMyOffers().put(UUID.fromString(sellerPostID), UUID.fromString(buyerPostID));
@@ -39,38 +38,38 @@ public class OfferingService {
 
     }
 
-    public List<PersonalUserPost> getItemsToOffer(String userID) {
+    public List<UserPost> getItemsToOffer(String userName) {
 
-        ArrayList<PersonalUserPost> personalUserPosts = new ArrayList<>();
+        ArrayList<UserPost> userPosts = new ArrayList<>();
 
-        List<UserPostModel> userPostModels = userPostRepository.findAllByUserID(UUID.fromString(userID));
+        List<UserPostModel> userPostModels = userPostRepository.findAllByUserName(userName);
 
-        dtoConverter.convertDTO(userPostModels, personalUserPosts);
+        dtoConverter.convertDTOForPersonalPosts(userPostModels, userPosts);
 
-        return personalUserPosts;
+        return userPosts;
 
     }
 
-    public void acceptOffer(String sellerPostID, String sellerUserID, String buyerPostID, String buyerUserID) {
+    public void acceptOffer(String sellerPostID, String sellerUserName, String buyerPostID, String buyerUserName) {
 
-        UserAccountInfoModel sellerAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(sellerUserID));
+        UserAccountInfoModel sellerAccountInfoModel = userInfoRepository.findByUserName(sellerUserName);
         sellerAccountInfoModel.getOfferedMe().remove(UUID.fromString(sellerPostID));
 
         userPostRepository.deleteByPostID(UUID.fromString(sellerPostID));
 
-        UserAccountInfoModel buyerAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(buyerUserID));
+        UserAccountInfoModel buyerAccountInfoModel = userInfoRepository.findByUserName(buyerUserName);
         buyerAccountInfoModel.getMyOffers().remove(UUID.fromString(sellerPostID));
 
         userPostRepository.deleteByPostID(UUID.fromString(buyerPostID));
 
     }
 
-    public void declineOffer(String sellerPostID, String sellerUserID, String buyerPostID, String buyerUserID) {
+    public void declineOffer(String sellerPostID, String sellerUserName, String buyerUserName) {
 
-        UserAccountInfoModel sellerAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(sellerUserID));
+        UserAccountInfoModel sellerAccountInfoModel = userInfoRepository.findByUserName(sellerUserName);
         sellerAccountInfoModel.getOfferedMe().remove(UUID.fromString(sellerPostID));
 
-        UserAccountInfoModel buyerAccountInfoModel = userInfoRepository.findByUserID(UUID.fromString(buyerUserID));
+        UserAccountInfoModel buyerAccountInfoModel = userInfoRepository.findByUserName(buyerUserName);
         buyerAccountInfoModel.getMyOffers().remove(UUID.fromString(sellerPostID));
     }
 

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.SimpleTimeZone;
 import java.util.UUID;
 
 import static com.SwapToSustain.Server.Config.LoginConfig.GENERAL_TOKEN_EXPIRATION;
@@ -32,10 +33,10 @@ public class LogInService {
     @Autowired
     private TokenInterface tokenInterface;
 
-    private UUID findUserID(String email, String password) {
+    private String findUserName(String email, String password) {
         final UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByEmailAndPassword(email, password);
 
-        return userAccountInfoModel.getUserID();
+        return userAccountInfoModel.getUserName();
     }
 
     public LoginAuthentication loginAndTokenGeneration(boolean ret, String email, String password) {
@@ -43,7 +44,7 @@ public class LogInService {
         LoginAuthentication loginAuthentication = new LoginAuthentication();
 
         if (ret) {
-            UUID foundAccount = findUserID(email, password);
+            String foundAccount = findUserName(email, password);
 
             loginAuthentication.setLoginSuccess(ret);
 
@@ -66,7 +67,7 @@ public class LogInService {
 
         LoginAuthentication loginAuthentication = new LoginAuthentication();
 
-        UUID foundAccount = findUserID(userAccountInfo.getEmail(), userAccountInfo.getPassword());
+        String foundAccount = findUserName(userAccountInfo.getEmail(), userAccountInfo.getPassword());
 
         loginAuthentication.setLoginSuccess(true);
 

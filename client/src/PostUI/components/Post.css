@@ -134,7 +134,7 @@ select {
     border-radius: 20px;
     background-color: #fff;
     color: #1A3E2F;
-    width: 340px;
+    min-width: 340px;
     outline: none;
     transition: border 0.2s;
     cursor: pointer;

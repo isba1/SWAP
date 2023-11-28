@@ -1,7 +1,7 @@
 import React from "react";
 import "./profile.css";
 
-function ProfilePosts({PostObject}){
+function MyProfilePosts({PostObject}){
     //add thing for useEffect to get the FeedPost
     return (<div className="profilepostcontainer">
             <div className="profilepostrow">
@@ -24,4 +24,4 @@ function ProfilePosts({PostObject}){
 }
 
 
-export default ProfilePosts;
+export default MyProfilePosts;

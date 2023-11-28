@@ -3,6 +3,7 @@ package com.SwapToSustain.Server.Converter;
 import com.SwapToSustain.Server.DTO.*;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
+import com.SwapToSustain.Server.Repository.UserInfoRepository;
 import com.SwapToSustain.Server.Repository.UserPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,9 @@ public class DTOConverter {
 
     @Autowired
     UserPostRepository userPostRepository;
+
+    @Autowired
+    UserInfoRepository userInfoRepository;
 
     public void convertDTO(UserAccountInfoModel userAccountInfoModel, UserInterests userInterests){
         userAccountInfoModel.setInterestBrand(userInterests.getBrands());
@@ -40,12 +44,13 @@ public class DTOConverter {
     }
 
 
-    public void convertDTO(UserPostModel userPostModel, NewUserPost newUserPost, UUID userId) {
+    public void convertDTO(UserPostModel userPostModel, NewUserPost newUserPost, UUID userId, String userName) {
 
         ArrayList<String> base64Images = new ArrayList<>(newUserPost.getBase64Images());
         userPostModel.setUserID(userId);
+        userPostModel.setUserName(userName);
         userPostModel.setBase64Images(base64Images);
-        userPostModel.setName(newUserPost.getName());
+        userPostModel.setPostName(newUserPost.getName());
         userPostModel.setPostDescription(newUserPost.getPostDescription());
         userPostModel.setPostCategory(newUserPost.getPostCategory());
         userPostModel.setPostBrand(newUserPost.getPostBrand());
@@ -53,36 +58,37 @@ public class DTOConverter {
         userPostModel.setPostSize(newUserPost.getPostSize());
     }
 
-    private void postModelToPersonalPost(UserPostModel userPostModel, PersonalUserPost personalUserPost) {
-        personalUserPost.setBase64Images(userPostModel.getBase64Images());
-        personalUserPost.setPostID(userPostModel.getPostID());
-        personalUserPost.setName(userPostModel.getName());
-        personalUserPost.setPostDescription(userPostModel.getPostDescription());
-        personalUserPost.setPostCategory(userPostModel.getPostCategory());
-        personalUserPost.setPostBrand(userPostModel.getPostBrand());
-        personalUserPost.setPostStyle(userPostModel.getPostStyle());
-        personalUserPost.setPostSize(userPostModel.getPostSize());
+    private void postModelToPersonalPost(UserPostModel userPostModel, UserPost userPost) {
+        userPost.setBase64Images(userPostModel.getBase64Images());
+        userPost.setPostID(userPostModel.getPostID());
+        userPost.setName(userPostModel.getPostName());
+        userPost.setPostDescription(userPostModel.getPostDescription());
+        userPost.setPostCategory(userPostModel.getPostCategory());
+        userPost.setPostBrand(userPostModel.getPostBrand());
+        userPost.setPostStyle(userPostModel.getPostStyle());
+        userPost.setPostSize(userPostModel.getPostSize());
     }
 
     public void convertDTO(List<UserPostModel> userPostModels, UserAccountInfoModel userAccountInfoModel,  UserProfile userProfile) {
 
+        userProfile.setUserID(userAccountInfoModel.getUserID());
         userProfile.setUserName(userAccountInfoModel.getUserName());
         userProfile.setFollowersCount(userAccountInfoModel.getFollowers().size());
         userProfile.setFollowingCount(userAccountInfoModel.getFollowing().size());
 
-        ArrayList<PersonalUserPost> personalUserPosts = new ArrayList<>();
+        ArrayList<UserPost> userPosts = new ArrayList<>();
 
         for (UserPostModel userPostModel: userPostModels) {
 
-            PersonalUserPost personalUserPost = new PersonalUserPost();
+            UserPost userPost = new UserPost();
 
-            postModelToPersonalPost(userPostModel, personalUserPost);
+            postModelToPersonalPost(userPostModel, userPost);
 
-            personalUserPosts.add(personalUserPost);
+            userPosts.add(userPost);
 
         }
 
-        userProfile.setPersonalUserPosts(personalUserPosts);
+        userProfile.setUserPosts(userPosts);
 
     }
 
@@ -93,7 +99,7 @@ public class DTOConverter {
             TradesOffered newTradeOffer = new TradesOffered();
             newTradeOffer.setMyBase64Images(myPost.getBase64Images());
             newTradeOffer.setMyPostID(myPost.getPostID());
-            newTradeOffer.setMyName(myPost.getName());
+            newTradeOffer.setMyName(myPost.getPostName());
             newTradeOffer.setMyPostDescription(myPost.getPostDescription());
             newTradeOffer.setMyPostCategory(myPost.getPostCategory());
             newTradeOffer.setMyPostBrand(myPost.getPostBrand());
@@ -102,7 +108,7 @@ public class DTOConverter {
             newTradeOffer.setTheirBase64Images(theirPost.getBase64Images());
             newTradeOffer.setTheirPostID(theirPost.getPostID());
             newTradeOffer.setTheirUserID(theirPost.getUserID());
-            newTradeOffer.setTheirUserName(theirPost.getName());
+            newTradeOffer.setTheirUserName(theirPost.getPostName());
             newTradeOffer.setTheirPostDescription(theirPost.getPostDescription());
             newTradeOffer.setTheirPostCategory(theirPost.getPostCategory());
             newTradeOffer.setTheirPostBrand(theirPost.getPostBrand());
@@ -112,29 +118,52 @@ public class DTOConverter {
             return newTradeOffer;
     }
 
-    public void convertDTO (List<UserPostModel> userPostModels, ArrayList<PersonalUserPost> personalUserPosts) {
+    public void convertDTOForPersonalPosts(List<UserPostModel> userPostModels, List<UserPost> userPosts) {
 
         for (UserPostModel userPostModel: userPostModels) {
-            PersonalUserPost personalUserPost = new PersonalUserPost();
+            UserPost userPost = new UserPost();
 
-            postModelToPersonalPost(userPostModel, personalUserPost);
+            postModelToPersonalPost(userPostModel, userPost);
 
-            personalUserPosts.add(personalUserPost);
+            userPosts.add(userPost);
         }
 
     }
 
-    public void convertDTO (List<UserProfileSearch> userProfileSearches, List<UserAccountInfoModel> userAccountInfoModelList) {
+    public void convertDTOForCompactProfile(List<UserProfileCompact> userProfileCompacts, List<UserAccountInfoModel> userAccountInfoModelList) {
 
         for (UserAccountInfoModel userAccountInfoModel : userAccountInfoModelList) {
 
-            UserProfileSearch userProfileSearch = new UserProfileSearch();
-            userProfileSearch.setUserID(userAccountInfoModel.getUserID());
-            userProfileSearch.setUserName(userAccountInfoModel.getUserName());
-            userProfileSearch.setFollowersCount(userAccountInfoModel.getFollowers().size());
-            userProfileSearch.setFollowingCount(userAccountInfoModel.getFollowing().size());
+            UserProfileCompact userProfileCompact = new UserProfileCompact();
+            userProfileCompact.setUserID(userAccountInfoModel.getUserID());
+            userProfileCompact.setUserName(userAccountInfoModel.getUserName());
+            userProfileCompact.setFollowersCount(userAccountInfoModel.getFollowers().size());
+            userProfileCompact.setFollowingCount(userAccountInfoModel.getFollowing().size());
 
-            userProfileSearches.add(userProfileSearch);
+            userProfileCompacts.add(userProfileCompact);
+        }
+
+    }
+
+
+    public void convertDTOForFeedPosts (List<FeedUserPost> userFeedPosts, List<UserPostModel> userPostModels) {
+
+        for (UserPostModel userPostModel: userPostModels) {
+            UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserID(userPostModel.getUserID());
+
+            FeedUserPost feedUserPost = new FeedUserPost();
+            feedUserPost.setBase64Images(userPostModel.getBase64Images());
+            feedUserPost.setPostID(userPostModel.getPostID());
+            feedUserPost.setUserID(userPostModel.getUserID());
+            feedUserPost.setUserName(userAccountInfoModel.getUserName());
+            feedUserPost.setPostName(userPostModel.getPostName());
+            feedUserPost.setPostDescription(userPostModel.getPostDescription());
+            feedUserPost.setPostCategory(userPostModel.getPostCategory());
+            feedUserPost.setPostBrand(userPostModel.getPostBrand());
+            feedUserPost.setPostStyle(userPostModel.getPostStyle());
+            feedUserPost.setPostSize(userPostModel.getPostSize());
+
+            userFeedPosts.add(feedUserPost);
         }
 
     }

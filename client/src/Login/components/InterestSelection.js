@@ -46,7 +46,7 @@ const InterestSelection = (props) => {
             jacketSize
         }
 
-        const userID = sessionStorage.getItem("userID");
+        const userID = sessionStorage.getItem("userName");
 
         try {
             await axios.post(`http://localhost:8080/newUserInterests/saveUserInterests?userID=${userID}`, userPreferenceRequestBody);

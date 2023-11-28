@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-function NameList({array, toggle, post, myid}) {
+function OtherProfileNameList({array, toggle, post, myid, sellerid}) {
 
   const handleButtonClick = async (name, item) =>{
     //console.log(`Button Clicked for ${name}`);
@@ -9,7 +9,7 @@ function NameList({array, toggle, post, myid}) {
     //console.log(item.postID);
     //temp is supposted to be the postID of the post you chose to offer
     try{
-      await axios.post(`http://localhost:8080/offer/makeOffer?sellerPostID=${post.postID}&sellerUserID=${post.userName}&buyerPostID=${item.postID}&buyerUserID=${myid}`);
+      await axios.post(`http://localhost:8080/offer/makeOffer?sellerPostID=${post.postID}&sellerUserID=${sellerid}&buyerPostID=${item.postID}&buyerUserID=${myid}`);
       toggle();
     }catch (error){
       console.error(error);
@@ -35,4 +35,4 @@ function NameList({array, toggle, post, myid}) {
   );
 }
 
-export default NameList;
+export default OtherProfileNameList;
