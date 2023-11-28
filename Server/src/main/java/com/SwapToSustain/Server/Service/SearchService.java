@@ -5,6 +5,8 @@ import com.SwapToSustain.Server.DTO.UserProfile;
 import com.SwapToSustain.Server.DTO.UserProfileCompact;
 import com.SwapToSustain.Server.DTO.UserSearchCriteria;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
+import com.SwapToSustain.Server.Repository.CustomRepository;
+import com.SwapToSustain.Server.Repository.UserInfoRepository;
 import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.CustomRepository;
 import com.SwapToSustain.Server.Repository.UserInfoRepository;
@@ -16,7 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
+
 
 @Service
 public class SearchService {
