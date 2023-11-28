@@ -1,8 +1,8 @@
 import React from "react";
 import "./profile.css";
-import Offer from "../OfferUI/Offer";
+import OtherProfileOffer from "../OfferUI/OtherProfileOffer";
 
-function OtherProfilePosts({PostObject, UserID}){
+function OtherProfilePosts({PostObject, UserID, SellerId}){
     //add thing for useEffect to get the FeedPost
     return (<div className="profilepostcontainer">
             <div className="profilepostrow">
@@ -18,7 +18,7 @@ function OtherProfilePosts({PostObject, UserID}){
                         <div className="font">Brand: {PostObject.postBrand}</div>
                         <div className="font">Style: {PostObject.postStyle}</div>
                         <div className="font">Size: {PostObject.postSize}</div>
-                        <Offer SellerPost={PostObject} myID={UserID}/>
+                        <OtherProfileOffer SellerPost={PostObject} myID={UserID} sellerid={SellerId}/>
                     </div>
                 </div>
         </div>
