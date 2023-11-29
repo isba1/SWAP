@@ -13,11 +13,11 @@ const Homescreen = () => {
   const postsRef = useRef(null);
 
   //this will be the myuser's userid/token
-  const userNAME = sessionStorage.getItem("userNAME");
+  const userNAME = sessionStorage.getItem("userName");
   //this will be a FeedUserPost object
 
   useEffect(() => {
-    axios.get(`/api/recommendedPosts/${Home}`) //  API endpoint goes here
+    axios.get(`/home?userID=${userNAME}`) //  API endpoint goes here
       .then(response => {
         setRecommendedPosts(response.data);
       })
