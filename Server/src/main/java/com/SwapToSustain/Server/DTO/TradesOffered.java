@@ -33,6 +33,8 @@ public class TradesOffered {
 
     private String theirUserName;
 
+    private String theirPostName;
+
     private String theirPostDescription;
 
     private String theirPostCategory;
