@@ -82,12 +82,12 @@ function HomeBar() {
             placeholder="&#x1F50D;Search for other profiles with similar interests..."
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
+            className="searchbarinput"
           />
-          <button onClick={handleSearch}>Search</button>
+          <button className="searchbutton" onClick={handleSearch}>Search</button>
+          <ViewOffersButton onClick={togglePopup} />
         </div>
 
-        {/* view offers button to open the popup */}
-        <ViewOffersButton onClick={togglePopup} />
 
         <div className="filter-container">
           {/* Brands filter */}
