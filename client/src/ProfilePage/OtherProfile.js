@@ -74,7 +74,7 @@ function ProfilePage (){
             </div>
             {posts.slice(0, loadedPosts).map((post, index) => (
                 <Suspense key={index} fallback={<div>Loading post...</div>}>
-                    <LazyProfilePosts PostObject={post} UserID={userID}/>
+                    <LazyProfilePosts PostObject={post} UserID={userID} SellerId={username}/>
                 </Suspense>
             ))}
         <div ref={postsRef}></div>
