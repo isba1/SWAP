@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class NewUserPost {
 
-    //private byte[][] imageBinary;
+    // private byte[][] imageBinary;
     private List<String> base64Images;
 
     private String name;

@@ -38,5 +38,7 @@ public class PostService {
 
     }
 
-
+    public void removeUserPost(String postID) {
+        userPostRepository.deleteByPostID(UUID.fromString(postID));
+    }
 }

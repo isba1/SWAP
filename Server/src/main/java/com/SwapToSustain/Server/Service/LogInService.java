@@ -77,8 +77,6 @@ public class LogInService {
         loginAuthentication.setTokenString(token);
 
         return loginAuthentication;
-
-
     }
 
     public boolean userAuthentication(String email, String password){
@@ -102,8 +100,6 @@ public class LogInService {
 
             return true;
         }
-
-
     }
 
     public void deleteUser(String email, String password){

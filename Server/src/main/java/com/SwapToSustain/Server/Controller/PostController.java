@@ -19,4 +19,10 @@ public class PostController {
         postService.saveUserPost(newUserPost, userName);
     }
 
+    @PostMapping(value = "/removePost")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public void removePost(@RequestParam(name = "postID") String postID) {
+        postService.removeUserPost(postID);
+    }
+
 }
