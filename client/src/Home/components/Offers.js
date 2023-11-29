@@ -15,9 +15,10 @@ function Offers({ tradeOffers, acceptOffer, declineOffer }) {
                 alt="Your Product"
               />
             </div>
+            <p>{offer.myName}</p>
             <p>Description: {offer.myPostDescription}</p>
             <p>Category: {offer.myPostCategory}</p>
-            <p> Brand: {offer.myPostBrand}</p>
+            <p>Brand: {offer.myPostBrand}</p>
             <p>Style: {offer.myPostStyle}</p>
             <p>Size: {offer.myPostSize}</p>
           </div>
@@ -30,6 +31,7 @@ function Offers({ tradeOffers, acceptOffer, declineOffer }) {
                 alt="Their Product"
               />
             </div>
+            <p>{offer.theirPostName}</p>
             <p>Description: {offer.theirPostDescription}</p>
             <p>Category: {offer.theirPostCategory}</p>
             <p>Brand: {offer.theirPostBrand}</p>
