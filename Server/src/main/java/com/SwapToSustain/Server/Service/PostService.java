@@ -2,12 +2,14 @@ package com.SwapToSustain.Server.Service;
 
 import com.SwapToSustain.Server.Converter.DTOConverter;
 import com.SwapToSustain.Server.DTO.NewUserPost;
+import com.SwapToSustain.Server.DTO.UserPost;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.UserInfoRepository;
 import com.SwapToSustain.Server.Repository.UserPostRepository;
 import com.google.auth.Credentials;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
@@ -35,6 +37,8 @@ public class PostService {
 
     private final Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("Server/src/main/resources/keys.json"));
     private final Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
+    private final String bucketName = "swap_image_storage";
+
 
     public PostService() throws IOException {
     }
@@ -63,7 +67,6 @@ public class PostService {
 
         byte[] imageBytes = image.getBytes();
 
-        String bucketName = "swap_image_storage";
         storage.create(
                 BlobInfo.newBuilder(bucketName, gcsObjectName).build(),
                 imageBytes
@@ -81,6 +84,17 @@ public class PostService {
     }
 
     public void removeUserPost(String postID) {
-        userPostRepository.deleteByPostID(UUID.fromString(postID));
+        UserPostModel userPostModel = userPostRepository.findByPostID(UUID.fromString(postID));
+
+        // Delete Picture from GCS
+        for (String url: userPostModel.getGcsUrls()) {
+            String[] urlParts = url.split("/");
+            String objectName = urlParts[urlParts.length - 1];
+
+            BlobId blobId = BlobId.of(bucketName, objectName);
+            storage.delete(blobId);
+        }
+
+        userPostRepository.delete(userPostModel);
     }
 }
