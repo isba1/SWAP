@@ -5,6 +5,7 @@ import "./homescreen.css";
 const Offers = React.lazy(() => import("./Offers")); // Import the Offers container
 
 function ViewOffersButton({ onClick }) {
+  const userID = sessionStorage.getItem("userName");
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [tradeOffers, setTradeOffers] = useState([]);
 
@@ -15,8 +16,6 @@ function ViewOffersButton({ onClick }) {
 
   const fetchTradeOffers = async () => {
     try {
-      const userID = "YOUR_USER_ID";
-
       // Fetch trade offers from the backend
       const response = await axios.get(
         `http://localhost:8080/offer/itemsToOffer?userID=${userID}`
