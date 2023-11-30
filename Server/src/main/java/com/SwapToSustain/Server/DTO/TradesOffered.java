@@ -1,7 +1,6 @@
 package com.SwapToSustain.Server.DTO;
 
 import lombok.Data;
-import org.bson.types.ObjectId;
 
 import java.util.List;
 import java.util.UUID;
@@ -9,7 +8,7 @@ import java.util.UUID;
 @Data
 public class TradesOffered {
 
-    private List<String> myBase64Images;
+    private List<String> myGcsUrls;
 
     private UUID myPostID;
 
@@ -25,7 +24,7 @@ public class TradesOffered {
 
     private String myPostSize;
 
-    private List<String> theirBase64Images;
+    private List<String> theirGcsUrls;
 
     private UUID theirPostID;
 

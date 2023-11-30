@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 public class UserPost {
 
-    private List<String> base64Images;
+    private List<String> gcsUrls;
 
     private UUID postID;
 
