@@ -108,7 +108,8 @@ public class DTOConverter {
             newTradeOffer.setTheirBase64Images(theirPost.getBase64Images());
             newTradeOffer.setTheirPostID(theirPost.getPostID());
             newTradeOffer.setTheirUserID(theirPost.getUserID());
-            newTradeOffer.setTheirUserName(theirPost.getPostName());
+            newTradeOffer.setTheirUserName(theirPost.getUserName());
+            newTradeOffer.setTheirPostName(theirPost.getPostName());
             newTradeOffer.setTheirPostDescription(theirPost.getPostDescription());
             newTradeOffer.setTheirPostCategory(theirPost.getPostCategory());
             newTradeOffer.setTheirPostBrand(theirPost.getPostBrand());

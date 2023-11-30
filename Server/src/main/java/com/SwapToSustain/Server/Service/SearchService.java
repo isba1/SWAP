@@ -8,8 +8,6 @@ import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Repository.CustomRepository;
 import com.SwapToSustain.Server.Repository.UserInfoRepository;
 import com.SwapToSustain.Server.Model.UserPostModel;
-import com.SwapToSustain.Server.Repository.CustomRepository;
-import com.SwapToSustain.Server.Repository.UserInfoRepository;
 import com.SwapToSustain.Server.Repository.UserPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -13,6 +13,4 @@ public interface UserInfoRepository extends MongoRepository<UserAccountInfoModel
      UserAccountInfoModel findByEmail(String email);
 
      UserAccountInfoModel findByUserName(String userName);
-
-
 }

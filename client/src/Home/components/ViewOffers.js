@@ -8,6 +8,7 @@ function ViewOffersButton({ onClick }) {
   const userID = sessionStorage.getItem("userName");
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [tradeOffers, setTradeOffers] = useState([]);
+  const userID = sessionStorage.getItem("userName");
 
   useEffect(() => {
     // Fetch trade offers when the component mounts
@@ -18,9 +19,10 @@ function ViewOffersButton({ onClick }) {
     try {
       // Fetch trade offers from the backend
       const response = await axios.get(
-        `http://localhost:8080/offer/itemsToOffer?userID=${userID}`
+        `http://localhost:8080/profile/offersReceived?UserID=${userID}`
       );
       setTradeOffers(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error("Error fetching trade offers:", error);
     }
@@ -30,7 +32,7 @@ function ViewOffersButton({ onClick }) {
     try {
       console.log("Offer Accepted:", offer);
       const response = await axios.get(
-        `http://localhost:8080/offer/acceptOffer?sellerPostID=${offer.sellerPostID}&sellerUserID=${offer.sellerUserID}&buyerPostID=${offer.buyerPostID}&buyerUserID=${offer.buyerUserID}`
+        `http://localhost:8080/offer/acceptOffer?sellerPostID=${offer.theirPostID}&sellerUserID=${offer.theirUserName}&buyerPostID=${offer.myPostID}&buyerUserID=${userID}`
       );
       console.log("Accept Offer Response:", response.data);
       // After accepting, you may want to refetch the trade offers
@@ -44,7 +46,7 @@ function ViewOffersButton({ onClick }) {
     try {
       console.log("Offer Declined:", offer);
       const response = await axios.get(
-        `http://localhost:8080/offer/declineOffer?sellerPostID=${offer.sellerPostID}&sellerUserID=${offer.sellerUserID}&buyerPostID=${offer.buyerPostID}&buyerUserID=${offer.buyerUserID}`
+        `http://localhost:8080/offer/declineOffer?sellerPostID=${offer.theirPostID}&sellerUserID=${offer.theirUserName}&buyerPostID=${offer.myPostID}&buyerUserID=${userID}`
       );
       console.log("Decline Offer Response:", response.data);
       // After declining, you may want to refetch the trade offers
@@ -69,24 +71,6 @@ function ViewOffersButton({ onClick }) {
     toggleScroll(); // Toggle scrolling on the main page
   };
 
-  // Simulated test data similar to FeedUserTest for testing ViewOffersButton component
-  const TestOffer = {
-    myPostID: "123",
-    myName: "Test Product",
-    myBase64Images: ["base64data1", "base64data2"],
-    myPostDescription: "Test Product Description",
-    myPostCategory: "Test Category",
-    myPostBrand: "Test Brand",
-    myPostStyle: "Test Style",
-    myPostSize: "Test Size",
-    theirUserName: "Their Username",
-    theirBase64Images: ["theirBase64data1", "theirBase64data2"],
-    theirPostDescription: "Their Product Description",
-    theirPostCategory: "Their Category",
-    theirPostBrand: "Their Brand",
-    theirPostStyle: "Their Style",
-    theirPostSize: "Their Size",
-  };
 
   return (
     <div>
@@ -99,7 +83,7 @@ function ViewOffersButton({ onClick }) {
           <div className="popup-content">
             <React.Suspense fallback={<div>Loading test offer...</div>}>
               <Offers
-                tradeOffers={[TestOffer]}
+                tradeOffers={tradeOffers}
                 acceptOffer={acceptOffer}
                 declineOffer={declineOffer}
               />
