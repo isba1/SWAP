@@ -7,25 +7,25 @@ import SizeMenu from "./SizeMenu";
 
 import axios from "axios";
 
-function convertByteArrayToBase64String(byteArray) {
-    const binaryString = new TextDecoder().decode(byteArray);
-
-    // Convert binary string to base64
-    const base64String = btoa(unescape(encodeURIComponent(binaryString)));
-
-    return base64String;
-}
-
-function convertByteArraysToBase64StringList(byteArrays) {
-    const base64StringList = [];
-
-    byteArrays.forEach((byteArray) => {
-        const base64String = convertByteArrayToBase64String(byteArray);
-        base64StringList.push(base64String);
-    });
-
-    return base64StringList;
-}
+// function convertByteArrayToBase64String(byteArray) {
+//     const binaryString = new TextDecoder().decode(byteArray);
+//
+//     // Convert binary string to base64
+//     const base64String = btoa(unescape(encodeURIComponent(binaryString)));
+//
+//     return base64String;
+// }
+//
+// function convertByteArraysToBase64StringList(byteArrays) {
+//     const base64StringList = [];
+//
+//     byteArrays.forEach((byteArray) => {
+//         const base64String = convertByteArrayToBase64String(byteArray);
+//         base64StringList.push(base64String);
+//     });
+//
+//     return base64StringList;
+// }
 
 
 const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
@@ -47,26 +47,31 @@ const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
             return;            
         }
 
-        const promises = Array.from(selectedFiles).map((file) => {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
+        const formData = new FormData();
 
-                reader.onload = (event) => {
-                    const byteArray = new Uint8Array(event.target.result);
-                    resolve(byteArray);
-                };
+        const file = selectedFiles[0];
+        formData.append(`image`, file);
 
-                reader.readAsArrayBuffer(file);
-            });
-        });
-    
+        for (const pair of formData.entries()) {
+            console.log(pair[0], pair[1]);
+        }
+
         try {
-            const byteArrays = await Promise.all(promises);
+            // Send the array of MultipartFiles to the backend
+            const response  = await axios.post(
+                "http://localhost:8080/post/newPostImage",
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
 
-            const base64StringList = convertByteArraysToBase64StringList(byteArrays);
+            const postID = response.data;
+
 
             const postRequestBody = {
-                    base64Images: base64StringList,
                     name: productName,
                     postDescription: description,
                     postCategory: category,
@@ -75,9 +80,9 @@ const Form = ({toggle, selectedFiles ,setSelectedFiles}) =>{
                     postSize: size
                 }
             console.log(postRequestBody);
+
             const userID = sessionStorage.getItem("userName");
-            // Send the array of Uint8Arrays to the backend
-            await axios.post(`http://localhost:8080/post/newPost?userID=${userID}`, postRequestBody);
+            await axios.post(`http://localhost:8080/post/newPostInfo?userID=${userID}&postID=${postID}`, postRequestBody);
 
             //console.log('Images uploaded successfully.');
             setProductName('');

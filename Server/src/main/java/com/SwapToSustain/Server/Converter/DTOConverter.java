@@ -46,10 +46,8 @@ public class DTOConverter {
 
     public void convertDTO(UserPostModel userPostModel, NewUserPost newUserPost, UUID userId, String userName) {
 
-        ArrayList<String> base64Images = new ArrayList<>(newUserPost.getBase64Images());
         userPostModel.setUserID(userId);
         userPostModel.setUserName(userName);
-        userPostModel.setBase64Images(base64Images);
         userPostModel.setPostName(newUserPost.getName());
         userPostModel.setPostDescription(newUserPost.getPostDescription());
         userPostModel.setPostCategory(newUserPost.getPostCategory());
@@ -59,7 +57,7 @@ public class DTOConverter {
     }
 
     private void postModelToPersonalPost(UserPostModel userPostModel, UserPost userPost) {
-        userPost.setBase64Images(userPostModel.getBase64Images());
+        userPost.setBase64Images(userPostModel.getGcsImages());
         userPost.setPostID(userPostModel.getPostID());
         userPost.setName(userPostModel.getPostName());
         userPost.setPostDescription(userPostModel.getPostDescription());
@@ -97,7 +95,7 @@ public class DTOConverter {
     public TradesOffered convertDTO(UserPostModel myPost, UserPostModel theirPost) {
 
             TradesOffered newTradeOffer = new TradesOffered();
-            newTradeOffer.setMyBase64Images(myPost.getBase64Images());
+            newTradeOffer.setMyBase64Images(myPost.getGcsImages());
             newTradeOffer.setMyPostID(myPost.getPostID());
             newTradeOffer.setMyName(myPost.getPostName());
             newTradeOffer.setMyPostDescription(myPost.getPostDescription());
@@ -105,7 +103,7 @@ public class DTOConverter {
             newTradeOffer.setMyPostBrand(myPost.getPostBrand());
             newTradeOffer.setMyPostStyle(myPost.getPostStyle());
             newTradeOffer.setMyPostSize(myPost.getPostSize());
-            newTradeOffer.setTheirBase64Images(theirPost.getBase64Images());
+            newTradeOffer.setTheirBase64Images(theirPost.getGcsImages());
             newTradeOffer.setTheirPostID(theirPost.getPostID());
             newTradeOffer.setTheirUserID(theirPost.getUserID());
             newTradeOffer.setTheirUserName(theirPost.getUserName());
@@ -153,7 +151,7 @@ public class DTOConverter {
             UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserID(userPostModel.getUserID());
 
             FeedUserPost feedUserPost = new FeedUserPost();
-            feedUserPost.setBase64Images(userPostModel.getBase64Images());
+            feedUserPost.setBase64Images(userPostModel.getGcsImages());
             feedUserPost.setPostID(userPostModel.getPostID());
             feedUserPost.setUserID(userPostModel.getUserID());
             feedUserPost.setUserName(userAccountInfoModel.getUserName());

@@ -22,7 +22,7 @@ public class UserPostModel {
 
     private String userName;
 
-    private List<String> base64Images;
+    private List<String> gcsImages;
 
     private String postName;
 
