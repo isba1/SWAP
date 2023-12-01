@@ -71,6 +71,7 @@ public class DTOConverter {
 
         userProfile.setUserID(userAccountInfoModel.getUserID());
         userProfile.setUserName(userAccountInfoModel.getUserName());
+        userProfile.setContactNumber(userAccountInfoModel.getPhone());
         userProfile.setFollowersCount(userAccountInfoModel.getFollowers().size());
         userProfile.setFollowingCount(userAccountInfoModel.getFollowing().size());
 
