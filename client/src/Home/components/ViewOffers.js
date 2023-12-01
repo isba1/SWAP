@@ -32,11 +32,11 @@ function ViewOffersButton({ onClick }) {
     try {
       console.log("Offer Accepted:", offer);
       const response = await axios.put(
-        `http://localhost:8080/offer/acceptOffer?sellerPostID=${offer.theirPostID}&sellerUserID=${offer.theirUserName}&buyerPostID=${offer.myPostID}&buyerUserID=${userID}`
+        `http://localhost:8080/offer/acceptOffer?sellerPostID=${offer.myPostID}&sellerUserID=${userID}&buyerPostID=${offer.theirPostID}&buyerUserID=${offer.theirUserName}`
       );
       console.log("Accept Offer Response:", response.data);
       // After accepting, you may want to refetch the trade offers
-      fetchTradeOffers();
+      togglePopup();
     } catch (error) {
       console.error("Error accepting offer:", error);
     }
@@ -46,11 +46,11 @@ function ViewOffersButton({ onClick }) {
     try {
       console.log("Offer Declined:", offer);
       const response = await axios.put(
-        `http://localhost:8080/offer/declineOffer?sellerPostID=${offer.theirPostID}&sellerUserID=${offer.theirUserName}&buyerUserID=${userID}`
+        `http://localhost:8080/offer/declineOffer?sellerPostID=${offer.myPostID}&sellerUserID=${userID}&buyerUserID=${offer.theirUserName}`
       );
       console.log("Decline Offer Response:", response.data);
       // After declining, you may want to refetch the trade offers
-      fetchTradeOffers();
+      togglePopup();
     } catch (error) {
       console.error("Error declining offer:", error);
     }
@@ -63,11 +63,7 @@ function ViewOffersButton({ onClick }) {
 
   const togglePopup = () => {
     setPopupOpen(!isPopupOpen);
-    toggleScroll(); // Toggle scrolling on the main page
-  };
-
-  const closePopup = () => {
-    setPopupOpen(false);
+    fetchTradeOffers();
     toggleScroll(); // Toggle scrolling on the main page
   };
 
@@ -88,7 +84,7 @@ function ViewOffersButton({ onClick }) {
                 declineOffer={declineOffer}
               />
             </React.Suspense>
-            <button className="close-button" onClick={closePopup}>
+            <button className="close-button" onClick={togglePopup}>
               Close
             </button>
           </div>

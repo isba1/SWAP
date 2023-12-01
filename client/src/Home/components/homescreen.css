@@ -76,6 +76,14 @@ body{
     text-decoration: underline;
 }
 
+.userbutton{
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+}
+
 
 .search {
     position: relative;
@@ -289,7 +297,7 @@ header {
 .your-offer,
 .their-offer {
   width: 100%;
-  /* padding: 10px; */
+  
   text-align: left;
 }
 
