@@ -42,7 +42,7 @@ public class OfferingController {
 
 
     // end point hit if the offer is accepted
-    @PostMapping("/acceptOffer")
+    @PutMapping("/acceptOffer")
     @CrossOrigin("http://localhost:3000")
     public void acceptOffer(@RequestParam(name = "sellerPostID") String sellerPostID,
                             @RequestParam(name = "sellerUserID") String sellerUserName,
@@ -51,7 +51,7 @@ public class OfferingController {
         offeringService.acceptOffer(sellerPostID, sellerUserName, buyerPostID, buyerUserName);
     }
 
-    @PostMapping("/declineOffer")
+    @PutMapping("/declineOffer")
     @CrossOrigin("http://localhost:3000")
     public void declineOffer(@RequestParam(name = "sellerPostID") String sellerPostID,
                              @RequestParam(name = "sellerUserID") String sellerUserName,
