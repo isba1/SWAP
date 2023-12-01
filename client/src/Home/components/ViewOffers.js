@@ -36,7 +36,8 @@ function ViewOffersButton({ onClick }) {
       );
       console.log("Accept Offer Response:", response.data);
       // After accepting, you may want to refetch the trade offers
-      fetchTradeOffers();
+      togglePopup();
+      togglePopup();
     } catch (error) {
       console.error("Error accepting offer:", error);
     }
@@ -50,7 +51,8 @@ function ViewOffersButton({ onClick }) {
       );
       console.log("Decline Offer Response:", response.data);
       // After declining, you may want to refetch the trade offers
-      fetchTradeOffers();
+      togglePopup();
+      togglePopup();
     } catch (error) {
       console.error("Error declining offer:", error);
     }
@@ -63,13 +65,10 @@ function ViewOffersButton({ onClick }) {
 
   const togglePopup = () => {
     setPopupOpen(!isPopupOpen);
+    fetchTradeOffers();
     toggleScroll(); // Toggle scrolling on the main page
   };
 
-  const closePopup = () => {
-    setPopupOpen(false);
-    toggleScroll(); // Toggle scrolling on the main page
-  };
 
 
   return (
@@ -88,7 +87,7 @@ function ViewOffersButton({ onClick }) {
                 declineOffer={declineOffer}
               />
             </React.Suspense>
-            <button className="close-button" onClick={closePopup}>
+            <button className="close-button" onClick={togglePopup}>
               Close
             </button>
           </div>

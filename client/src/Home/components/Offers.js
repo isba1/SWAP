@@ -11,7 +11,7 @@ function Offers({ tradeOffers, acceptOffer, declineOffer }) {
             <h2>Your Product:</h2>
             <div className="image-container">
               <img
-                src={`data:image/png;base64, ${offer.myBase64Images[0]}`}
+                src={offer.myGcsUrls[0]}
                 alt="Your Product"
               />
             </div>
@@ -27,7 +27,7 @@ function Offers({ tradeOffers, acceptOffer, declineOffer }) {
             <h2>{offer.theirUserName}'s Product:</h2>
             <div className="image-container">
               <img
-                src={`data:image/png;base64, ${offer.theirBase64Images[0]}`}
+                src={offer.theirGcsUrls[0]}
                 alt="Their Product"
               />
             </div>
