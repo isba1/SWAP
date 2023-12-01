@@ -17,7 +17,7 @@ const Homescreen = () => {
   //this will be a FeedUserPost object
 
   useEffect(() => {
-    axios.get(`/home?userID=${userNAME}`) //  API endpoint goes here
+    axios.get(`http://localhost:8080/home?userID=${userNAME}`) //  API endpoint goes here
       .then(response => {
         setRecommendedPosts(response.data);
       })
