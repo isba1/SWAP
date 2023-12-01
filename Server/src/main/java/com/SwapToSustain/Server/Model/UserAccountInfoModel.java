@@ -6,10 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Document(collection = "UserInfo")
 @Data
@@ -32,7 +29,7 @@ public class UserAccountInfoModel {
     private HashSet<UUID> followers;
 
     //first objectID is item yours (seller), and second one is the item that someone else has offered to trade (buyer)
-    private HashMap<UUID,UUID> offeredMe;
+    private HashMap<UUID, ArrayList<UUID>> offeredMe;
 
     //first objectID is the item that I am interested in (seller), and the second one is the item that I am offering (buyer)
     private HashMap<UUID, UUID> myOffers;

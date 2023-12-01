@@ -1,5 +1,6 @@
 package com.SwapToSustain.Server.Service;
 
+import com.SwapToSustain.Server.Components.RemovingPosts;
 import com.SwapToSustain.Server.Converter.DTOConverter;
 import com.SwapToSustain.Server.DTO.NewUserPost;
 import com.SwapToSustain.Server.DTO.UserPost;
@@ -8,20 +9,15 @@ import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.UserInfoRepository;
 import com.SwapToSustain.Server.Repository.UserPostRepository;
 import com.google.auth.Credentials;
-import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class PostService {
@@ -35,12 +31,18 @@ public class PostService {
     @Autowired
     private DTOConverter dtoConverter;
 
-    private final Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("Server/src/main/resources/keys.json"));
-    private final Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
-    private final String bucketName = "swap_image_storage";
+    @Autowired
+    private RemovingPosts removingPosts;
 
+    private final Credentials credentials;
+    private final Storage storage;
+    private final String bucketName;
 
-    public PostService() throws IOException {
+    @Autowired
+    public PostService(Credentials credentials, Storage storage, String bucketName) throws IOException {
+        this.credentials = credentials;
+        this.storage = storage;
+        this.bucketName = bucketName;
     }
 
 
@@ -83,17 +85,14 @@ public class PostService {
         return userPostModel.getPostID().toString();
     }
 
+
     public void removeUserPost(String postID) {
         UserPostModel userPostModel = userPostRepository.findByPostID(UUID.fromString(postID));
 
         // Delete Picture from GCS
-        for (String url: userPostModel.getGcsUrls()) {
-            String[] urlParts = url.split("/");
-            String objectName = urlParts[urlParts.length - 1];
+        removingPosts.deleteFromGCS(userPostModel);
 
-            BlobId blobId = BlobId.of(bucketName, objectName);
-            storage.delete(blobId);
-        }
+        removingPosts.removeOffersFromAllUsers(userPostModel, userPostModel.getUserName());
 
         userPostRepository.delete(userPostModel);
     }
