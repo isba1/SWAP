@@ -1,7 +1,13 @@
 import React from "react";
 import "./homescreen.css";
+import { useNavigate } from 'react-router-dom';
 
 function Offers({ tradeOffers, acceptOffer, declineOffer }) {
+  const navigate = useNavigate();
+
+  const handleProfileChange = async (userName) => {
+      navigate(`/userprofile/${userName}`);
+  }
   return (
     <div className="offers-container">
       <h1>Your Trade Offers</h1>
@@ -24,7 +30,7 @@ function Offers({ tradeOffers, acceptOffer, declineOffer }) {
           </div>
 
           <div className="their-offer">
-            <h2>{offer.theirUserName}'s Product:</h2>
+            <button className="searchexbutton" onClick={() => handleProfileChange(offer.theirUserName)}>{offer.theirUserName}'s Product</button>
             <div className="image-container">
               <img
                 src={`data:image/png;base64, ${offer.theirBase64Images[0]}`}
