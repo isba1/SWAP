@@ -12,6 +12,8 @@ public class UserProfile {
 
     private String userName;
 
+    private String contactNumber;
+
     private Integer followersCount;
 
     private Integer followingCount;
