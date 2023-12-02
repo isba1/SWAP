@@ -19,7 +19,13 @@ function ProfilePage() {
   const postsRef = useRef(null);
   const [posts, setPosts] = useState([]);
   const [totalPosts, setTotalPosts] = useState(0);
-  const [followed, setFollowed] = useState(false);
+  const [followed, setFollowed] = useState(() => {
+    // Initialize followed state from localStorage, default to false if not found
+    return (
+      JSON.parse(localStorage.getItem(`followed_${userID}_${username}`)) ||
+      false
+    );
+  });
 
   const fetchFollowStatus = async () => {
     try {
@@ -74,15 +80,25 @@ function ProfilePage() {
 
   const handleFollowClick = async () => {
     try {
-      setFollowed(!followed);
+      setFollowed((prevFollowed) => {
+        // Toggle followed state
+        const newFollowed = !prevFollowed;
+        // Save new state in localStorage
+        localStorage.setItem(
+          `followed_${userID}_${username}`,
+          JSON.stringify(newFollowed)
+        );
+
+        return newFollowed;
+      });
 
       // Use the appropriate endpoint based on follow/unfollow action
       if (!followed) {
-        await axios.get(
+        await axios.put(
           `http://localhost:8080/follow/add?loginUserName=${userID}&userNameToFollow=${username}`
         );
       } else {
-        await axios.get(
+        await axios.put(
           `http://localhost:8080/follow/remove?loginUserName=${userID}&userNameToRemoveFollow=${username}`
         );
       }
