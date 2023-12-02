@@ -3,9 +3,6 @@ package com.SwapToSustain.Server.Converter;
 import com.SwapToSustain.Server.DTO.*;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
-import com.SwapToSustain.Server.Repository.UserInfoRepository;
-import com.SwapToSustain.Server.Repository.UserPostRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -13,12 +10,6 @@ import java.util.List;
 
 @Component
 public class DTOConverter {
-
-    @Autowired
-    UserPostRepository userPostRepository;
-
-    @Autowired
-    UserInfoRepository userInfoRepository;
 
     public void convertDTO(UserAccountInfoModel userAccountInfoModel, UserInterests userInterests){
         userAccountInfoModel.setInterestBrand(userInterests.getBrands());
@@ -149,13 +140,12 @@ public class DTOConverter {
     public void convertDTOForFeedPosts (List<FeedUserPost> userFeedPosts, List<UserPostModel> userPostModels) {
 
         for (UserPostModel userPostModel: userPostModels) {
-            UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserID(userPostModel.getUserID());
 
             FeedUserPost feedUserPost = new FeedUserPost();
             feedUserPost.setGcsUrls(userPostModel.getGcsUrls());
             feedUserPost.setPostID(userPostModel.getPostID());
             feedUserPost.setUserID(userPostModel.getUserID());
-            feedUserPost.setUserName(userAccountInfoModel.getUserName());
+            feedUserPost.setUserName(userPostModel.getUserName());
             feedUserPost.setPostName(userPostModel.getPostName());
             feedUserPost.setPostDescription(userPostModel.getPostDescription());
             feedUserPost.setPostCategory(userPostModel.getPostCategory());
