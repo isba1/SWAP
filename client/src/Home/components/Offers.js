@@ -1,7 +1,13 @@
 import React from "react";
 import "./homescreen.css";
+import { useNavigate } from 'react-router-dom';
 
 function Offers({ tradeOffers, acceptOffer, declineOffer }) {
+  const navigate = useNavigate();
+
+  const handleProfileChange = async (userName) => {
+      navigate(`/userprofile/${userName}`);
+  }
   return (
     <div className="offers-container">
       <h1>Your Trade Offers</h1>
@@ -11,7 +17,7 @@ function Offers({ tradeOffers, acceptOffer, declineOffer }) {
             <h2>Your Product:</h2>
             <div className="image-container">
               <img
-                src={`data:image/png;base64, ${offer.myBase64Images[0]}`}
+                src={offer.myGcsUrls[0]}
                 alt="Your Product"
               />
             </div>
@@ -24,13 +30,14 @@ function Offers({ tradeOffers, acceptOffer, declineOffer }) {
           </div>
 
           <div className="their-offer">
-            <h2>{offer.theirUserName}'s Product:</h2>
+            <h2>{offer.theirUserName}'s Product</h2>
             <div className="image-container">
               <img
-                src={`data:image/png;base64, ${offer.theirBase64Images[0]}`}
+                src={offer.myGcsUrls[0]}
                 alt="Their Product"
               />
             </div>
+            <button className="userbutton" onClick={() => handleProfileChange(offer.theirUserName)}>Profile</button>
             <p>{offer.theirPostName}</p>
             <p>Description: {offer.theirPostDescription}</p>
             <p>Category: {offer.theirPostCategory}</p>
