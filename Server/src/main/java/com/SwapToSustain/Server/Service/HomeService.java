@@ -30,13 +30,13 @@ public class HomeService {
 
         UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserName(userName);
 
-        List<UserPostModel> recommendedByStyleAndBrand = userPostRepository.findByPostStyleOrPostBrandOrPostSizeIn
-                (userAccountInfoModel.getInterestStyle(), userAccountInfoModel.getInterestBrand());
+        List<UserPostModel> recommendedByStyleAndBrand = userPostRepository.findByPostStyleOrPostBrandOrPostSizeAndNotUserIdIn
+                (userAccountInfoModel.getInterestStyle(), userAccountInfoModel.getInterestBrand(), userAccountInfoModel.getUserID());
 
-        List<UserPostModel> recommendedByShirtSize = userPostRepository.findByPostSize(userAccountInfoModel.getShirtSize());
-        List<UserPostModel> recommendedByPantSize = userPostRepository.findByPostSize(userAccountInfoModel.getPantSize());
-        List<UserPostModel> recommendedByJacketSize = userPostRepository.findByPostSize(userAccountInfoModel.getJacketSize());
-        List<UserPostModel> recommendedByShoeSize = userPostRepository.findByPostSize(userAccountInfoModel.getShoeSize());
+        List<UserPostModel> recommendedByShirtSize = userPostRepository.findByPostSizeAndNotUserId(userAccountInfoModel.getShirtSize(), userAccountInfoModel.getUserID());
+        List<UserPostModel> recommendedByPantSize = userPostRepository.findByPostSizeAndNotUserId(userAccountInfoModel.getPantSize(), userAccountInfoModel.getUserID());
+        List<UserPostModel> recommendedByJacketSize = userPostRepository.findByPostSizeAndNotUserId(userAccountInfoModel.getJacketSize(), userAccountInfoModel.getUserID());
+        List<UserPostModel> recommendedByShoeSize = userPostRepository.findByPostSizeAndNotUserId(userAccountInfoModel.getShoeSize(), userAccountInfoModel.getUserID());
 
         List<UserPostModel> allRecommended = new ArrayList<>();
         allRecommended.addAll(recommendedByStyleAndBrand);
@@ -50,11 +50,9 @@ public class HomeService {
         ArrayList<UserPostModel> noDuplicatesUserPostModels = new ArrayList<>();
 
         for (UserPostModel userPostModel: allRecommended) {
-            if (userPostModel.getUserID() != userAccountInfoModel.getUserID()) {
-                if (!foundPostIds.contains(userPostModel.getPostID())) {
-                    noDuplicatesUserPostModels.add(userPostModel);
-                    foundPostIds.add(userPostModel.getPostID());
-                }
+            if (!foundPostIds.contains(userPostModel.getPostID())) {
+                noDuplicatesUserPostModels.add(userPostModel);
+                foundPostIds.add(userPostModel.getPostID());
             }
         }
 
