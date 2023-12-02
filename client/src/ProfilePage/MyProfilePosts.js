@@ -7,7 +7,7 @@ function MyProfilePosts({PostObject}){
 
     const handleDelete = async () => {
         try{
-            await axios.post(`http://localhost:8080/post/removePost?postID=${PostObject.postID}`);
+            await axios.delete(`http://localhost:8080/post/removePost?postID=${PostObject.postID}`);
             window.location.reload(true);
         }catch (error){
             console.error(error);

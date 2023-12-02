@@ -45,6 +45,7 @@ public class DTOConverter {
         userPostModel.setPostBrand(newUserPost.getPostBrand());
         userPostModel.setPostStyle(newUserPost.getPostStyle());
         userPostModel.setPostSize(newUserPost.getPostSize());
+        userPostModel.setConnectedUsers(new HashSet<>());
     }
 
     private void postModelToPersonalPost(UserPostModel userPostModel, UserPost userPost) {
