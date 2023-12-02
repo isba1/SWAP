@@ -58,9 +58,7 @@ public class RemovingPosts {
             UserAccountInfoModel foundAccount = userInfoRepository.findByUserName(user);
 
             // for offered me in other accounts
-            Iterator<Map.Entry<UUID, ArrayList<UUID>>> iterator1 = foundAccount.getOfferedMe().entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry<UUID, ArrayList<UUID>> entry = iterator1.next();
+            for (Map.Entry<UUID, ArrayList<UUID>> entry : foundAccount.getOfferedMe().entrySet()) {
                 ArrayList<UUID> arrayList = entry.getValue();
 
                 // Check if the item exists in the ArrayList and remove it
@@ -69,7 +67,7 @@ public class RemovingPosts {
 
                     // If the ArrayList is now empty, remove the key from the HashMap
                     if (arrayList.isEmpty()) {
-                        iterator.remove();
+                        foundAccount.getOfferedMe().remove(entry.getKey());
                     }
                 }
             }

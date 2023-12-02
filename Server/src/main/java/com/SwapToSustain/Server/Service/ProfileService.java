@@ -43,16 +43,13 @@ public class ProfileService {
 
         UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserName(userName);
 
-        Iterator<Map.Entry<UUID, ArrayList<UUID>>> iterator = userAccountInfoModel.getOfferedMe().entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<UUID, ArrayList<UUID>> entry = iterator.next();
+        for (Map.Entry<UUID, ArrayList<UUID>> entry : userAccountInfoModel.getOfferedMe().entrySet()) {
             ArrayList<UUID> arrayList = entry.getValue();
 
             UserPostModel myPost = userPostRepository.findByPostID(entry.getKey());
 
             for (UUID postID : arrayList) {
                 UserPostModel theirPost = userPostRepository.findByPostID(postID);
-
                 tradeOffers.add(dtoConverter.convertDTO(myPost, theirPost));
             }
 
