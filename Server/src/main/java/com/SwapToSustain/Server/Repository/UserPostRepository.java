@@ -21,11 +21,11 @@ public interface UserPostRepository extends MongoRepository<UserPostModel, UUID>
 //    @Query("{'$or':[ {'postStyle': {'$in': ?0}}, {'postBrand': {'$in': ?1}} ]}")
 //    List<UserPostModel> findByPostStyleOrPostBrandOrPostSizeIn(List<String> styles, List<String> brands);
 
-    @Query("{'$and': [ {'$or':[ {'postStyle': {'$in': ?0}}, {'postBrand': {'$in': ?1}} ]}, {'userId': {'$ne': ?2}} ]}")
+    @Query("{'$and': [ {'$or':[ {'postStyle': {'$in': ?0}}, {'postBrand': {'$in': ?1}} ]}, {'userID': {'$ne': ?2}} ]}")
     List<UserPostModel> findByPostStyleOrPostBrandOrPostSizeAndNotUserIdIn(List<String> styles, List<String> brands, UUID userId);
 
 
-    @Query("{'$and': [{'postSize': ?0}, {'userId': {'$ne': ?1}}]}")
+    @Query("{'$and': [{'postSize': ?0}, {'userID': {'$ne': ?1}}]}")
     List<UserPostModel> findByPostSizeAndNotUserId(String size, UUID userId);
 
 
