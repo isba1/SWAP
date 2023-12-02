@@ -32,7 +32,7 @@ public class PostController {
     }
 
     // need to figure out how to remove images from GCS as well
-    @PostMapping(value = "/removePost")
+    @DeleteMapping(value = "/removePost")
     @CrossOrigin(origins = "http://localhost:3000")
     public void removePost(@RequestParam(name = "postID") String postID) {
         postService.removeUserPost(postID);
