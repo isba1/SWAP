@@ -80,31 +80,27 @@ function ProfilePage() {
 
   const handleFollowClick = async () => {
     try {
-      setFollowed((prevFollowed) => {
-        // Toggle followed state
-        const newFollowed = !prevFollowed;
-        // Save new state in localStorage
-        localStorage.setItem(
-          `followed_${userID}_${username}`,
-          JSON.stringify(newFollowed)
-        );
-
-        return newFollowed;
-      });
-
-      // Use the appropriate endpoint based on follow/unfollow action
       if (!followed) {
         await axios.put(
           `http://localhost:8080/follow/add?loginUserName=${userID}&userNameToFollow=${username}`
         );
+        setFollowed(true);
+        localStorage.setItem(
+          `followed_${userID}_${username}`,
+          JSON.stringify(true)
+        );
+        console.log("Account followed");
       } else {
         await axios.put(
           `http://localhost:8080/follow/remove?loginUserName=${userID}&userNameToRemoveFollow=${username}`
         );
+        setFollowed(false);
+        localStorage.setItem(
+          `followed_${userID}_${username}`,
+          JSON.stringify(false)
+        );
+        console.log("Account unfollowed");
       }
-
-      // Update follow status after API call
-      fetchFollowStatus();
     } catch (error) {
       console.error("Error toggling follow status:", error);
       setFollowed(!followed); // Reset the state to previous value on error
@@ -146,7 +142,6 @@ function ProfilePage() {
       <div ref={postsRef}></div>
     </div>
   );
-
 }
 
 export default ProfilePage;
