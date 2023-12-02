@@ -204,7 +204,6 @@ body.active-modal {
 }
 
 .deleteButton {
-    position: relative;
     background-color: #1A3E2F;
     font-size: 20px;
     border: none;
