@@ -83,12 +83,13 @@ public class RemovingPosts {
     }
 
     public void deleteFromGCS(UserPostModel userPostModel) {
+        final String folderName = "Post_Images";
 
         for (String url: userPostModel.getGcsUrls()) {
             String[] urlParts = url.split("/");
             String objectName = urlParts[urlParts.length - 1];
 
-            BlobId blobId = BlobId.of(bucketName, objectName);
+            BlobId blobId = BlobId.of(bucketName, folderName + "/" + objectName);
             storage.delete(blobId);
         }
     }
