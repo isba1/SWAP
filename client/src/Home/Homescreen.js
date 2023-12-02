@@ -3,42 +3,37 @@ import { Suspense } from 'react';
 import "./components/homescreen.css";
 import SideBar from './components/SideBar';
 import HomeBar from './components/Homebar';
+import axios from 'axios';
 
 const LazyHomePosts = React.lazy(() => import('./components/HomePosts'));
 
 const Homescreen = () => {
   const [loadedPosts, setLoadedPosts] = useState(0);
+  const [recommendedPosts, setRecommendedPosts] = useState([]);
   const postsRef = useRef(null);
 
   //this will be the myuser's userid/token
   const userID = sessionStorage.getItem("userName");
   //this will be a FeedUserPost object
-  
-  const FeedUserTest = {
-    postID: '',
-    userID: '',
-    userName: 'ExampleUser',
-    name: 'Gray Sweatpants',
-    postDescription: 'Gray Sweapants',
-    postCategory: 'EXAMPLE',
-    postBrand: 'EXAMPLE',
-    postStyle: 'EXAMPLE',
-    postSize: 'EXAMPLE',
-  }
-  
+
   useEffect(() => {
+    axios.get(`http://localhost:8080/home?userID=${userID}`) //  API endpoint goes here
+      .then(response => {
+        setRecommendedPosts(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching recommended posts:', error);
+      });
+
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        //console.log('Element is intersecting');
         setLoadedPosts((prevLoadedPosts) => prevLoadedPosts + 1);
-      } else {
-        //console.log('Element is not intersecting');
       }
     });
 
     observer.observe(postsRef.current);
     return () => observer.disconnect();
-  }, []);
+  }, [userID]);
 
   return (
     <div className='homerow'>
@@ -47,10 +42,12 @@ const Homescreen = () => {
       </div>
       <div className='homecolumnright'>
         <HomeBar />
-        {Array.from({ length: loadedPosts }).map((_, index) => (
-          <Suspense key={index} fallback={<div>Loading post...</div>}>
-            <LazyHomePosts FeedUserPostObject={FeedUserTest} UserID={userID}/>
-          </Suspense>
+        {recommendedPosts.slice(0, loadedPosts).map((post, index) => (
+          <div key={index}>
+            <Suspense fallback={<div>Loading post...</div>}>
+              <LazyHomePosts FeedUserPostObject={post} UserID={userID} />
+            </Suspense>
+          </div>
         ))}
         <div ref={postsRef}></div>
       </div>
