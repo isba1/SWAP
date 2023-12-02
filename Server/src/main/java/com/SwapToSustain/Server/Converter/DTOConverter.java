@@ -3,9 +3,6 @@ package com.SwapToSustain.Server.Converter;
 import com.SwapToSustain.Server.DTO.*;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
-import com.SwapToSustain.Server.Repository.UserInfoRepository;
-import com.SwapToSustain.Server.Repository.UserPostRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -13,12 +10,6 @@ import java.util.List;
 
 @Component
 public class DTOConverter {
-
-    @Autowired
-    UserPostRepository userPostRepository;
-
-    @Autowired
-    UserInfoRepository userInfoRepository;
 
     public void convertDTO(UserAccountInfoModel userAccountInfoModel, UserInterests userInterests){
         userAccountInfoModel.setInterestBrand(userInterests.getBrands());
@@ -46,10 +37,8 @@ public class DTOConverter {
 
     public void convertDTO(UserPostModel userPostModel, NewUserPost newUserPost, UUID userId, String userName) {
 
-        ArrayList<String> base64Images = new ArrayList<>(newUserPost.getBase64Images());
         userPostModel.setUserID(userId);
         userPostModel.setUserName(userName);
-        userPostModel.setBase64Images(base64Images);
         userPostModel.setPostName(newUserPost.getName());
         userPostModel.setPostDescription(newUserPost.getPostDescription());
         userPostModel.setPostCategory(newUserPost.getPostCategory());
@@ -59,7 +48,7 @@ public class DTOConverter {
     }
 
     private void postModelToPersonalPost(UserPostModel userPostModel, UserPost userPost) {
-        userPost.setBase64Images(userPostModel.getBase64Images());
+        userPost.setGcsUrls(userPostModel.getGcsUrls());
         userPost.setPostID(userPostModel.getPostID());
         userPost.setName(userPostModel.getPostName());
         userPost.setPostDescription(userPostModel.getPostDescription());
@@ -73,6 +62,7 @@ public class DTOConverter {
 
         userProfile.setUserID(userAccountInfoModel.getUserID());
         userProfile.setUserName(userAccountInfoModel.getUserName());
+        userProfile.setContactNumber(userAccountInfoModel.getPhone());
         userProfile.setFollowersCount(userAccountInfoModel.getFollowers().size());
         userProfile.setFollowingCount(userAccountInfoModel.getFollowing().size());
 
@@ -97,7 +87,7 @@ public class DTOConverter {
     public TradesOffered convertDTO(UserPostModel myPost, UserPostModel theirPost) {
 
             TradesOffered newTradeOffer = new TradesOffered();
-            newTradeOffer.setMyBase64Images(myPost.getBase64Images());
+            newTradeOffer.setMyGcsUrls(myPost.getGcsUrls());
             newTradeOffer.setMyPostID(myPost.getPostID());
             newTradeOffer.setMyName(myPost.getPostName());
             newTradeOffer.setMyPostDescription(myPost.getPostDescription());
@@ -105,7 +95,7 @@ public class DTOConverter {
             newTradeOffer.setMyPostBrand(myPost.getPostBrand());
             newTradeOffer.setMyPostStyle(myPost.getPostStyle());
             newTradeOffer.setMyPostSize(myPost.getPostSize());
-            newTradeOffer.setTheirBase64Images(theirPost.getBase64Images());
+            newTradeOffer.setTheirGcsUrls(theirPost.getGcsUrls());
             newTradeOffer.setTheirPostID(theirPost.getPostID());
             newTradeOffer.setTheirUserID(theirPost.getUserID());
             newTradeOffer.setTheirUserName(theirPost.getUserName());
@@ -150,13 +140,12 @@ public class DTOConverter {
     public void convertDTOForFeedPosts (List<FeedUserPost> userFeedPosts, List<UserPostModel> userPostModels) {
 
         for (UserPostModel userPostModel: userPostModels) {
-            UserAccountInfoModel userAccountInfoModel = userInfoRepository.findByUserID(userPostModel.getUserID());
 
             FeedUserPost feedUserPost = new FeedUserPost();
-            feedUserPost.setBase64Images(userPostModel.getBase64Images());
+            feedUserPost.setGcsUrls(userPostModel.getGcsUrls());
             feedUserPost.setPostID(userPostModel.getPostID());
             feedUserPost.setUserID(userPostModel.getUserID());
-            feedUserPost.setUserName(userAccountInfoModel.getUserName());
+            feedUserPost.setUserName(userPostModel.getUserName());
             feedUserPost.setPostName(userPostModel.getPostName());
             feedUserPost.setPostDescription(userPostModel.getPostDescription());
             feedUserPost.setPostCategory(userPostModel.getPostCategory());

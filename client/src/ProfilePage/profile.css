@@ -202,3 +202,14 @@ body.active-modal {
     padding: 0;
     font-size:larger;
 }
+
+.deleteButton {
+    position: relative;
+    background-color: #1A3E2F;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+    color: #EFF2E4;
+    max-width: 75%;
+    
+}

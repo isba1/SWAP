@@ -55,10 +55,14 @@ public class OfferingService {
         UserAccountInfoModel sellerAccountInfoModel = userInfoRepository.findByUserName(sellerUserName);
         sellerAccountInfoModel.getOfferedMe().remove(UUID.fromString(sellerPostID));
 
+        userInfoRepository.save(sellerAccountInfoModel);
+
         userPostRepository.deleteByPostID(UUID.fromString(sellerPostID));
 
         UserAccountInfoModel buyerAccountInfoModel = userInfoRepository.findByUserName(buyerUserName);
         buyerAccountInfoModel.getMyOffers().remove(UUID.fromString(sellerPostID));
+
+        userInfoRepository.save(buyerAccountInfoModel);
 
         userPostRepository.deleteByPostID(UUID.fromString(buyerPostID));
 
@@ -69,8 +73,12 @@ public class OfferingService {
         UserAccountInfoModel sellerAccountInfoModel = userInfoRepository.findByUserName(sellerUserName);
         sellerAccountInfoModel.getOfferedMe().remove(UUID.fromString(sellerPostID));
 
+        userInfoRepository.save(sellerAccountInfoModel);
+
         UserAccountInfoModel buyerAccountInfoModel = userInfoRepository.findByUserName(buyerUserName);
         buyerAccountInfoModel.getMyOffers().remove(UUID.fromString(sellerPostID));
+
+        userInfoRepository.save(buyerAccountInfoModel);
     }
 
 

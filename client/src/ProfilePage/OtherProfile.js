@@ -146,6 +146,7 @@ function ProfilePage() {
       <div ref={postsRef}></div>
     </div>
   );
+
 }
 
 export default ProfilePage;

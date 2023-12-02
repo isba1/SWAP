@@ -8,7 +8,7 @@ import java.util.UUID;
 @Data
 public class FeedUserPost {
 
-    private List<String> base64Images;
+    private List<String> gcsUrls;
 
     private UUID postID;
 

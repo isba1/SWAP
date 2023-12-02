@@ -76,6 +76,26 @@ body{
     text-decoration: underline;
 }
 
+.userbutton{
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+}
+
+.userbutton2{
+    border:none;
+    background-color: transparent;
+    color: #1A3E2F;
+    font-size: larger;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px;
+    max-width: 20px;
+    text-decoration: underline;
+}
+
 
 .search {
     position: relative;
@@ -289,7 +309,7 @@ header {
 .your-offer,
 .their-offer {
   width: 100%;
-  /* padding: 10px; */
+  
   text-align: left;
 }
 
