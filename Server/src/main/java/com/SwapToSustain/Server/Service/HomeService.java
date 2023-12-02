@@ -10,9 +10,7 @@ import com.SwapToSustain.Server.Repository.UserPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class HomeService {
@@ -47,7 +45,22 @@ public class HomeService {
         allRecommended.addAll(recommendedByJacketSize);
         allRecommended.addAll(recommendedByShoeSize);
 
-        dtoConverter.convertDTOForFeedPosts(recommendedFeedPosts, allRecommended);
+
+        HashSet<UUID> foundPostIds = new HashSet<>();
+        ArrayList<UserPostModel> noDuplicatesUserPostModels = new ArrayList<>();
+
+        for (UserPostModel userPostModel: allRecommended) {
+            if (userPostModel.getUserID() != userAccountInfoModel.getUserID()) {
+                if (!foundPostIds.contains(userPostModel.getPostID())) {
+                    noDuplicatesUserPostModels.add(userPostModel);
+                    foundPostIds.add(userPostModel.getPostID());
+                }
+            }
+        }
+
+
+        dtoConverter.convertDTOForFeedPosts(recommendedFeedPosts, noDuplicatesUserPostModels);
+
 
         return recommendedFeedPosts;
 
