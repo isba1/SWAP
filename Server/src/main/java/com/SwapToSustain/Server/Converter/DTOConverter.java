@@ -66,6 +66,8 @@ public class DTOConverter {
         userProfile.setContactNumber(userAccountInfoModel.getPhone());
         userProfile.setFollowersCount(userAccountInfoModel.getFollowers().size());
         userProfile.setFollowingCount(userAccountInfoModel.getFollowing().size());
+        userProfile.setUserCity(userAccountInfoModel.getCity());
+        userProfile.setUserState(userAccountInfoModel.getState());
 
         ArrayList<UserPost> userPosts = new ArrayList<>();
 
