@@ -28,7 +28,7 @@ function OtherProfileNameList({array, toggle, post, myid, sellerid}) {
     <div>
       {array.map((item, index) => (
         <button className='namebutton' key={index} onClick={() => handleButtonClick(item.name, item)}>
-          <img src={item.base64Images[0]} alt={item.name}/>
+          <img src={item.gcsUrls[0]} alt={item.name}/>
         </button>
       ))}
     </div>

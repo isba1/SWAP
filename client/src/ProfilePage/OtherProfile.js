@@ -64,11 +64,17 @@ function ProfilePage (){
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                <div className='profilehorizontalcontainer'>
-                <button className='homebutton' onClick={handleChange}>Home</button>
-                <h1>{username}</h1>
-                <p>Followers: {data.followersCount}</p>
-                <p>Following: {data.followingCount}</p>
+                <div>
+                    <div className='profilehorizontalcontainer'>
+                    <button className='homebutton' onClick={handleChange}>Home</button>
+                    <h1>{username}</h1>
+                    <p>Followers: {data.followersCount}</p>
+                    <p>Following: {data.followingCount}</p>
+                    </div>
+                    <div className='profilehorizontalcontainer'>
+                        <div>Phone Number: {data.contactNumber}</div>
+                        <div>Location: {data.userCity}, {data.userState}</div>
+                    </div>
                 </div>
             )}
             </div>
