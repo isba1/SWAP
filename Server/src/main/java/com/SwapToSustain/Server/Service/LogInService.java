@@ -63,20 +63,26 @@ public class LogInService {
     }
 
     public LoginAuthentication newUserAndTokenGeneration(UserAccountInfo userAccountInfo) {
-        saveAccountInfo(userAccountInfo);
-
+        boolean ret = saveAccountInfo(userAccountInfo);
         LoginAuthentication loginAuthentication = new LoginAuthentication();
 
-        String foundAccount = findUserName(userAccountInfo.getEmail(), userAccountInfo.getPassword());
+        if (ret) {
+            String foundAccount = userInfoRepository.findByUserName(userAccountInfo.getUserName()).getUserName();
 
-        loginAuthentication.setLoginSuccess(true);
+            loginAuthentication.setLoginSuccess(true);
 
-        TokenValue tokenValue = new TokenValue(foundAccount, GENERAL_TOKEN_EXPIRATION);
-        String token = tokenInterface.generateToken(tokenValue);
+            TokenValue tokenValue = new TokenValue(foundAccount, GENERAL_TOKEN_EXPIRATION);
+            String token = tokenInterface.generateToken(tokenValue);
 
-        loginAuthentication.setTokenString(token);
+            loginAuthentication.setTokenString(token);
 
-        return loginAuthentication;
+            return loginAuthentication;
+        } else {
+
+            loginAuthentication.setLoginSuccess(ret);
+            loginAuthentication.setTokenString("");
+            return loginAuthentication;
+        }
     }
 
     public boolean userAuthentication(String email, String password){
@@ -88,7 +94,7 @@ public class LogInService {
         return userAccountInfoModel != null;
     }
 
-    public boolean saveAccountInfo(UserAccountInfo userAccountInfo){
+    private boolean saveAccountInfo(UserAccountInfo userAccountInfo){
         if (userInfoRepository.findByEmail(userAccountInfo.getEmail()) != null || userInfoRepository.findByUserName(userAccountInfo.getUserName()) != null) {
             return false;
         } else {
