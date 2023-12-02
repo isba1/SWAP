@@ -20,4 +20,8 @@ public class UserProfile {
 
     private List<UserPost> userPosts;
 
+    private String userCity;
+
+    private String userState;
+
 }
