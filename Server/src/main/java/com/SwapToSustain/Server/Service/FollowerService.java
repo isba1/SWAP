@@ -22,8 +22,8 @@ public class FollowerService {
 
     public void addFollower(String loginUserName, String userNameToFollow) {
         // find the user info model of two user
-        UserAccountInfoModel loginUser = userInfoRepository.findByEmail(loginUserName);
-        UserAccountInfoModel userToFollow = userInfoRepository.findByEmail(userNameToFollow);
+        UserAccountInfoModel loginUser = userInfoRepository.findByUserName(loginUserName);
+        UserAccountInfoModel userToFollow = userInfoRepository.findByUserName(userNameToFollow);
         // add followers
         loginUser.getFollowing().add(userToFollow.getUserID());
         userToFollow.getFollowers().add(loginUser.getUserID());
@@ -34,8 +34,8 @@ public class FollowerService {
 
     public void removeFollowing(String loginUsername, String userNameToCancelFollowing) {
         // find the user info model of two user
-        UserAccountInfoModel loginUser = userInfoRepository.findByEmail(loginUsername);
-        UserAccountInfoModel userToCancelFollowing = userInfoRepository.findByEmail(userNameToCancelFollowing);
+        UserAccountInfoModel loginUser = userInfoRepository.findByUserName(loginUsername);
+        UserAccountInfoModel userToCancelFollowing = userInfoRepository.findByUserName(userNameToCancelFollowing);
         // add followers
         loginUser.getFollowing().remove(userToCancelFollowing.getUserID());
         userToCancelFollowing.getFollowers().remove(loginUser.getUserID());
