@@ -22,7 +22,6 @@ function ViewOffersButton({ onClick }) {
         `http://localhost:8080/profile/offersReceived?UserID=${userID}`
       );
       setTradeOffers(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error("Error fetching trade offers:", error);
     }

@@ -84,6 +84,18 @@ body{
     padding: 0;
 }
 
+.userbutton2{
+    border:none;
+    background-color: transparent;
+    color: #1A3E2F;
+    font-size: larger;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px;
+    max-width: 20px;
+    text-decoration: underline;
+}
+
 
 .search {
     position: relative;
