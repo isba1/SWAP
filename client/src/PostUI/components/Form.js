@@ -4,6 +4,7 @@ import DropdownMenu from "./DropdownMenu";
 import BrandMenu from "./BrandMenu";
 import StyleMenu from "./StyleMenu";
 import SizeMenu from "./SizeMenu";
+import ShoeSizeMenu from "./ShoeSizeMenu";
 
 import axios from "axios";
 
@@ -65,7 +66,6 @@ const Form = ({ toggle, selectedFiles, setSelectedFiles }) => {
                 postSize: size,
             };
 
-            console.log(postRequestBody);
 
             const userID = sessionStorage.getItem("userName");
             await axios.post(`http://localhost:8080/post/newPostInfo?userID=${userID}&postID=${postID}`, postRequestBody);
@@ -91,9 +91,20 @@ const Form = ({ toggle, selectedFiles, setSelectedFiles }) => {
                 <input value={productName} name="name" id="name" placeholder="Product Name" onChange={(e) => setProductName(e.target.value)}></input>
                 <input value={description} name="description" id="description" placeholder="Product Description" onChange={(e) => setDescription(e.target.value)}></input>
                 <DropdownMenu selectedOption={category} setSelectedOption={setCategory} />
-                <BrandMenu selectedOption={brand} setSelectedOption={setBrand} />
-                <StyleMenu selectedOption={style} setSelectedOption={setStyle} />
-                <SizeMenu selectedOption={size} setSelectedOption={setSize} />
+                {category !== "" && category !== "Shoes" &&(
+                    <>
+                        <BrandMenu selectedOption={brand} setSelectedOption={setBrand} />
+                        <StyleMenu selectedOption={style} setSelectedOption={setStyle} />
+                        <SizeMenu selectedOption={size} setSelectedOption={setSize} />
+                    </>
+                )}
+                {category === "Shoes" &&(
+                    <>
+                        <BrandMenu selectedOption={brand} setSelectedOption={setBrand} />
+                        <StyleMenu selectedOption={style} setSelectedOption={setStyle} />
+                        <ShoeSizeMenu selectedOption={size} setSelectedOption={setSize}/>
+                    </>
+                )}
                 <button type="submit">POST</button>
                 {errorMessage && <p style={{ color: 'red', marginBottom: '10px' }}>{errorMessage}</p>}
             </form>
