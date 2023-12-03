@@ -1,6 +1,7 @@
 package com.SwapToSustain.Server.Controller;
 
 import com.SwapToSustain.Server.DTO.TradesOffered;
+import com.SwapToSustain.Server.DTO.UserNotification;
 import com.SwapToSustain.Server.DTO.UserProfile;
 import com.SwapToSustain.Server.DTO.UserProfileCompact;
 import com.SwapToSustain.Server.Service.ProfileService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/profile")
@@ -61,8 +63,18 @@ public class ProfileController {
         return profileService.getIndividualProfile(userName);
     }
 
+    @GetMapping("/getNotifications")
+    @CrossOrigin("http://localhost:3000")
+    public List<UserNotification> getNotifications(@RequestParam(name = "userID") String userName) {
+        return profileService.getNotifications(userName);
+    }
 
-
-
-
+    @DeleteMapping("/deleteNotification")
+    @CrossOrigin("http://localhost:3000")
+    public boolean deleteNotification(
+        @RequestParam(name = "userID") String userName,
+        @RequestParam(name = "notificationID") UUID notificationID
+    ) {
+        return profileService.deleteNotification(userName, notificationID);
+    }
 }

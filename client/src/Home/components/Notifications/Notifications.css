@@ -1,0 +1,21 @@
+.notification {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.notification .notification-inner {
+
+}
+
+.notification .notification-click-info {
+  margin: 0 auto;
+  font-size: 75%;
+
+  color: blue;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
