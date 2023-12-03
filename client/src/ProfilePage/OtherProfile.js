@@ -113,6 +113,7 @@ function ProfilePage() {
         {loading ? (
           <p>Loading...</p>
         ) : (
+          <div>
           <div className="profilehorizontalcontainer">
             <button className="homebutton" onClick={handleChange}>
               Home
@@ -127,6 +128,11 @@ function ProfilePage() {
             >
               {followed ? "Following" : "Follow"}
             </button>
+            </div>
+                <div className='profilehorizontalcontainer'>
+                <div>Phone Number: {data.contactNumber}</div>
+                <div>Location: {data.userCity}, {data.userState}</div>
+            </div>
           </div>
         )}
       </div>

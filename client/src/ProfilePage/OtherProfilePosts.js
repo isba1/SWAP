@@ -4,11 +4,19 @@ import OtherProfileOffer from "../OfferUI/OtherProfileOffer";
 
 function OtherProfilePosts({PostObject, UserID, SellerId}){
     //add thing for useEffect to get the FeedPost
+    const firstImageLink = PostObject.gcsUrls && PostObject.gcsUrls.length > 0
+    ? PostObject.gcsUrls[0]
+    : null;
+
     return (<div className="profilepostcontainer">
             <div className="profilepostrow">
                 <div className="profilepostleft">
                     <div className="profilefont">{PostObject.userName}</div>
-                    <div className="profilecoloredsquare"></div>
+                    <img
+                    className="profiledisplaypost"
+                    src={firstImageLink}
+                    alt="UserPost"
+                    ></img>
                 </div>
                 <div className="profilepostright">
                     <div className="profiletempcontainer">

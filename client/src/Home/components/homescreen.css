@@ -376,3 +376,17 @@ header {
 .decline-button {
   border: 2px solid transparent; /* Initial border set as transparent */
 }
+
+.homedisplaypost{
+    max-width: 500px;
+    max-height: 550px;
+    border: 2px solid #1A3E2F;
+    border-radius: 20px;
+}
+
+.viewofferpost{
+    max-width: 200px;
+    max-height: 250px;
+    border: 2px solid #1A3E2F;
+    border-radius: 20px;
+}

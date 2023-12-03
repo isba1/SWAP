@@ -81,6 +81,7 @@ function ViewOffersButton({ onClick }) {
                 tradeOffers={tradeOffers}
                 acceptOffer={acceptOffer}
                 declineOffer={declineOffer}
+                toggleScroll={toggleScroll}
               />
             </React.Suspense>
             <button className="close-button" onClick={togglePopup}>
