@@ -2,7 +2,7 @@ package com.SwapToSustain.Server.Service;
 
 import com.SwapToSustain.Server.Converter.DTOConverter;
 import com.SwapToSustain.Server.DTO.TradesOffered;
-import com.SwapToSustain.Server.DTO.UserAccountInfo;
+import com.SwapToSustain.Server.DTO.UserNotification;
 import com.SwapToSustain.Server.DTO.UserProfile;
 import com.SwapToSustain.Server.DTO.UserProfileCompact;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 @Service
 public class ProfileService {
@@ -121,4 +122,25 @@ public class ProfileService {
         return userProfile;
     }
 
+    public List<UserNotification> getNotifications(String userName) {
+        UserAccountInfoModel userAccountInfoModelFound = userInfoRepository.findByUserName(userName);
+        return userAccountInfoModelFound.getNotifications();
+    }
+
+    public boolean deleteNotification(String userName, UUID notificationID) {
+        UserAccountInfoModel userAccountInfoModelFound = userInfoRepository.findByUserName(userName);
+
+        Predicate<UserNotification> condition = notification -> notification.getId().equals(notificationID);
+        Iterator<UserNotification> iterator = userAccountInfoModelFound.getNotifications().iterator();
+        while (iterator.hasNext()) {
+            if (condition.test(iterator.next())) {
+                iterator.remove();
+                System.out.println("Deleted notification!");
+                userInfoRepository.save(userAccountInfoModelFound);
+                return true;
+            }
+        }
+        System.out.println("Found no notification to delete");
+        return false;
+    }
 }

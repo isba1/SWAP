@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import axios from "axios";
 import "./homescreen.css";
 import ViewOffersButton from "./ViewOffers";
 import { useNavigate } from 'react-router-dom';
+import {Notifications} from "./Notifications/Notifications";
 
 function HomeBar() {
+  const userID = sessionStorage.getItem("userName");
+
   // State to store search results and user input
   const [searchResults, setSearchResults] = useState([]);
   const [searchInput, setSearchInput] = useState(null);
@@ -15,6 +18,20 @@ function HomeBar() {
   const [selectedJacketSize, setSelectedJacketSize] = useState(null);
   const [selectedPantSize, setSelectedPantSize] = useState(null);
   const [isPopupOpen, setPopupOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const deleteFirstNotification = useCallback(() => {
+    setNotifications(notifications.slice(1))
+  }, [notifications])
+
+  useEffect(() => {
+    axios.get(`http://localhost:8080/profile/getNotifications?userID=${userID}`)
+    .then((response) => {
+      setNotifications(response.data)
+    })
+    .catch((error) => {
+      console.error(`Error fetching notifications: `, error)
+    })
+  }, []);
 
   const navigate = useNavigate();
 
@@ -86,6 +103,7 @@ function HomeBar() {
           />
           <button className="searchbutton" onClick={handleSearch}>Search</button>
           <ViewOffersButton onClick={togglePopup} />
+          <Notifications notifications={notifications} deleteFirstNotification={deleteFirstNotification}/>
         </div>
 
 

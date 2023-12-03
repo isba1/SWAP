@@ -2,19 +2,18 @@ package com.SwapToSustain.Server.Service;
 
 import com.SwapToSustain.Server.Components.RemovingPosts;
 import com.SwapToSustain.Server.Converter.DTOConverter;
+import com.SwapToSustain.Server.DTO.UserNotification;
 import com.SwapToSustain.Server.DTO.UserPost;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.UserInfoRepository;
 import com.SwapToSustain.Server.Repository.UserPostRepository;
-import com.google.auth.Credentials;
-import com.google.cloud.storage.BlobId;
-import com.google.cloud.storage.Storage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class OfferingService {
@@ -78,6 +77,7 @@ public class OfferingService {
     public void acceptOffer(String sellerPostID, String sellerUserName, String buyerPostID, String buyerUserName) {
         // seller post handling
         UserPostModel sellerPost = userPostRepository.findByPostID(UUID.fromString(sellerPostID));
+        addBuyerNotificationForCompletedOffer(buyerUserName, sellerUserName, sellerPost, true);
         removePosts.deleteFromGCS(sellerPost);
 
         removePosts.removeOffersFromAllUsers(sellerPost, sellerUserName);
@@ -94,7 +94,16 @@ public class OfferingService {
 
     }
 
+    private void addBuyerNotificationForCompletedOffer(String buyerUserName, String sellerUserName, UserPostModel sellerPost, boolean isAccepted) {
+        UserAccountInfoModel buyerUserAccount = userInfoRepository.findByUserName(buyerUserName);
+        UserAccountInfoModel sellerUserAccount = userInfoRepository.findByUserName(sellerUserName);
+        buyerUserAccount.getNotifications().add(new UserNotification(UUID.randomUUID(), isAccepted, sellerUserName, sellerUserAccount.getUserID(), sellerPost.getPostName()));
+        userInfoRepository.save(buyerUserAccount);
+    }
+
     public void declineOffer(String sellerPostID, String sellerUserName, String buyerUserName) {
+        UserPostModel sellerPost = userPostRepository.findByPostID(UUID.fromString(sellerPostID));
+        addBuyerNotificationForCompletedOffer(buyerUserName, sellerUserName, sellerPost, false);
 
         UserAccountInfoModel sellerAccountInfoModel = userInfoRepository.findByUserName(sellerUserName);
         sellerAccountInfoModel.getOfferedMe().remove(UUID.fromString(sellerPostID));
@@ -106,6 +115,4 @@ public class OfferingService {
 
         userInfoRepository.save(buyerAccountInfoModel);
     }
-
-
 }

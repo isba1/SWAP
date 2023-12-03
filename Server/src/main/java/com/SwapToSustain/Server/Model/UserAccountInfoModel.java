@@ -1,5 +1,6 @@
 package com.SwapToSustain.Server.Model;
 
+import com.SwapToSustain.Server.DTO.UserNotification;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,5 +39,5 @@ public class UserAccountInfoModel {
     private String shoeSize;
     private String shirtSize;
     private String jacketSize;
-
+    private List<UserNotification> notifications = new ArrayList<>();
 }
