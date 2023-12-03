@@ -13,7 +13,6 @@ function ProfilePage() {
   if (userID === username) {
     navigate("/myprofile");
   }
-  const [loadedPosts, setLoadedPosts] = useState(0);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const postsRef = useRef(null);
@@ -58,25 +57,6 @@ function ProfilePage() {
         });
     }
   }, [data, username]);
-
-  useEffect(() => {
-    const loadMorePosts = () => {
-      if (loadedPosts < posts.length) {
-        setLoadedPosts((prevLoadedPosts) => prevLoadedPosts + 1);
-      }
-    };
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        //console.log('Element is intersecting');
-        loadMorePosts();
-      } else {
-        //console.log('Element is not intersecting');
-      }
-    });
-
-    observer.observe(postsRef.current);
-    return () => observer.disconnect();
-  }, [loadedPosts, totalPosts, posts]);
 
   const handleFollowClick = async () => {
     try {
@@ -136,7 +116,7 @@ function ProfilePage() {
           </div>
         )}
       </div>
-      {posts.slice(0, loadedPosts).map((post, index) => (
+      {posts.slice(0, totalPosts).map((post, index) => (
         <Suspense key={index} fallback={<div>Loading post...</div>}>
           <LazyProfilePosts
             PostObject={post}

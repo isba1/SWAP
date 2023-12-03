@@ -14,11 +14,8 @@ function StyleMenu({selectedOption, setSelectedOption}) {
         <option value="Formal">Formal</option>
         <option value="Vintage">Vintage</option>
         <option value="StreetWear">StreetWear</option>
-        <option value="Bohemian">Bohemian</option>
-        <option value="Preppy">Preppy</option>
-        <option value="Androgynous">Androgynous</option>
         <option value="Goth">Goth</option>
-        <option value="Hipster">Hipster</option>
+        <option value="Other">Other</option>
       </select>
     </div>
   );

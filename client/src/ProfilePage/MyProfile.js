@@ -10,7 +10,6 @@ const LazyProfilePosts = React.lazy(() => import('./MyProfilePosts'));
 
 function MyProfilePage (){
     const userID = sessionStorage.getItem("userName");
-    const [loadedPosts, setLoadedPosts] = useState(0);
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const postsRef = useRef(null);
@@ -38,25 +37,6 @@ function MyProfilePage (){
         }
     }, [data, userID]);
 
-    useEffect(() => {
-        const loadMorePosts = () =>{
-            if (loadedPosts < myposts.length){
-                setLoadedPosts((prevLoadedPosts) => prevLoadedPosts + 1);
-            }
-        };
-        const observer = new IntersectionObserver((entries) => {
-          if (entries[0].isIntersecting) {
-            //console.log('Element is intersecting');
-            loadMorePosts();
-          } else {
-            //console.log('Element is not intersecting');
-          }
-        });
-    
-        observer.observe(postsRef.current);
-        return () => observer.disconnect();
-      }, [loadedPosts, totalPosts, myposts]);
-
     return(<div>
             <div className='profileheader'>
             {loading ? (
@@ -76,7 +56,7 @@ function MyProfilePage (){
                 </div>
             )}
             </div>
-            {myposts.slice(0, loadedPosts).map((post, index) => (
+            {myposts.slice(0, totalPosts).map((post, index) => (
                 <Suspense key={index} fallback={<div>Loading post...</div>}>
                     <LazyProfilePosts PostObject={post} />
                 </Suspense>
