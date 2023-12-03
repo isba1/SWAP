@@ -2,10 +2,11 @@ import React from "react";
 import "./homescreen.css";
 import { useNavigate } from 'react-router-dom';
 
-function Offers({ tradeOffers, acceptOffer, declineOffer }) {
+function Offers({ tradeOffers, acceptOffer, declineOffer, toggleScroll }) {
   const navigate = useNavigate();
 
   const handleProfileChange = async (userName) => {
+      toggleScroll();
       navigate(`/userprofile/${userName}`);
   }
   return (
@@ -17,6 +18,7 @@ function Offers({ tradeOffers, acceptOffer, declineOffer }) {
             <h2>Your Product:</h2>
             <div className="image-container">
               <img
+                className="viewofferpost"
                 src={offer.myGcsUrls[0]}
                 alt="Your Product"
               />
@@ -33,7 +35,8 @@ function Offers({ tradeOffers, acceptOffer, declineOffer }) {
             <h2>{offer.theirUserName}'s Product</h2>
             <div className="image-container">
               <img
-                src={offer.myGcsUrls[0]}
+                className="viewofferpost"
+                src={offer.theirGcsUrls[0]}
                 alt="Their Product"
               />
             </div>

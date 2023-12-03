@@ -23,7 +23,11 @@ function MyProfilePosts({ PostObject }) {
             <div className="profilepostrow">
                 <div className="profilepostleft">
                     <div className="profilefont">{userID}</div>
-                    <div className="profilecoloredsquare" style={{ backgroundImage: `url(${firstImageLink})` }}></div>
+                    <img
+                    className="profiledisplaypost"
+                    src={firstImageLink}
+                    alt="UserPost"
+                    ></img>
                     <button className="deleteButton" onClick={handleDelete}>Delete Post</button>
                 </div>
                 <div className="profilepostright">

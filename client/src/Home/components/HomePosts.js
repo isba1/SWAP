@@ -21,14 +21,14 @@ function HomePosts({ FeedUserPostObject, UserID }) {
             <button className="userbutton2" onClick={() => handleProfileChange(FeedUserPostObject.userName)}>
               {FeedUserPostObject.userName}
             </button>
-            <div className="coloredsquare"></div>
+              <img
+                className="homedisplaypost"
+                src={firstImageLink}
+                alt="UserPost"
+              ></img>
           </div>
           <div className="postright">
             <div className="tempcontainer">
-              {/* Include the img element to render the image from the first GCS link */}
-              {firstImageLink && (
-                  <img src={firstImageLink} alt="Product" style={{ maxWidth: '100%', maxHeight: '200px' }} />
-              )}
               <div className="font">
                 Name of Product: {FeedUserPostObject.postName}
               </div>
