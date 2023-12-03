@@ -25,10 +25,17 @@ public interface UserPostRepository extends MongoRepository<UserPostModel, UUID>
     List<UserPostModel> findByPostStyleOrPostBrandOrPostSizeAndNotUserIdIn(List<String> styles, List<String> brands, UUID userId);
 
 
-    @Query("{'$and': [{'postSize': ?0}, {'userID': {'$ne': ?1}}]}")
-    List<UserPostModel> findByPostSizeAndNotUserId(String size, UUID userId);
+    @Query("{'$and': [{'shirtSize': ?0}, {'userID': {'$ne': ?1}}]}")
+    List<UserPostModel> findByShirtSizeAndNotUserId(String shirtSize, UUID userId);
 
+    @Query("{'$and': [{'jacketSize': ?0}, {'userID': {'$ne': ?1}}]}")
+    List<UserPostModel> findByJacketSizeAndNotUserId(String jacketSize, UUID userId);
 
+    @Query("{'$and': [{'pantSize': ?0}, {'userID': {'$ne': ?1}}]}")
+    List<UserPostModel> findByPantSizeAndNotUserId(String pantSize, UUID userId);
+
+    @Query("{'$and': [{'shoeSize': ?0}, {'userID': {'$ne': ?1}}]}")
+    List<UserPostModel> findByShoeSizeAndNotUserId(String shoeSize, UUID userId);
 
 
 }
