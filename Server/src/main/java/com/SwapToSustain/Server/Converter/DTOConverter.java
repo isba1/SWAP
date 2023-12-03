@@ -3,13 +3,34 @@ package com.SwapToSustain.Server.Converter;
 import com.SwapToSustain.Server.DTO.*;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
+import com.google.auth.Credentials;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
+import com.sun.source.tree.AnnotatedTypeTree;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class DTOConverter {
+
+    private final Credentials credentials;
+    private final Storage storage;
+    private final String bucketName;
+
+    @Autowired
+    public DTOConverter(Credentials credentials, Storage storage, String bucketName) throws IOException {
+        this.credentials = credentials;
+        this.storage = storage;
+        this.bucketName = bucketName;
+    }
 
     public void convertDTO(UserAccountInfoModel userAccountInfoModel, UserInterests userInterests){
         userAccountInfoModel.setInterestBrand(userInterests.getBrands());
@@ -48,8 +69,28 @@ public class DTOConverter {
         userPostModel.setConnectedUsers(new HashSet<>());
     }
 
+    private List<BlobInfo> generateBlobInfo(String bucketName, List<String> gcsObjectNames) {
+        ArrayList<BlobInfo> blobInfos = new ArrayList<>();
+        for (String gcsObjectName: gcsObjectNames) {
+            blobInfos.add(BlobInfo.newBuilder(BlobId.of(bucketName, gcsObjectName)).build());
+        }
+        return blobInfos;
+    }
+
+    private List<String> generateSignedUrl(List<BlobInfo> blobInfos) {
+        ArrayList<String> signedUrls = new ArrayList<>();
+
+        for (BlobInfo blobInfo: blobInfos) {
+            URL signedUrl = storage.signUrl(blobInfo, 5, TimeUnit.MINUTES, Storage.SignUrlOption.withV4Signature());
+            signedUrls.add(signedUrl.toString());
+        }
+        return signedUrls;
+    }
+
     private void postModelToPersonalPost(UserPostModel userPostModel, UserPost userPost) {
-        userPost.setGcsUrls(userPostModel.getGcsUrls());
+        List<BlobInfo> blobInfos = generateBlobInfo(bucketName, userPostModel.getGcsObjectNames());
+
+        userPost.setGcsUrls(generateSignedUrl(blobInfos));
         userPost.setPostID(userPostModel.getPostID());
         userPost.setName(userPostModel.getPostName());
         userPost.setPostDescription(userPostModel.getPostDescription());
@@ -89,8 +130,12 @@ public class DTOConverter {
 
     public TradesOffered convertDTO(UserPostModel myPost, UserPostModel theirPost) {
 
-            TradesOffered newTradeOffer = new TradesOffered();
-            newTradeOffer.setMyGcsUrls(myPost.getGcsUrls());
+        List<BlobInfo> myBlobInfos = generateBlobInfo(bucketName, myPost.getGcsObjectNames());
+        List<BlobInfo> theirBlobInfos = generateBlobInfo(bucketName, theirPost.getGcsObjectNames());
+
+
+        TradesOffered newTradeOffer = new TradesOffered();
+            newTradeOffer.setMyGcsUrls(generateSignedUrl(myBlobInfos));
             newTradeOffer.setMyPostID(myPost.getPostID());
             newTradeOffer.setMyName(myPost.getPostName());
             newTradeOffer.setMyPostDescription(myPost.getPostDescription());
@@ -98,7 +143,7 @@ public class DTOConverter {
             newTradeOffer.setMyPostBrand(myPost.getPostBrand());
             newTradeOffer.setMyPostStyle(myPost.getPostStyle());
             newTradeOffer.setMyPostSize(myPost.getPostSize());
-            newTradeOffer.setTheirGcsUrls(theirPost.getGcsUrls());
+            newTradeOffer.setTheirGcsUrls(generateSignedUrl(theirBlobInfos));
             newTradeOffer.setTheirPostID(theirPost.getPostID());
             newTradeOffer.setTheirUserID(theirPost.getUserID());
             newTradeOffer.setTheirUserName(theirPost.getUserName());
@@ -144,8 +189,10 @@ public class DTOConverter {
 
         for (UserPostModel userPostModel: userPostModels) {
 
+            List<BlobInfo> blobInfos = generateBlobInfo(bucketName, userPostModel.getGcsObjectNames());
+
             FeedUserPost feedUserPost = new FeedUserPost();
-            feedUserPost.setGcsUrls(userPostModel.getGcsUrls());
+            feedUserPost.setGcsUrls(generateSignedUrl(blobInfos));
             feedUserPost.setPostID(userPostModel.getPostID());
             feedUserPost.setUserID(userPostModel.getUserID());
             feedUserPost.setUserName(userPostModel.getUserName());

@@ -17,7 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class PostService {
@@ -61,24 +63,18 @@ public class PostService {
     public String saveUserPostImages(MultipartFile image) throws IOException {
         UserPostModel userPostModel = new UserPostModel();
 
-
-        List<String> gcsUrls = new ArrayList<>();
-
         String fileName = userPostModel.getPostID().toString() + "_" + UUID.randomUUID() + "_" + image.getOriginalFilename();
         String gcsObjectName = "Post_Images/" + fileName;
 
         byte[] imageBytes = image.getBytes();
 
-        storage.create(
+        BlobInfo blobInfo = storage.create(
                 BlobInfo.newBuilder(bucketName, gcsObjectName).build(),
                 imageBytes
         );
 
-        String gcsUrl = "https://storage.cloud.google.com/" + bucketName + "/" + gcsObjectName;
+        userPostModel.getGcsObjectNames().add(blobInfo.getName());
 
-        gcsUrls.add(gcsUrl);
-
-        userPostModel.setGcsUrls(gcsUrls);
 
         userPostRepository.save(userPostModel);
 
