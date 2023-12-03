@@ -36,7 +36,13 @@ public class UserPostModel {
 
     private String postStyle;
 
-    private String postSize;
+    private String shirtSize;
+
+    private String jacketSize;
+
+    private String pantSize;
+
+    private String shoeSize;
 
     private HashSet<String> connectedUsers;
 

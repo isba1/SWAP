@@ -4,11 +4,9 @@ import com.SwapToSustain.Server.DTO.*;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
 import com.google.auth.Credentials;
-import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
-import com.sun.source.tree.AnnotatedTypeTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -65,7 +63,14 @@ public class DTOConverter {
         userPostModel.setPostCategory(newUserPost.getPostCategory());
         userPostModel.setPostBrand(newUserPost.getPostBrand());
         userPostModel.setPostStyle(newUserPost.getPostStyle());
-        userPostModel.setPostSize(newUserPost.getPostSize());
+
+        switch (newUserPost.getPostCategory()) {
+            case "Tops" -> userPostModel.setShirtSize(newUserPost.getPostSize());
+            case "Bottoms" -> userPostModel.setPantSize(newUserPost.getPostSize());
+            case "Outerwear" -> userPostModel.setJacketSize(newUserPost.getPostSize());
+            case "Shoes" -> userPostModel.setShoeSize(newUserPost.getPostSize());
+        }
+
         userPostModel.setConnectedUsers(new HashSet<>());
     }
 
@@ -97,7 +102,14 @@ public class DTOConverter {
         userPost.setPostCategory(userPostModel.getPostCategory());
         userPost.setPostBrand(userPostModel.getPostBrand());
         userPost.setPostStyle(userPostModel.getPostStyle());
-        userPost.setPostSize(userPostModel.getPostSize());
+
+        switch (userPostModel.getPostCategory()) {
+            case "Tops" -> userPost.setPostSize(userPostModel.getShirtSize());
+            case "Bottoms" -> userPost.setPostSize(userPostModel.getPantSize());
+            case "Outerwear" -> userPost.setPostSize(userPostModel.getJacketSize());
+            case "Shoes" -> userPost.setPostSize(userPostModel.getShoeSize());
+        }
+
     }
 
     public void convertDTO(List<UserPostModel> userPostModels, UserAccountInfoModel userAccountInfoModel,  UserProfile userProfile) {
@@ -142,7 +154,14 @@ public class DTOConverter {
             newTradeOffer.setMyPostCategory(myPost.getPostCategory());
             newTradeOffer.setMyPostBrand(myPost.getPostBrand());
             newTradeOffer.setMyPostStyle(myPost.getPostStyle());
-            newTradeOffer.setMyPostSize(myPost.getPostSize());
+
+            switch (myPost.getPostCategory()) {
+                case "Tops" -> newTradeOffer.setMyPostSize(myPost.getShirtSize());
+                case "Bottoms" -> newTradeOffer.setMyPostSize(myPost.getPantSize());
+                case "Outerwear" -> newTradeOffer.setMyPostSize(myPost.getJacketSize());
+                case "Shoes" -> newTradeOffer.setMyPostSize(myPost.getShoeSize());
+            }
+
             newTradeOffer.setTheirGcsUrls(generateSignedUrl(theirBlobInfos));
             newTradeOffer.setTheirPostID(theirPost.getPostID());
             newTradeOffer.setTheirUserID(theirPost.getUserID());
@@ -152,7 +171,13 @@ public class DTOConverter {
             newTradeOffer.setTheirPostCategory(theirPost.getPostCategory());
             newTradeOffer.setTheirPostBrand(theirPost.getPostBrand());
             newTradeOffer.setTheirPostStyle(theirPost.getPostStyle());
-            newTradeOffer.setTheirPostSize(theirPost.getPostSize());
+
+            switch (theirPost.getPostCategory()) {
+                case "Tops" -> newTradeOffer.setTheirPostSize(theirPost.getShirtSize());
+                case "Bottoms" -> newTradeOffer.setTheirPostSize(theirPost.getPantSize());
+                case "Outerwear" -> newTradeOffer.setTheirPostSize(theirPost.getJacketSize());
+                case "Shoes" -> newTradeOffer.setTheirPostSize(theirPost.getShoeSize());
+            }
 
             return newTradeOffer;
     }
@@ -201,7 +226,13 @@ public class DTOConverter {
             feedUserPost.setPostCategory(userPostModel.getPostCategory());
             feedUserPost.setPostBrand(userPostModel.getPostBrand());
             feedUserPost.setPostStyle(userPostModel.getPostStyle());
-            feedUserPost.setPostSize(userPostModel.getPostSize());
+
+            switch (userPostModel.getPostCategory()) {
+                case "Tops" -> feedUserPost.setPostSize(userPostModel.getShirtSize());
+                case "Bottoms" -> feedUserPost.setPostSize(userPostModel.getPantSize());
+                case "Outerwear" -> feedUserPost.setPostSize(userPostModel.getJacketSize());
+                case "Shoes" -> feedUserPost.setPostSize(userPostModel.getShoeSize());
+            }
 
             userFeedPosts.add(feedUserPost);
         }
