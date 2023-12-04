@@ -10,7 +10,9 @@ const LazyHomePosts = React.lazy(() => import('./components/HomePosts'));
 const Homescreen = () => {
   const [loadedPosts, setLoadedPosts] = useState(0);
   const [recommendedPosts, setRecommendedPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
   const postsRef = useRef(null);
+
 
   //this will be the myuser's userid/token
   const userID = sessionStorage.getItem("userName");
@@ -38,7 +40,7 @@ const Homescreen = () => {
   return (
     <div className='homerow'>
       <div className='homecolumnleft'>
-        <SideBar />
+        <SideBar setFilteredPosts={setFilteredPosts}/>
       </div>
       <div className='homecolumnright'>
         <HomeBar />
