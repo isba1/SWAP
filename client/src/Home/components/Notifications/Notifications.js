@@ -8,7 +8,11 @@ export const Notifications = ({ notifications, deleteFirstNotification }) => {
   const textToDisplay = useMemo(() => {
     if (!notifications.length) return ''
     console.log('notification', notifications[0])
-    return `Your offer on "${notifications[0].postName}" is ${notifications[0].accepted ? "accepted" : "declined"} by "${notifications[0].userName}".`
+    if (notifications[0].status === "available") {
+      return `Your offer on "${notifications[0].postName}" is ${notifications[0].accepted ? "accepted" : "declined"} by "${notifications[0].userName}".`
+    } else if (notifications[0].status === "unavailable") {
+      return `Your offer for "${notifications[0].postName}" posted by "${notifications[0].userName} is no longer available".`
+    }
   }, [notifications])
 
   const handleClick = useCallback(async () => {

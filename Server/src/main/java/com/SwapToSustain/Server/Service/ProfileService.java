@@ -135,12 +135,10 @@ public class ProfileService {
         while (iterator.hasNext()) {
             if (condition.test(iterator.next())) {
                 iterator.remove();
-                System.out.println("Deleted notification!");
                 userInfoRepository.save(userAccountInfoModelFound);
                 return true;
             }
         }
-        System.out.println("Found no notification to delete");
         return false;
     }
 }

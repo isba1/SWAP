@@ -55,8 +55,9 @@ public class OfferingController {
     @CrossOrigin("http://localhost:3000")
     public void declineOffer(@RequestParam(name = "sellerPostID") String sellerPostID,
                              @RequestParam(name = "sellerUserID") String sellerUserName,
+                             @RequestParam(name = "buyerPostID") String buyerPostID,
                              @RequestParam(name = "buyerUserID") String buyerUserName) {
-        offeringService.declineOffer(sellerPostID, sellerUserName, buyerUserName);
+        offeringService.declineOffer(sellerPostID, sellerUserName, buyerUserName, buyerPostID);
     }
 
 

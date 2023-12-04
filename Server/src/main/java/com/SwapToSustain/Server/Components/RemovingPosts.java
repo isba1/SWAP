@@ -1,5 +1,8 @@
 package com.SwapToSustain.Server.Components;
 
+import com.SwapToSustain.Server.DTO.UserAccountInfo;
+import com.SwapToSustain.Server.DTO.UserNotification;
+import com.SwapToSustain.Server.DTO.UserPost;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.UserInfoRepository;
@@ -11,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Component
 public class RemovingPosts {
@@ -36,7 +36,14 @@ public class RemovingPosts {
         this.bucketName = bucketName;
     }
 
-    public void removeOffersFromAllUsers(UserPostModel userPost, String userName) {
+    private void addNotificationForUnavailableOffer(UserAccountInfoModel buyer, UserAccountInfoModel seller, UserPostModel sellerPost) {
+        buyer.getNotifications().add(new UserNotification(UUID.randomUUID(), "unavailable", false, seller.getUserName(), sellerPost.getPostName()));
+        userInfoRepository.save(buyer);
+    }
+
+
+    public void removeOffersFromAllUsers(UserPostModel userPost, String userName, UserAccountInfoModel acceptedUser) {
+        System.out.println("0:" + userPost.getUserName());
         UserAccountInfoModel userAccount = userInfoRepository.findByUserName(userName);
 
         // removing from offered me and my offers account
@@ -63,6 +70,29 @@ public class RemovingPosts {
 
                 // Check if the item exists in the ArrayList and remove it
                 if (arrayList.contains(userPost.getPostID())) {
+                    if (acceptedUser != null) {
+                        if (foundAccount.getUserID() != acceptedUser.getUserID()) {
+                            addNotificationForUnavailableOffer(foundAccount, userAccount, userPost);
+                        }
+                    } else {
+                        addNotificationForUnavailableOffer(foundAccount, userAccount, userPost);
+                    }
+
+                    UserAccountInfoModel postFromAccount = userInfoRepository.findByUserID(userPost.getUserID());
+                    boolean found = false;
+                    for (Map.Entry<UUID, ArrayList<UUID>> entry2 : postFromAccount.getOfferedMe().entrySet()) {
+                        ArrayList<UUID> arrayList1 = entry2.getValue();
+                        if (arrayList1.contains(entry.getKey())) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        UserPostModel postModelToChange = userPostRepository.findByPostID(entry.getKey());
+                        postModelToChange.getConnectedUsers().remove(postFromAccount.getUserName());
+                        userPostRepository.save(postModelToChange);
+                    }
+
                     arrayList.remove(userPost.getPostID());
 
                     // If the ArrayList is now empty, remove the key from the HashMap
@@ -72,7 +102,22 @@ public class RemovingPosts {
                 }
             }
 
+            if (foundAccount.getMyOffers().containsKey(userPost.getPostID())) {
+                if (acceptedUser != null) {
+                    if (!Objects.equals(foundAccount.getUserName(), acceptedUser.getUserName())) {
+                        addNotificationForUnavailableOffer(foundAccount, userAccount, userPost);
+                    }
+                } else {
+                    addNotificationForUnavailableOffer(foundAccount, userAccount, userPost);
+                }
+            }
             // my offers in other accounts
+            UserPostModel foundPost = userPostRepository.findByPostID(foundAccount.getMyOffers().get(userPost.getPostID()));
+            if (foundPost != null) {
+                foundPost.getConnectedUsers().remove(userPost.getUserName());
+                userPostRepository.save(foundPost);
+            }
+
             foundAccount.getMyOffers().remove(userPost.getPostID());
 
             userInfoRepository.save(foundAccount);
@@ -87,5 +132,8 @@ public class RemovingPosts {
             storage.delete(blobId);
         }
     }
+
+
+
 
 }
