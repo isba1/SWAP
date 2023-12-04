@@ -15,10 +15,18 @@ export const Notifications = ({ notifications, deleteFirstNotification }) => {
   const textToDisplay = useMemo(() => {
     if (!notifications.length) return ''
     console.log('notification', notifications[0])
-    return (<div>
-      <p className='notifbody'>Your offer on {notifications[0].postName} was {notifications[0].accepted ? "accepted" : "declined"} by </p>
-      <button className="notifprofile" onClick={() => handleProfileChange(notifications[0].userName)}>{notifications[0].userName}</button>
-    </div>)
+    if (notifications[0].status === "available") {
+      return (<div>
+        <p className='notifbody'>Your offer for {notifications[0].postName} was {notifications[0].accepted ? "accepted" : "declined"} by </p>
+        <button className="notifprofile" onClick={() => handleProfileChange(notifications[0].userName)}>{notifications[0].userName}</button>
+        </div>)
+    } else if (notifications[0].status === "unavailable") {
+      return (<div>
+        <p className='notifbody'>Your offer for {notifications[0].postName} by </p>
+        <button className="notifprofile" onClick={() => handleProfileChange(notifications[0].userName)}>{notifications[0].userName}</button>
+        <p> is no longer available</p>
+        </div>)
+    }
   }, [notifications])
 
   const handleClick = useCallback(async () => {

@@ -3,13 +3,11 @@ package com.SwapToSustain.Server.Service;
 import com.SwapToSustain.Server.Components.RemovingPosts;
 import com.SwapToSustain.Server.Converter.DTOConverter;
 import com.SwapToSustain.Server.DTO.NewUserPost;
-import com.SwapToSustain.Server.DTO.UserPost;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.UserInfoRepository;
 import com.SwapToSustain.Server.Repository.UserPostRepository;
 import com.google.auth.Credentials;
-import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 @Service
 public class PostService {
@@ -88,7 +84,7 @@ public class PostService {
         // Delete Picture from GCS
         removingPosts.deleteFromGCS(userPostModel);
 
-        removingPosts.removeOffersFromAllUsers(userPostModel, userPostModel.getUserName());
+        removingPosts.removeOffersFromAllUsers(userPostModel, userPostModel.getUserName(), null);
 
         userPostRepository.delete(userPostModel);
     }

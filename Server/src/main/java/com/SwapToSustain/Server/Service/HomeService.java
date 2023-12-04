@@ -39,6 +39,12 @@ public class HomeService {
         List<UserPostModel> recommendedByShoeSize = userPostRepository.findByShoeSizeAndNotUserId(userAccountInfoModel.getShoeSize(), userAccountInfoModel.getUserID());
 
         List<UserPostModel> allRecommended = new ArrayList<>();
+
+        for (UUID userID: userAccountInfoModel.getFollowing()) {
+            List<UserPostModel> singleFollowingFeed = userPostRepository.findAllByUserID(userID);
+            allRecommended.addAll(singleFollowingFeed);
+        }
+
         allRecommended.addAll(recommendedByStyleAndBrand);
         allRecommended.addAll(recommendedByShirtSize);
         allRecommended.addAll(recommendedByPantSize);
