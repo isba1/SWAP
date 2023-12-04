@@ -44,8 +44,10 @@ function ViewOffersButton({ onClick }) {
   const declineOffer = async (offer) => {
     try {
       console.log("Offer Declined:", offer);
+      console.log(offer.theirPostID);
+
       const response = await axios.put(
-        `http://localhost:8080/offer/declineOffer?sellerPostID=${offer.myPostID}&sellerUserID=${userID}&buyerUserID=${offer.theirUserName}`
+          `http://localhost:8080/offer/declineOffer?sellerPostID=${offer.myPostID}&sellerUserID=${userID}&buyerPostID=${offer.theirPostID}&buyerUserID=${offer.theirUserName}`
       );
       console.log("Decline Offer Response:", response.data);
       // After declining, you may want to refetch the trade offers

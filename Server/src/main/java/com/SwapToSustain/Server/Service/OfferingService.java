@@ -77,42 +77,53 @@ public class OfferingService {
     public void acceptOffer(String sellerPostID, String sellerUserName, String buyerPostID, String buyerUserName) {
         // seller post handling
         UserPostModel sellerPost = userPostRepository.findByPostID(UUID.fromString(sellerPostID));
-        addBuyerNotificationForCompletedOffer(buyerUserName, sellerUserName, sellerPost, true);
+
+        UserAccountInfoModel buyerUserAccount = userInfoRepository.findByUserName(buyerUserName);
+        addBuyerNotificationForCompletedOffer(buyerUserAccount, sellerUserName, sellerPost, true);
+
         removePosts.deleteFromGCS(sellerPost);
 
-        removePosts.removeOffersFromAllUsers(sellerPost, sellerUserName);
+        removePosts.removeOffersFromAllUsers(sellerPost, sellerUserName, true);
 
 
         // buyer post handling
         UserPostModel buyerPost = userPostRepository.findByPostID(UUID.fromString(buyerPostID));
         removePosts.deleteFromGCS(buyerPost);
 
-        removePosts.removeOffersFromAllUsers(buyerPost, buyerUserName);
+        removePosts.removeOffersFromAllUsers(buyerPost, buyerUserName, false);
 
         userPostRepository.deleteByPostID(UUID.fromString(sellerPostID));
         userPostRepository.deleteByPostID(UUID.fromString(buyerPostID));
 
     }
 
-    private void addBuyerNotificationForCompletedOffer(String buyerUserName, String sellerUserName, UserPostModel sellerPost, boolean isAccepted) {
-        UserAccountInfoModel buyerUserAccount = userInfoRepository.findByUserName(buyerUserName);
-        UserAccountInfoModel sellerUserAccount = userInfoRepository.findByUserName(sellerUserName);
-        buyerUserAccount.getNotifications().add(new UserNotification(UUID.randomUUID(), isAccepted, sellerUserName, sellerUserAccount.getUserID(), sellerPost.getPostName()));
+    private void addBuyerNotificationForCompletedOffer(UserAccountInfoModel buyerUserAccount, String sellerUserName, UserPostModel sellerPost, boolean isAccepted) {
+        buyerUserAccount.getNotifications().add(new UserNotification(UUID.randomUUID(),"available", isAccepted, sellerUserName, sellerPost.getPostName()));
         userInfoRepository.save(buyerUserAccount);
     }
 
-    public void declineOffer(String sellerPostID, String sellerUserName, String buyerUserName) {
+    public void declineOffer(String sellerPostID, String sellerUserName, String buyerUserName, String buyerPostId) {
         UserPostModel sellerPost = userPostRepository.findByPostID(UUID.fromString(sellerPostID));
-        addBuyerNotificationForCompletedOffer(buyerUserName, sellerUserName, sellerPost, false);
-
-        UserAccountInfoModel sellerAccountInfoModel = userInfoRepository.findByUserName(sellerUserName);
-        sellerAccountInfoModel.getOfferedMe().remove(UUID.fromString(sellerPostID));
-
-        userInfoRepository.save(sellerAccountInfoModel);
 
         UserAccountInfoModel buyerAccountInfoModel = userInfoRepository.findByUserName(buyerUserName);
+        addBuyerNotificationForCompletedOffer(buyerAccountInfoModel, sellerUserName, sellerPost, false);
+
+        UserAccountInfoModel sellerAccountInfoModel = userInfoRepository.findByUserName(sellerUserName);
+
+        sellerAccountInfoModel.getOfferedMe().remove(UUID.fromString(sellerPostID));
+
+        UserPostModel sellerPostModel = userPostRepository.findByPostID(UUID.fromString(sellerPostID));
+        sellerPostModel.getConnectedUsers().remove(buyerUserName);
+
+        userInfoRepository.save(sellerAccountInfoModel);
+        userPostRepository.save(sellerPostModel);
+
         buyerAccountInfoModel.getMyOffers().remove(UUID.fromString(sellerPostID));
 
+        UserPostModel buyerPostModel = userPostRepository.findByPostID(UUID.fromString(buyerPostId));
+        buyerPostModel.getConnectedUsers().remove(sellerUserName);
+
+        userPostRepository.save(buyerPostModel);
         userInfoRepository.save(buyerAccountInfoModel);
     }
 }

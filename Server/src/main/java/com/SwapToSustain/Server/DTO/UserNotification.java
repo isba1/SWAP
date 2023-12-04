@@ -9,8 +9,9 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserNotification {
   private UUID id;
-  private boolean isAccepted;
+  private String status;
+  private boolean accepted;
   private String userName;
-  private UUID userID;
   private String postName;
+
 }
