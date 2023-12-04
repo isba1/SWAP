@@ -84,7 +84,7 @@ public class PostService {
         // Delete Picture from GCS
         removingPosts.deleteFromGCS(userPostModel);
 
-        removingPosts.removeOffersFromAllUsers(userPostModel, userPostModel.getUserName(), false);
+        removingPosts.removeOffersFromAllUsers(userPostModel, userPostModel.getUserName(), null);
 
         userPostRepository.delete(userPostModel);
     }

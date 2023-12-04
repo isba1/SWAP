@@ -2,6 +2,7 @@ package com.SwapToSustain.Server.Components;
 
 import com.SwapToSustain.Server.DTO.UserAccountInfo;
 import com.SwapToSustain.Server.DTO.UserNotification;
+import com.SwapToSustain.Server.DTO.UserPost;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.UserInfoRepository;
@@ -13,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Component
 public class RemovingPosts {
@@ -44,7 +42,8 @@ public class RemovingPosts {
     }
 
 
-    public void removeOffersFromAllUsers(UserPostModel userPost, String userName, boolean accepted) {
+    public void removeOffersFromAllUsers(UserPostModel userPost, String userName, UserAccountInfoModel acceptedUser) {
+        System.out.println("0:" + userPost.getUserName());
         UserAccountInfoModel userAccount = userInfoRepository.findByUserName(userName);
 
         // removing from offered me and my offers account
@@ -71,7 +70,13 @@ public class RemovingPosts {
 
                 // Check if the item exists in the ArrayList and remove it
                 if (arrayList.contains(userPost.getPostID())) {
-                    addNotificationForUnavailableOffer(foundAccount, userAccount, userPost);
+                    if (acceptedUser != null) {
+                        if (foundAccount.getUserID() != acceptedUser.getUserID()) {
+                            addNotificationForUnavailableOffer(foundAccount, userAccount, userPost);
+                        }
+                    } else {
+                        addNotificationForUnavailableOffer(foundAccount, userAccount, userPost);
+                    }
 
                     UserAccountInfoModel postFromAccount = userInfoRepository.findByUserID(userPost.getUserID());
                     boolean found = false;
@@ -98,10 +103,13 @@ public class RemovingPosts {
             }
 
             if (foundAccount.getMyOffers().containsKey(userPost.getPostID())) {
-                if (!accepted) {
+                if (acceptedUser != null) {
+                    if (!Objects.equals(foundAccount.getUserName(), acceptedUser.getUserName())) {
+                        addNotificationForUnavailableOffer(foundAccount, userAccount, userPost);
+                    }
+                } else {
                     addNotificationForUnavailableOffer(foundAccount, userAccount, userPost);
                 }
-
             }
             // my offers in other accounts
             UserPostModel foundPost = userPostRepository.findByPostID(foundAccount.getMyOffers().get(userPost.getPostID()));
@@ -124,5 +132,8 @@ public class RemovingPosts {
             storage.delete(blobId);
         }
     }
+
+
+
 
 }

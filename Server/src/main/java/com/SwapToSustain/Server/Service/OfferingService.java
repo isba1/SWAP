@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -37,7 +38,20 @@ public class OfferingService {
         UserAccountInfoModel buyerUserAccountInfoModel = userInfoRepository.findByUserName(buyerUserName);
 
         if (sellerUserAccountInfoModel.getOfferedMe().containsKey(UUID.fromString(sellerPostID))) {
-            sellerUserAccountInfoModel.getOfferedMe().get(UUID.fromString(sellerPostID)).add(UUID.fromString(buyerPostID));
+            if (!sellerUserAccountInfoModel.getOfferedMe().get(UUID.fromString(sellerPostID)).contains(UUID.fromString(buyerPostID))) {
+                boolean exists = false;
+
+                for (UUID id: sellerUserAccountInfoModel.getOfferedMe().get(UUID.fromString(sellerPostID))) {
+                    UserPostModel foundPost = userPostRepository.findByPostID(id);
+                    if (Objects.equals(foundPost.getUserName(), buyerUserAccountInfoModel.getUserName())) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists) {
+                    sellerUserAccountInfoModel.getOfferedMe().get(UUID.fromString(sellerPostID)).add(UUID.fromString(buyerPostID));
+                }
+            }
         } else {
             ArrayList<UUID> newList = new ArrayList<>();
             newList.add(UUID.fromString(buyerPostID));
@@ -77,20 +91,20 @@ public class OfferingService {
     public void acceptOffer(String sellerPostID, String sellerUserName, String buyerPostID, String buyerUserName) {
         // seller post handling
         UserPostModel sellerPost = userPostRepository.findByPostID(UUID.fromString(sellerPostID));
+        UserPostModel buyerPost = userPostRepository.findByPostID(UUID.fromString(buyerPostID));
 
         UserAccountInfoModel buyerUserAccount = userInfoRepository.findByUserName(buyerUserName);
         addBuyerNotificationForCompletedOffer(buyerUserAccount, sellerUserName, sellerPost, true);
 
         removePosts.deleteFromGCS(sellerPost);
 
-        removePosts.removeOffersFromAllUsers(sellerPost, sellerUserName, true);
-
+        removePosts.removeOffersFromAllUsers(sellerPost, sellerUserName, buyerUserAccount);
 
         // buyer post handling
-        UserPostModel buyerPost = userPostRepository.findByPostID(UUID.fromString(buyerPostID));
         removePosts.deleteFromGCS(buyerPost);
 
-        removePosts.removeOffersFromAllUsers(buyerPost, buyerUserName, false);
+        removePosts.removeOffersFromAllUsers(buyerPost, buyerUserName, buyerUserAccount);
+//        removePosts.attempt2(buyerPost, buyerUserName, null);
 
         userPostRepository.deleteByPostID(UUID.fromString(sellerPostID));
         userPostRepository.deleteByPostID(UUID.fromString(buyerPostID));
