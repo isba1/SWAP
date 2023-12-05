@@ -70,4 +70,15 @@ public class HomeService {
 
     }
 
+    public List<FeedUserPost> exploreCategories(String userID, String category) {
+
+        List<FeedUserPost> feedPosts = new ArrayList<>();
+        List<UserPostModel> userPostModels = userPostRepository.findByPostCategoryAAndNAndUserName(category, userID);
+
+        dtoConverter.convertDTOForFeedPosts(feedPosts, userPostModels);
+
+        return feedPosts;
+    }
+
+
 }
