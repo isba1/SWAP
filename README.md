@@ -60,7 +60,3 @@
 
 6. **Run Client Code on localhost (port 3000):**
    - `npm start`
-
-
-
-`
