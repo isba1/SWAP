@@ -37,5 +37,8 @@ public interface UserPostRepository extends MongoRepository<UserPostModel, UUID>
     @Query("{'$and': [{'shoeSize': ?0}, {'userID': {'$ne': ?1}}]}")
     List<UserPostModel> findByShoeSizeAndNotUserId(String shoeSize, UUID userId);
 
+    @Query("{'$and': [{'postCategory': ?0}, {'userID': {'$ne': ?1}}]}")
+    List<UserPostModel> findByPostCategoryAAndNAndUserName(String category, String userName);
+
 
 }
