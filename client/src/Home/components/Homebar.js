@@ -92,7 +92,7 @@ function HomeBar() {
           <input
             id="search"
             type="search"
-            placeholder="&#x1F50D; Profile Search"
+            placeholder="&#x1F50D; Search Profiles with Similar Interests"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             className="searchbarinput"
