@@ -2,6 +2,15 @@ body.active-modal {
     overflow-y: hidden;
 }
 
+.makeofferbutton{
+    background-color: #1A3E2F;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
 .offerbtn-modal {
     padding: 15px 40px;
     border-radius: 20px;

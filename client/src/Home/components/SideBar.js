@@ -65,7 +65,7 @@ function SideBar({setFilteredPosts}){
 
     return(<div>
         <h1 className="homeheader">SWAP</h1>
-        <button onClick={handleChange}>My Profile</button>
+        <button className="sidebarbutton" onClick={handleChange}>My Profile</button>
         <h2 className="hometitle">Explore</h2>
             <div className="homesidecontainer">
                 <button className="homeexbutton" onClick={clearFilteredPosts}>Recommended</button> 
@@ -75,7 +75,7 @@ function SideBar({setFilteredPosts}){
                 <button className="homeexbutton" onClick={handleShoesButtonClicked}>Shoes</button>
                 <button className="homeexbutton" onClick={handleAccessoriesButtonClicked}>Accessories</button>            
             </div>
-        <Post/>
+        <Post className="postbutton"/>
     </div>)
 }
 
