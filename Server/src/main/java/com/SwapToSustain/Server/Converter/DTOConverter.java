@@ -24,7 +24,7 @@ public class DTOConverter {
     private final String bucketName;
 
     @Autowired
-    public DTOConverter(Credentials credentials, Storage storage, String bucketName) throws IOException {
+    public DTOConverter(Credentials credentials, Storage storage, String bucketName) {
         this.credentials = credentials;
         this.storage = storage;
         this.bucketName = bucketName;

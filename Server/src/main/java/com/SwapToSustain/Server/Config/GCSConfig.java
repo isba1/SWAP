@@ -7,15 +7,17 @@ import com.google.cloud.storage.StorageOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 @Configuration
 public class GCSConfig {
 
     @Bean
     public Credentials gcsCredentials() throws IOException {
-        return GoogleCredentials.fromStream(new FileInputStream("Server/src/main/resources/keys.json"));
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("keys.json")) {
+            return GoogleCredentials.fromStream(inputStream);
+        }
     }
 
     @Bean

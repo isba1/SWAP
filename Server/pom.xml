@@ -92,6 +92,19 @@
 	</dependencies>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<!-- other configurations if needed -->
+			</resource>
+			<resource>
+				<directory>${basedir}</directory>
+				<includes>
+					<include>keys.json</include>
+					<!-- Add more include elements if needed -->
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
