@@ -1,17 +1,31 @@
 import './Notifications.css';
 import React, {useCallback, useMemo} from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export const Notifications = ({ notifications, deleteFirstNotification }) => {
   const userID = sessionStorage.getItem("userName");
 
+  const navigate = useNavigate();
+
+  const handleProfileChange = async (userName) => {
+      navigate(`/userprofile/${userName}`);
+  } 
+
   const textToDisplay = useMemo(() => {
     if (!notifications.length) return ''
     console.log('notification', notifications[0])
     if (notifications[0].status === "available") {
-      return `Your offer on "${notifications[0].postName}" is ${notifications[0].accepted ? "accepted" : "declined"} by "${notifications[0].userName}".`
+      return (<div>
+        <p className='notifbody'>Your offer for {notifications[0].postName} was {notifications[0].accepted ? "accepted" : "declined"} by </p>
+        <button className="notifprofile" onClick={() => handleProfileChange(notifications[0].userName)}>{notifications[0].userName}</button>
+        </div>)
     } else if (notifications[0].status === "unavailable") {
-      return `Your offer for "${notifications[0].postName}" posted by "${notifications[0].userName} is no longer available".`
+      return (<div>
+        <p className='notifbody'>Your offer for {notifications[0].postName} by </p>
+        <button className="notifprofile" onClick={() => handleProfileChange(notifications[0].userName)}>{notifications[0].userName}</button>
+        <p> is no longer available</p>
+        </div>)
     }
   }, [notifications])
 
