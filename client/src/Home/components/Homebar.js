@@ -48,16 +48,6 @@ function HomeBar() {
       setSearchInput(null);
       return;
     }
-    // Create a request body with search criteria
-    // const searchCriteria = {
-    //   userName: searchInput,
-    //   shirtSize: selectedShirtSize,
-    //   shoeSize: selectedShoeSize,
-    //   jacketSize: selectedJacketSize,
-    //   pantSize: selectedPantSize,
-    //   interestBrand: selectedBrand,
-    //   interestStyle: selectedStyle,
-    // };
 
     try {
       // Send a GET request to the backend using Axios
