@@ -10,7 +10,7 @@
 
 .notification .notification-click-info {
   margin: 0 auto;
-  font-size: 75%;
+  font-size: 15px;
 
   color: blue;
   cursor: pointer;
@@ -18,4 +18,20 @@
   &:hover {
     text-decoration: underline;
   }
+}
+
+.notifprofile{
+  border: none;
+  background-color: transparent;
+  border-radius: 20px;
+  cursor: pointer;
+  color: #1A3E2F;
+  margin: 0;
+  padding: 0;
+  font-size:15px;
+  text-decoration: underline;    
+}
+.notifbody{
+  color: #1A3E2F;
+  margin: 2px;
 }

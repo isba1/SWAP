@@ -10,7 +10,9 @@ const LazyHomePosts = React.lazy(() => import('./components/HomePosts'));
 const Homescreen = () => {
   const [loadedPosts, setLoadedPosts] = useState(0);
   const [recommendedPosts, setRecommendedPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState(null);
   const postsRef = useRef(null);
+
 
   //this will be the myuser's userid/token
   const userID = sessionStorage.getItem("userName");
@@ -35,20 +37,28 @@ const Homescreen = () => {
     return () => observer.disconnect();
   }, [userID]);
 
+  const postsToRender = filteredPosts !== null ? filteredPosts : recommendedPosts;
+
   return (
     <div className='homerow'>
       <div className='homecolumnleft'>
-        <SideBar />
+        <SideBar setFilteredPosts={setFilteredPosts}/>
       </div>
       <div className='homecolumnright'>
         <HomeBar />
-        {recommendedPosts.slice(0, loadedPosts).map((post, index) => (
-          <div key={index}>
-            <Suspense fallback={<div>Loading post...</div>}>
-              <LazyHomePosts FeedUserPostObject={post} UserID={userID} />
-            </Suspense>
-          </div>
-        ))}
+        {postsToRender && postsToRender.length > 0 ? (
+          postsToRender.slice(0, loadedPosts).map((post, index) => (
+            <div key={index}>
+              <Suspense fallback={<div>Loading post...</div>}>
+                <LazyHomePosts FeedUserPostObject={post} UserID={userID} />
+              </Suspense>
+            </div>
+          ))
+        ) : (
+          <div className='noitemscontainer'>
+            <h1 className='noitems'>There are currently no available items in this category!</h1>
+            </div>
+        )}
         <div ref={postsRef}></div>
       </div>
     </div>

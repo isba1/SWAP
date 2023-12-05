@@ -393,3 +393,13 @@ select {
     border: 2px solid #1A3E2F;
     border-radius: 20px;
 }
+
+.noitemscontainer{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.noitems{
+    color: #1A3E2F;
+}
