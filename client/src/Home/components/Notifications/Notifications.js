@@ -22,7 +22,7 @@ export const Notifications = ({ notifications, deleteFirstNotification }) => {
         </div>)
     } else if (notifications[0].status === "unavailable") {
       return (<div>
-        <p className='notifbody'>Your offer for {notifications[0].postName} by </p>
+        <p className='notifbody'>Your offer for {notifications[0].postName} posted by </p>
         <button className="notifprofile" onClick={() => handleProfileChange(notifications[0].userName)}>{notifications[0].userName}</button>
         <p> is no longer available</p>
         </div>)
