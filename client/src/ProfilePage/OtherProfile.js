@@ -94,24 +94,26 @@ function ProfilePage() {
           <p>Loading...</p>
         ) : (
           <div>
-          <div className="profilehorizontalcontainer">
-            <button className="homebutton" onClick={handleChange}>
-              Home
-            </button>
-            <h1>{username}</h1>
-            <p>Followers: {data.followersCount}</p>
-            <p>Following: {data.followingCount}</p>
-            <button
-              className="follow"
-              onClick={handleFollowClick}
-              style={{ backgroundColor: followed ? "green" : "black" }}
-            >
-              {followed ? "Following" : "Follow"}
-            </button>
+            <div className="profilehorizontalcontainer">
+              <button className="homebutton" onClick={handleChange}>
+                Home
+              </button>
+              <h1>{username}</h1>
+              <p>Followers: {data.followersCount}</p>
+              <p>Following: {data.followingCount}</p>
+              <button
+                className="followexbutton"
+                onClick={handleFollowClick}
+                style={{ backgroundColor: followed ? "green" : "black" }}
+              >
+                {followed ? "Following" : "Follow"}
+              </button>
             </div>
-                <div className='profilehorizontalcontainer'>
-                <div>Phone Number: {data.contactNumber}</div>
-                <div>Location: {data.userCity}, {data.userState}</div>
+            <div className="profilehorizontalcontainer">
+              <div>Phone Number: {data.contactNumber}</div>
+              <div>
+                Location: {data.userCity}, {data.userState}
+              </div>
             </div>
           </div>
         )}
