@@ -124,7 +124,9 @@ public class OfferingService {
 
         UserAccountInfoModel sellerAccountInfoModel = userInfoRepository.findByUserName(sellerUserName);
 
-        sellerAccountInfoModel.getOfferedMe().remove(UUID.fromString(sellerPostID));
+        ArrayList<UUID> offersForSellerPost = sellerAccountInfoModel.getOfferedMe().get(UUID.fromString(sellerPostID));
+        offersForSellerPost.remove(UUID.fromString(buyerPostId));
+        sellerAccountInfoModel.getOfferedMe().put(UUID.fromString(sellerPostID), offersForSellerPost);
 
         UserPostModel sellerPostModel = userPostRepository.findByPostID(UUID.fromString(sellerPostID));
         sellerPostModel.getConnectedUsers().remove(buyerUserName);

@@ -1,8 +1,6 @@
 package com.SwapToSustain.Server.Components;
 
-import com.SwapToSustain.Server.DTO.UserAccountInfo;
 import com.SwapToSustain.Server.DTO.UserNotification;
-import com.SwapToSustain.Server.DTO.UserPost;
 import com.SwapToSustain.Server.Model.UserAccountInfoModel;
 import com.SwapToSustain.Server.Model.UserPostModel;
 import com.SwapToSustain.Server.Repository.UserInfoRepository;
@@ -43,7 +41,6 @@ public class RemovingPosts {
 
 
     public void removeOffersFromAllUsers(UserPostModel userPost, String userName, UserAccountInfoModel acceptedUser) {
-        System.out.println("0:" + userPost.getUserName());
         UserAccountInfoModel userAccount = userInfoRepository.findByUserName(userName);
 
         // removing from offered me and my offers account
