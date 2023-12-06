@@ -26,17 +26,6 @@ function ProfilePage() {
     );
   });
 
-  const fetchFollowStatus = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8080/profile/singleFollower?userID=${userID}`
-      );
-      setFollowed(response.data.followed);
-    } catch (error) {
-      console.error("Error fetching follow status:", error);
-    }
-  };
-
   const handleChange = async (event) => {
     navigate("/home");
   };

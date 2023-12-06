@@ -48,6 +48,7 @@ function HomeBar() {
       setSearchInput(null);
       return;
     }
+
     try {
       // Send a GET request to the backend using Axios
       const response = await axios.get(
@@ -91,7 +92,7 @@ function HomeBar() {
           <input
             id="search"
             type="search"
-            placeholder="&#x1F50D; Click 'Search' to display all users"
+            placeholder="&#x1F50D; Search Profiles with Similar Interests"
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             className="searchbarinput"
