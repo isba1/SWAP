@@ -1,4 +1,4 @@
-# Clothing Trading Web App
+# Swap Wear Apparel Platform (SWAP)
 
 ## Features
 
