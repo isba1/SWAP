@@ -69,4 +69,5 @@
 1. Fixed bugs relating to overlapping posts
 2. Changed default page to Login page
 3. Changed to Justin's database
-4. Update instructions to how to run SWAP web application
+4. Update prerequisites to running web application locally
+5. Update instructions to how to run SWAP web application
