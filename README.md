@@ -42,6 +42,7 @@
 - [Git](https://git-scm.com/)
 - [Maven](https://maven.apache.org/install.html)
 - [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/)
+- [Java](https://www.oracle.com/java/technologies/)
 
 ### Local Deployment 
 1. **Clone Repository**
