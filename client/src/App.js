@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Account from './Login/Account';
 import Homescreen from './Home/Homescreen';
 import InterestSelection from "./Login/components/InterestSelection";
@@ -10,6 +10,11 @@ function App() {
   return (
       <Router>
           <Routes>
+            {/* Redirect from "/" to "/login" */}
+            <Route
+                path="/"
+                element={<Navigate to="/login" />}
+            />
               <Route path="/login" element={<Account/>} />
               <Route path="/home" element={<Homescreen/>} />
               <Route path="/newUserInterests" element={<InterestSelection/>} />
