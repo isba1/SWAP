@@ -63,7 +63,7 @@
    - `npm install`
 
 7. **Run Client Code on localhost (port 3000):**
-   - `npm run dev`
+   - `npm run dev` or `npm start`
   
 ### Release 1.0 Updates - (December 10th, 2023)
 1. Fixed bugs relating to overlapping posts
