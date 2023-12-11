@@ -60,3 +60,9 @@
 
 6. **Run Client Code on localhost (port 3000):**
    - `npm start`
+  
+### Release 1.0 Updates - (December 10th, 2023)
+1. Fixed bugs relating to overlapping posts
+2. Changed default page to Login page
+3. Changed to Justin's database
+4. Update instructions to how to run SWAP web application
