@@ -56,10 +56,13 @@
    - `java -jar target/Server-0.0.1-SNAPSHOT.jar`
 
 5. **Navigate to Client SRC Directory:**
-   - `cd SWAP/client/src`
+   - `cd SWAP/client`
 
-6. **Run Client Code on localhost (port 3000):**
-   - `npm start`
+6. **Install Node Packages**
+   - `npm install`
+
+7. **Run Client Code on localhost (port 3000):**
+   - `npm run dev`
   
 ### Release 1.0 Updates - (December 10th, 2023)
 1. Fixed bugs relating to overlapping posts
