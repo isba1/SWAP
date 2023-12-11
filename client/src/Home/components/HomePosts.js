@@ -41,7 +41,7 @@ function HomePosts({ FeedUserPostObject, UserID }) {
               <div className="font">Brand: {FeedUserPostObject.postBrand}</div>
               <div className="font">Style: {FeedUserPostObject.postStyle}</div>
               <div className="font">Size: {FeedUserPostObject.postSize}</div>
-              <Offer SellerPost={FeedUserPostObject} myID={UserID} />
+              {UserID !== FeedUserPostObject.userName && <Offer SellerPost={FeedUserPostObject} myID={UserID} />}
             </div>
           </div>
         </div>
