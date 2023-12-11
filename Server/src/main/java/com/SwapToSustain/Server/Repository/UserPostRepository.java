@@ -18,27 +18,23 @@ public interface UserPostRepository extends MongoRepository<UserPostModel, UUID>
 
     void deleteByPostID(UUID postID);
 
-//    @Query("{'$or':[ {'postStyle': {'$in': ?0}}, {'postBrand': {'$in': ?1}} ]}")
-//    List<UserPostModel> findByPostStyleOrPostBrandOrPostSizeIn(List<String> styles, List<String> brands);
+    @Query("{'$and': [ {'$or':[ {'postStyle': {'$in': ?0}}, {'postBrand': {'$in': ?1}} ]}, {'userName': {'$ne': ?2}} ]}")
+    List<UserPostModel> findByPostStyleOrPostBrandOrPostSizeAndNotUserIdIn(List<String> styles, List<String> brands,
+            UUID userId);
 
-    @Query("{'$and': [ {'$or':[ {'postStyle': {'$in': ?0}}, {'postBrand': {'$in': ?1}} ]}, {'userID': {'$ne': ?2}} ]}")
-    List<UserPostModel> findByPostStyleOrPostBrandOrPostSizeAndNotUserIdIn(List<String> styles, List<String> brands, UUID userId);
-
-
-    @Query("{'$and': [{'shirtSize': ?0}, {'userID': {'$ne': ?1}}]}")
+    @Query("{'$and': [{'shirtSize': ?0}, {'userName': {'$ne': ?1}}]}")
     List<UserPostModel> findByShirtSizeAndNotUserId(String shirtSize, UUID userId);
 
-    @Query("{'$and': [{'jacketSize': ?0}, {'userID': {'$ne': ?1}}]}")
+    @Query("{'$and': [{'jacketSize': ?0}, {'userName': {'$ne': ?1}}]}")
     List<UserPostModel> findByJacketSizeAndNotUserId(String jacketSize, UUID userId);
 
-    @Query("{'$and': [{'pantSize': ?0}, {'userID': {'$ne': ?1}}]}")
+    @Query("{'$and': [{'pantSize': ?0}, {'userName': {'$ne': ?1}}]}")
     List<UserPostModel> findByPantSizeAndNotUserId(String pantSize, UUID userId);
 
-    @Query("{'$and': [{'shoeSize': ?0}, {'userID': {'$ne': ?1}}]}")
+    @Query("{'$and': [{'shoeSize': ?0}, {'userName': {'$ne': ?1}}]}")
     List<UserPostModel> findByShoeSizeAndNotUserId(String shoeSize, UUID userId);
 
-    @Query("{'$and': [{'postCategory': ?0}, {'userID': {'$ne': ?1}}]}")
+    @Query("{'$and': [{'postCategory': ?0}, {'userName': {'$ne': ?1}}]}")
     List<UserPostModel> findByPostCategoryAAndNAndUserName(String category, String userName);
-
 
 }
