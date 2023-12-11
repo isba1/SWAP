@@ -18,7 +18,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "react-scripts start"
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider react-scripts start"
   },
   "eslintConfig": {
     "extends": [
